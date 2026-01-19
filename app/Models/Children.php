@@ -11,7 +11,7 @@ class Children extends Model
         'user_id',
         'name',
         'education_level',
-        'subject_group',
+       
     ];
     public function user()
     {

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class SignupController extends Controller
 {
@@ -31,23 +32,33 @@ class SignupController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request  $request)
+     public function store(Request  $request)
     {
-     $validator = Validator::make($request->all(), [
-        'role' => 'required|string|in:Student,Parent',
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email',
-        'phone' => 'required|regex:/^[6-9][0-9]{9}$/',
-        'password' => 'required|min:8|confirmed',
-        'current_education' => 'nullable|string|max:255',
-        'subject_group' => 'nullable|string|max:255',
-        'children' => 'required_if:role,Parent|array',
-        'children.*.name' => 'required|string|max:255',
-        'children.*.age' => 'required|integer',
-        'children.*.class' => 'required|string|max:50',
-    ]);
+        $validator = Validator::make($request->all(), [
+            'role' => 'required|string|in:Student,Parent',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|regex:/^[6-9][0-9]{9}$/',
+            'password' => 'required|min:8',
+            'current_education' => 'nullable|string|max:255',
+            'children' => 'required_if:role,Parent|array',
+            'children.*.name' => 'required|string|max:255',
+            'children.*.education_level' => 'required|string|max:50',  
+            
+        ]);
     
-    $userData = $request->only(['role','name','email','phone','current_education','subject_group']);
+       if ($validator->fails()) {
+            return response()->json([
+                'status' => "0",
+                'status_code' => "422",
+                'data' => (object)[],
+                'message' => $validator->errors()->first(),
+            ], 422);
+        }
+
+
+
+    $userData = $request->only(['role','name','email','phone','current_education']);
     $userData['password'] = Hash::make($request->password);
     $userData['authtoken'] = Str::random(60);
     $user = User::create($userData);
@@ -68,7 +79,7 @@ class SignupController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone' => $user->phone,
-                'password' => $user->password,
+                
                 'role' => $user->role,
             ],
             'message' => 'Signup successful'
@@ -110,10 +121,19 @@ class SignupController extends Controller
 
      public function login(Request $request)
     {
-        $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required',
-        ]);
+        $validator = Validator::make($request->all(), [
+        'email'    => 'required|email',
+        'password' => 'required',
+    ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => "0",
+                'status_code' => "422",
+                'message' => 'Invalid email or password format'
+            ], 422);
+        }
+
         $user = User::where('email', $request->email)->first();
         if (!$user) {
             return response()->json([
@@ -135,9 +155,14 @@ class SignupController extends Controller
             'status' => "1",
             'status_code' => "200",
             'data' => [
+                'user_id' => (string) $user->id,
+                
+                'name' => $user->name,
                 'email' => $user->email,
-                'password' => $user->password,   
-                'authtoken' =>  Str::random(60),          
+                'phone' => $user->phone,
+                
+                'role' => $user->role,
+                'authtoken' =>  Str::random(60),           
             ],
             'message' => 'Login successful'
     ], 200);
