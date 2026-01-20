@@ -12,6 +12,7 @@ Route::name('admin.')->group(function () {
      Route::middleware(['auth:admin'])->group(function () {
 
       Route::get("/dashboard", [DashboardController::class,'dashboard'])->name('dashboard');
-           
+    
+      Route::get('/search', [DashboardController::class, 'search'])->name('search');
       });
 });

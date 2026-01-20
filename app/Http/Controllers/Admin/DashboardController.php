@@ -4,16 +4,40 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\User;
+use Carbon\Carbon;
 class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function dashboard()
-    {
-        return view('admin.dashboard');
+  public function dashboard(Request $request)
+{
+    $query = User::with('children');
+
+    if ($request->filled('search')) {
+        $query->where(function ($q) use ($request) {
+            $q->where('name', 'like', "%{$request->search}%")
+              ->orWhere('email', 'like', "%{$request->search}%")
+              ->orWhere('phone', 'like', "%{$request->search}%");
+        });
     }
+
+    if ($request->role && $request->role !== 'All') {
+        $query->where('role', $request->role);
+    }
+
+    $users = $query->latest()->paginate(10)->withQueryString();
+
+    $stats = [
+        'total_users'     => User::count(),
+        'total_students'  => User::where('role', 'Student')->count(),
+        'total_parents'   => User::where('role', 'Parent')->count(),
+        'recent_users'    => User::whereDate('created_at', '>=', now()->subDays(7))->count(),
+    ];
+
+    return view('admin.dashboard', compact('users', 'stats'));
+}
 
     /**
      * Show the form for creating a new resource.
