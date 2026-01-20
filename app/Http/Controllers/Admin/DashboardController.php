@@ -39,7 +39,36 @@ class DashboardController extends Controller
     return view('admin.dashboard', compact('users', 'stats'));
 }
 
-    /**
+
+ public function search(Request $request)
+{
+    $search = $request->input('search');
+    $role   = $request->input('role');
+
+    $users = User::query()
+        ->when($search, function ($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%")
+              ->orWhere('email', 'like', "%{$search}%")
+              ->orWhere('phone', 'like', "%{$search}%");
+        })
+        ->when($role && $role != 'All', function ($q) use ($role) {
+            $q->where('role', $role);
+        })
+        ->paginate(10);  // use paginate to avoid errors in view
+
+    $stats = [
+        'total_users'    => User::count(),
+        'total_students' => User::where('role', 'Student')->count(),
+        'total_parents'  => User::where('role', 'Parent')->count(),
+        'recent_users'   => User::latest()->take(5)->count(),
+    ];
+
+    return view('admin.dashboard', compact('users', 'stats'));
+}
+
+
+
+/**
      * Show the form for creating a new resource.
      */
     public function create()

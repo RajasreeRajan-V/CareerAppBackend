@@ -20,8 +20,7 @@
     <div class="px-6 py-5 border-b border-white/10 relative z-10">
         <div class="flex items-center space-x-3">
             <div class="w-12 h-12 rounded-full overflow-hidden bg-white ring-2 ring-white/30">
-                <img src="{{ asset('img/careers_logo_teal.png') }}" alt="Logo"
-                     class="w-full h-full object-cover">
+                <img src="{{ asset('img/careers_logo_teal.png') }}" alt="Logo" class="w-full h-full object-cover">
             </div>
             <div class="flex-1 min-w-0">
                 <p class="text-sm font-semibold truncate">{{ Auth::user()->name }}</p>
@@ -36,12 +35,12 @@
             Main Menu
         </p>
 
-        <a href="{{ route('dashboard') }}"
-           class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
-           {{ request()->routeIs('dashboard') ? 'bg-white/15 shadow-lg' : '' }}">
+        <a href="{{ route('admin.dashboard') }}" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+        {{ request()->routeIs('admin.dashboard') ? 'bg-white/15 shadow-lg' : '' }}">
             <i class="fa-solid fa-house mr-3"></i>
             <span class="font-medium">Dashboard</span>
         </a>
+
 
         <a href="#" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all">
             <i class="fa-solid fa-users mr-3"></i>
