@@ -11,20 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admision_banners', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('image'); 
-            $table->string('description')->nullable();
-            $table->timestamps();
+        Schema::table('admision_banners', function (Blueprint $table) {
+           $table->string('link')->nullable()->after('description');
         });
     }
-    
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('admision_banners');
+        Schema::table('admision_banners', function (Blueprint $table) {
+            $table->dropColumn('link');
+        });
     }
 };

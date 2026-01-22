@@ -41,6 +41,15 @@
             <span class="font-medium">Dashboard</span>
         </a>
 
+        <a href="{{ route('admin.admissionBanner.index') }}" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+   {{ request()->routeIs('admin.admissionBanner.*') ? 'bg-white/15 shadow-lg' : '' }}">
+            <i class="fa-solid fa-photo-film mr-3"></i>
+            <span class="font-medium">Admission Banner</span>
+        </a>
+
+
+
+
 
         <a href="#" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all">
             <i class="fa-solid fa-users mr-3"></i>

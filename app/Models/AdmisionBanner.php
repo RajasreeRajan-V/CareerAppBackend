@@ -13,5 +13,6 @@ class AdmisionBanner extends Model
         'title',
         'image',
         'description',
+        'link',
     ];
 }

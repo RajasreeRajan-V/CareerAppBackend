@@ -8,31 +8,15 @@ use App\Models\AdmisionBanner;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
-class AdmisionBannerController extends Controller
+class AdmisionBannerController 
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $banners = AdmisionBanner::latest()->get();
-        return response()->json([
-            'status' => "1",
-            'status_code' => "200",
-            'data' => [
-                'banners' => $banners->map(function ($banner) {
-                    return [
-                        'id' => (string) $banner->id,
-                        'title' => $banner->title,
-                        'image_url' => asset('storage/' . $banner->image),
-                        'description' => $banner->description ?? '',
-                        'link' => $banner->link ?? '',
-                    ];
-                }),
-                'total_banners' => (string) $banners->count(),
-            ],
-            'message' => 'Banners fetched successfully'
-        ], 200);
+        $banners = AdmisionBanner::latest()->paginate(10); 
+        return view('admin.admission_banner', compact('banners'));
     }
 
     /**
@@ -40,7 +24,7 @@ class AdmisionBannerController extends Controller
      */
     public function create()
     {
-        //
+       AdmisionBanner::create();
     }
 
     /**
@@ -48,42 +32,28 @@ class AdmisionBannerController extends Controller
      */
     public function store(Request $request)
     {
-       $validator = Validator::make($request->all(), [
-        'title' => 'required|string|max:255',
-        'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
-        'description' => 'nullable|string',
-        'link' => 'nullable|url',
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json([
-            'status' => "0",
-            'status_code' => "422",
-            'data' => (object)[],
-            'message' => $validator->errors()->first(),
-        ], 422);
-    }
-    $imagePath = $request->file('image')->store('admision-banners', 'public');
-
-    $banner = AdmisionBanner::create([
-        'title' => $request->title,
-        'image' => $imagePath,
-        'description' => $request->description,
-        'link' => $request->link,
-    ]);
-    
-     return response()->json([
-        'status' => "1",
-        'status_code' => "200",
-        'data' => [
-            'id' => (string) $banner->id,
-            'title' => $banner->title,
-            'image_url' => asset('storage/' . $banner->image),
-            'description' => $banner->description ?? '',
-            'link' => $banner->link ?? '',
-        ],
-        'message' => 'Banner created successfully'
-    ], 200);
+        $request->validate([
+            'title'       => 'required|string|max:255',
+            'image'       => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'description' => 'nullable|string',
+            'link'        => 'nullable|url',
+        ]);
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store(
+                'admission-banners',
+                'public'
+            );
+        }
+        AdmisionBanner::create([
+            'title'       => $request->title,
+            'image'       => $imagePath,
+            'description' => $request->description,
+            'link' => $request->link, // only if column exists
+        ]);
+        return redirect()
+            ->route('admin.admissionBanner.index')
+            ->with('success', 'Admission banner created successfully!');
     }
 
     /**
@@ -105,9 +75,26 @@ class AdmisionBannerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $banner = AdmisionBanner::findOrFail($id);
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'image' => 'nullable|image|max:2048',
+            'description' => 'nullable|string',
+            'link' => 'nullable|url',
+            
+        ]);
+        if ($request->hasFile('image')) {
+            if ($banner->image) {
+                Storage::disk('public')->delete($banner->image);
+            }
+            $data['image'] = $request->file('image')->store('admission-banners', 'public');
+        }
+        $banner->update($data);
+        return redirect()
+            ->route('admin.admissionBanner.index')
+            ->with('success', 'Admission banner updated successfully!');
     }
 
     /**
@@ -115,6 +102,13 @@ class AdmisionBannerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $banner = AdmisionBanner::findOrFail($id);
+        if ($banner->image) {
+            Storage::disk('public')->delete($banner->image);
+        }
+        $banner->delete();
+        return redirect()
+            ->route('admin.admissionBanner.index')
+            ->with('success', 'Admission banner deleted successfully!');
     }
 }

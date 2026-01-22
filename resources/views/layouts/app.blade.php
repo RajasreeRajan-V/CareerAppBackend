@@ -13,12 +13,8 @@
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
 
     <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -60,12 +56,8 @@
 
                         <!-- Search -->
                         <div class="relative hidden md:block">
-                            <input
-                                type="text"
-                                placeholder="Search..."
-                                class="w-64 pl-10 pr-4 py-2 rounded-lg border border-gray-200
-                                       focus:outline-none focus:ring-2 focus:ring-[#306060]"
-                            >
+                            <input type="text" placeholder="Search..." class="w-64 pl-10 pr-4 py-2 rounded-lg border border-gray-200
+                                       focus:outline-none focus:ring-2 focus:ring-[#306060]">
                             <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400"></i>
                         </div>
 
@@ -90,8 +82,9 @@
             <!-- PAGE CONTENT -->
             <main class="flex-1 p-8 overflow-y-auto bg-gray-50">
                 <div class="max-w-7xl mx-auto">
-                    {{ $slot }}
+                    @yield('content')
                 </div>
+
             </main>
 
             <!-- FOOTER -->
