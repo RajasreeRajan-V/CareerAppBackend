@@ -16,5 +16,7 @@ Route::name('admin.')->group(function () {
         Route::get('/search', [DashboardController::class, 'search'])->name('search');
 
         Route::resource('admissionBanner', AdmisionBannerController::class);
+        
+        Route::resource('college', CollegeController::class);
      });
 });
