@@ -13,69 +13,120 @@ class CollegeController extends Controller
 {
     public function index()
     {
-        return view('admin.college_creation');
+        $colleges = College::with(['facilities', 'courses', 'images'])->get();
+        return view('admin.manage_college', compact('colleges'));
     }
+
     public function create()
     {
-        //
+        return view('admin.college_creation');
     }
+
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'rating' => 'required|numeric|min:0|max:5',
-            'phone' => 'required|string|max:12',
-            'email' => 'required|email',
+
+            'street'   => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'state'    => 'required|string|max:255',
+
+            'rating'  => 'required|numeric|min:0|max:5',
+            'phone'   => 'required|string|max:12',
+            'email'   => 'required|email',
             'website' => 'nullable|url',
-            'about' => 'nullable|string',
+            'about'   => 'nullable|string',
+
             'images'   => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
             'facilities.*' => 'nullable|string',
-            'courses.*' => 'nullable|string',
+            'courses.*'    => 'nullable|string',
         ]);
+
+        $location = $request->street . ', ' . $request->district . ', ' . $request->state;
+
         $college = College::create([
             'name'     => $request->name,
-            'location' => $request->location,
+            'location' => $location,
             'rating'   => $request->rating,
             'phone'    => $request->phone,
             'email'    => $request->email,
             'website'  => $request->website,
             'about'    => $request->about,
         ]);
+
+        // Images
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('colleges', 'public');
 
                 CollegeImage::create([
                     'college_id' => $college->id,
-                    'image_url'      => $path,
+                    'image_url'  => $path,
                 ]);
             }
         }
-       if ($request->has('facilities')) {
+
+        // Facilities
+        if ($request->filled('facilities')) {
             foreach ($request->facilities as $facility) {
-                if (!empty($facility)) {  
+                if (!empty($facility)) {
                     CollegeFacility::create([
                         'college_id' => $college->id,
-                        'facility'   => $facility,  
+                        'facility'   => $facility,
                     ]);
                 }
             }
         }
-        if ($request->has('courses')) {
+
+        // Courses
+        if ($request->filled('courses')) {
             foreach ($request->courses as $course) {
-                if (!empty($course)) {  
+                if (!empty($course)) {
                     Course::create([
                         'college_id' => $college->id,
-                        'name'       => $course,             
+                        'name'       => $course,
                     ]);
                 }
             }
         }
-    return redirect()
+
+        return redirect()
             ->route('admin.college.index')
             ->with('success', 'College added successfully');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $college = College::findOrFail($id);
+
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'rating'   => 'nullable|numeric|min:0|max:5',
+            'phone'    => 'nullable|string|max:20',
+            'email'    => 'nullable|email',
+            'website'  => 'nullable|url',
+            'about'    => 'nullable|string',
+        ]);
+
+        $college->update($request->only([
+            'name', 'location', 'rating', 'phone', 'email', 'website', 'about'
+        ]));
+
+        return redirect()
+            ->route('admin.college.index')
+            ->with('success', 'College updated successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $college = College::findOrFail($id);
+        $college->delete();
+
+        return redirect()
+            ->route('admin.college.index')
+            ->with('success', 'College deleted successfully!');
     }
 }

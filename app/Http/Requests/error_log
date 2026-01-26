@@ -1,0 +1,24 @@
+[20-Jan-2026 20:29:20 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/SignupStoreRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/SignupStoreRequest.php on line 7
+[20-Jan-2026 20:35:35 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/LoginStoreRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/LoginStoreRequest.php on line 7
+[20-Jan-2026 21:08:03 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/ChildrenStoreRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/ChildrenStoreRequest.php on line 7
+[20-Jan-2026 21:11:36 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/SignupStoreRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/SignupStoreRequest.php on line 7
+[20-Jan-2026 21:17:39 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/LoginStoreRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/LoginStoreRequest.php on line 7
+[20-Jan-2026 21:49:34 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/ChildrenStoreRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/ChildrenStoreRequest.php on line 7

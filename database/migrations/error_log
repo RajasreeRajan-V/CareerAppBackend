@@ -1,0 +1,72 @@
+[20-Jan-2026 19:59:11 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_31_083521_create_telescope_entries_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_31_083521_create_telescope_entries_table.php on line 7
+[20-Jan-2026 19:59:11 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_30_045559_create_personal_access_tokens_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_30_045559_create_personal_access_tokens_table.php on line 7
+[20-Jan-2026 19:59:12 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_30_053754_create_signup_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_30_053754_create_signup_table.php on line 7
+[20-Jan-2026 19:59:12 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_31_085335_create_sessions_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_31_085335_create_sessions_table.php on line 7
+[20-Jan-2026 19:59:13 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_30_055344_create_children_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_30_055344_create_children_table.php on line 7
+[20-Jan-2026 19:59:14 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2026_01_19_050240_remove_subject_group_from_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2026_01_19_050240_remove_subject_group_from_users_table.php on line 7
+[20-Jan-2026 19:59:14 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2026_01_19_050020_remove_subject_group_from_childrens_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2026_01_19_050020_remove_subject_group_from_childrens_table.php on line 7
+[20-Jan-2026 19:59:17 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/0001_01_01_000001_create_cache_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/0001_01_01_000001_create_cache_table.php on line 7
+[20-Jan-2026 19:59:17 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/0001_01_01_000002_create_jobs_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/0001_01_01_000002_create_jobs_table.php on line 7
+[20-Jan-2026 20:39:50 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_31_083521_create_telescope_entries_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_31_083521_create_telescope_entries_table.php on line 7
+[20-Jan-2026 20:39:51 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_30_045559_create_personal_access_tokens_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_30_045559_create_personal_access_tokens_table.php on line 7
+[20-Jan-2026 20:39:51 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_30_053754_create_signup_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_30_053754_create_signup_table.php on line 7
+[20-Jan-2026 20:39:52 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_31_085335_create_sessions_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_31_085335_create_sessions_table.php on line 7
+[20-Jan-2026 20:39:52 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_30_055344_create_children_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2025_12_30_055344_create_children_table.php on line 7
+[20-Jan-2026 20:39:53 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2026_01_19_050240_remove_subject_group_from_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2026_01_19_050240_remove_subject_group_from_users_table.php on line 7
+[20-Jan-2026 20:39:54 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2026_01_19_050020_remove_subject_group_from_childrens_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/2026_01_19_050020_remove_subject_group_from_childrens_table.php on line 7
+[20-Jan-2026 20:39:56 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/0001_01_01_000001_create_cache_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/0001_01_01_000001_create_cache_table.php on line 7
+[20-Jan-2026 20:39:57 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/0001_01_01_000002_create_jobs_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/migrations/0001_01_01_000002_create_jobs_table.php on line 7

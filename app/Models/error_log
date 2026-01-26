@@ -1,0 +1,16 @@
+[20-Jan-2026 20:02:04 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Models/User.php on line 10
+[20-Jan-2026 20:29:03 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Models/Children.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Models/Children.php on line 7
+[20-Jan-2026 20:42:40 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Models/User.php on line 10
+[20-Jan-2026 21:11:18 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Models/Children.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Models/Children.php on line 7

@@ -21,6 +21,11 @@ return Application::configure(basePath: dirname(__DIR__))
           $middleware->alias([
         'auth.api' => ApiAuth::class,
     ]);
+    
+        $middleware->alias([
+    'auth.token' => \App\Http\Middleware\AuthTokenMiddleware::class,
+    ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

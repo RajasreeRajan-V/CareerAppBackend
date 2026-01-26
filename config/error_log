@@ -1,0 +1,96 @@
+[20-Jan-2026 19:23:41 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/filesystems.php on line 16
+[20-Jan-2026 19:25:38 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/sanctum.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/sanctum.php on line 18
+[20-Jan-2026 19:52:50 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/app.php on line 16
+[20-Jan-2026 19:54:04 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/mail.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/mail.php on line 17
+[20-Jan-2026 19:54:05 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/auth.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/auth.php on line 17
+[20-Jan-2026 19:54:48 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/cache.php on line 18
+[20-Jan-2026 19:58:09 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/telescope.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/telescope.php on line 19
+[20-Jan-2026 20:00:02 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/logging.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/logging.php on line 21
+[20-Jan-2026 20:00:03 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/session.php on line 21
+[20-Jan-2026 20:02:00 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/database.php on line 19
+[20-Jan-2026 20:02:01 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/services.php on line 18
+[20-Jan-2026 20:02:37 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/queue.php on line 16
+[20-Jan-2026 20:03:37 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/filesystems.php on line 16
+[20-Jan-2026 20:05:29 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/sanctum.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/sanctum.php on line 18
+[20-Jan-2026 20:33:20 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/app.php on line 16
+[20-Jan-2026 20:34:35 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/mail.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/mail.php on line 17
+[20-Jan-2026 20:34:36 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/auth.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/auth.php on line 17
+[20-Jan-2026 20:35:21 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/cache.php on line 18
+[20-Jan-2026 20:38:49 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/telescope.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/telescope.php on line 19
+[20-Jan-2026 20:40:39 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/session.php on line 21
+[20-Jan-2026 20:40:39 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/logging.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/logging.php on line 21
+[20-Jan-2026 20:42:34 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/database.php on line 19
+[20-Jan-2026 20:42:36 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/services.php on line 18
+[20-Jan-2026 20:43:12 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/config/queue.php on line 16

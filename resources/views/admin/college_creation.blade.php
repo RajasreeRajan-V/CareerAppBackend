@@ -10,7 +10,6 @@
                 <div class="card-header bg-primary text-white text-center">
                     <h4 class="mb-0">Create New College</h4>
                 </div>
-
                 <div class="card-body">
                     <form action="{{ route('admin.college.store') }}" method="POST" enctype="multipart/form-data" id="collegeForm">
                         @csrf
@@ -24,10 +23,20 @@
                                 <input type="text" name="name" class="form-control" required>
                             </div>
 
-                            <div class="col-md-6">
-                                <label class="form-label">Location *</label>
-                                <input type="text" name="location" class="form-control" required>
-                            </div>
+                            <div class="col-md-4">
+                                    <label class="form-label">Street *</label>
+                                    <input type="text" name="street" class="form-control" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">District *</label>
+                                    <input type="text" name="district" class="form-control" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">State *</label>
+                                    <input type="text" name="state" class="form-control" required>
+                                </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Rating</label>

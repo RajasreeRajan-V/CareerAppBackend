@@ -1,0 +1,8 @@
+[20-Jan-2026 19:59:01 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Factories\Factory" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/factories/UserFactory.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/factories/UserFactory.php on line 12
+[20-Jan-2026 20:39:40 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Factories\Factory" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/factories/UserFactory.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/database/factories/UserFactory.php on line 12

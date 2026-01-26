@@ -60,7 +60,7 @@ class SignupController extends Controller
 
     $userData = $request->only(['role','name','email','phone','current_education']);
     $userData['password'] = Hash::make($request->password);
-    $userData['authtoken'] = Str::random(60);
+    $userData['auth_token'] = Str::random(60);
     $user = User::create($userData);
    
    
@@ -75,7 +75,7 @@ class SignupController extends Controller
             'status_code' => "200",
             'data' => [
                 'user_id' => (string) $user->id,
-                'auth_token' => $user->authtoken,
+                'auth_token' => $user->auth_token,
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone' => $user->phone,
@@ -151,21 +151,27 @@ class SignupController extends Controller
             ], 401);
         }
         
+        // Generate new token
+        $token = Str::random(60);
+        
+        // Save token in database
+        $user->auth_token = $token;
+        $user->save();
+        
         return response()->json([
             'status' => "1",
             'status_code' => "200",
             'data' => [
                 'user_id' => (string) $user->id,
-                
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone' => $user->phone,
-                
                 'role' => $user->role,
-                'authtoken' =>  Str::random(60),           
+                'auth_token' => $token,
             ],
             'message' => 'Login successful'
-    ], 200);
+        ], 200);
+
 
     }
 }

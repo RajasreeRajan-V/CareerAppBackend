@@ -1,0 +1,24 @@
+[20-Jan-2026 19:52:49 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/routes/api.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/routes/api.php on line 7
+[20-Jan-2026 19:52:50 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/routes/web.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/routes/web.php on line 5
+[20-Jan-2026 20:00:03 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Artisan" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/routes/console.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/routes/console.php on line 6
+[20-Jan-2026 20:33:20 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/routes/api.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/routes/api.php on line 7
+[20-Jan-2026 20:33:21 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/routes/web.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/routes/web.php on line 5
+[20-Jan-2026 20:40:38 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Artisan" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/routes/console.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/routes/console.php on line 6

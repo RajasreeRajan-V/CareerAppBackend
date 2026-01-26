@@ -1,0 +1,8 @@
+[20-Jan-2026 20:16:05 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Tests\TestCase" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Feature/ExampleTest.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Feature/ExampleTest.php on line 8
+[20-Jan-2026 20:58:19 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Tests\TestCase" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Feature/ExampleTest.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Feature/ExampleTest.php on line 8

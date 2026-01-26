@@ -5,6 +5,9 @@
 
     RewriteEngine On
 
+    #Storage folder access (NO terminal needed)
+    RewriteRule ^storage/(.*)$ ../storage/app/public/$1 [L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

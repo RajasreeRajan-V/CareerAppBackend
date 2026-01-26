@@ -52,9 +52,8 @@
     </div>
 
     <!-- Navigation -->
-    <nav
-  class="flex-1 px-4 py-6 space-y-1 relative z-10"
-  style="overflow-y:auto; scrollbar-width:none; -ms-overflow-style:none; scroll-behavior:smooth;">
+    <nav class="flex-1 px-4 py-6 space-y-1 relative z-10"
+        style="overflow-y:auto; scrollbar-width:none; -ms-overflow-style:none; scroll-behavior:smooth;">
         <p class="px-4 text-xs font-semibold text-white/50 uppercase tracking-wider mb-2 sidebar-text">
             Main Menu
         </p>
@@ -71,11 +70,37 @@
             <span class="font-medium sidebar-text">Admission Banner</span>
         </a>
 
-        <a href="{{ route('admin.college.index') }}" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
-   {{ request()->routeIs('admin.college.*') ? 'bg-white/15 shadow-lg' : '' }}">
-            <i class="fa-solid fa-photo-film mr-3 flex-shrink-0"></i>
-            <span class="font-medium sidebar-text">Manage Colleges</span>
-        </a>
+        <!-- Colleges Dropdown -->
+        <div class="group">
+            <!-- Dropdown Toggle -->
+            <button type="button" class="w-full flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+        {{ request()->routeIs('admin.college.*') ? 'bg-white/15 shadow-lg' : '' }}" onclick="toggleCollegeDropdown()">
+
+                <i class="fa-solid fa-building-columns mr-3 flex-shrink-0"></i>
+
+                <span class="font-medium sidebar-text flex-1 text-left">
+                    Colleges
+                </span>
+
+                <i id="collegeChevron"
+                    class="fa-solid fa-chevron-down text-xs transition-transform duration-300 sidebar-text"></i>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div id="collegeDropdown" class="ml-10 mt-1 space-y-1 hidden">
+
+                <a href="{{ route('admin.college.create') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
+           {{ request()->routeIs('admin.college.create') ? 'bg-white/15' : '' }}">
+                    Create College
+                </a>
+
+                <a href="{{ route('admin.college.index') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
+           {{ request()->routeIs('admin.college.index') ? 'bg-white/15' : '' }}">
+                    Manage Colleges
+                </a>
+            </div>
+        </div>
+
 
         <a href="#" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all">
             <i class="fa-solid fa-users mr-3 flex-shrink-0"></i>
@@ -133,20 +158,23 @@
         const toggleIcon = document.getElementById('toggleIcon');
         const sidebarTexts = document.querySelectorAll('.sidebar-text');
 
+        const collegeDropdown = document.getElementById('collegeDropdown');
+        const collegeChevron = document.getElementById('collegeChevron');
+
         let isMinimized = false;
 
-        // Helper function to check if mobile
+        // ---------- Helpers ----------
         function isMobile() {
             return window.innerWidth < 1024;
         }
 
-        // Mobile sidebar functions
+        // ---------- Mobile Sidebar ----------
         function openSidebar() {
             sidebar.classList.remove('-translate-x-full');
             overlay.classList.remove('hidden');
 
             if (isMobile()) {
-                closeBtn.classList.remove('hidden'); 
+                closeBtn.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
             }
         }
@@ -154,70 +182,57 @@
         function closeSidebar() {
             sidebar.classList.add('-translate-x-full');
             overlay.classList.add('hidden');
-            closeBtn.classList.add('hidden'); 
+            closeBtn.classList.add('hidden');
             document.body.style.overflow = '';
         }
 
-        // Desktop toggle minimize function
+        // ---------- Desktop Minimize ----------
         function toggleSidebarMinimize() {
             isMinimized = !isMinimized;
 
             if (isMinimized) {
-                // Minimize sidebar
-                sidebar.classList.remove('w-72');
-                sidebar.classList.add('w-20');
-                toggleIcon.classList.remove('fa-chevron-left');
-                toggleIcon.classList.add('fa-chevron-right');
+                sidebar.classList.replace('w-72', 'w-20');
+                toggleIcon.classList.replace('fa-chevron-left', 'fa-chevron-right');
 
-                // Hide text elements
                 sidebarTexts.forEach(text => {
-                    text.classList.add('opacity-0', 'hidden');
+                    text.classList.add('hidden');
                 });
             } else {
-                // Expand sidebar
-                sidebar.classList.remove('w-20');
-                sidebar.classList.add('w-72');
-                toggleIcon.classList.remove('fa-chevron-right');
-                toggleIcon.classList.add('fa-chevron-left');
+                sidebar.classList.replace('w-20', 'w-72');
+                toggleIcon.classList.replace('fa-chevron-right', 'fa-chevron-left');
 
-                // Show text elements
                 sidebarTexts.forEach(text => {
-                    text.classList.remove('opacity-0', 'hidden');
+                    text.classList.remove('hidden');
                 });
             }
         }
 
-        // Event listeners
-        if (openBtn) {
-            openBtn.addEventListener('click', openSidebar);
+        // ---------- Colleges Dropdown ----------
+        window.toggleCollegeDropdown = function () {
+            collegeDropdown.classList.toggle('hidden');
+            collegeChevron.classList.toggle('rotate-180');
+        };
+
+        // Auto-open if route active
+        if ("{{ request()->routeIs('admin.college.*') }}") {
+            collegeDropdown.classList.remove('hidden');
+            collegeChevron.classList.add('rotate-180');
         }
 
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeSidebar);
-        }
+        // ---------- Events ----------
+        openBtn?.addEventListener('click', openSidebar);
+        closeBtn?.addEventListener('click', closeSidebar);
+        overlay?.addEventListener('click', closeSidebar);
+        toggleBtn?.addEventListener('click', toggleSidebarMinimize);
 
-        if (overlay) {
-            overlay.addEventListener('click', closeSidebar);
-        }
-
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', toggleSidebarMinimize);
-        }
-
-        // Close sidebar when clicking on a link (mobile only)
-        const sidebarLinks = sidebar.querySelectorAll('a');
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', function () {
-                if (isMobile()) {
-                    closeSidebar();
-                }
+        sidebar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMobile()) closeSidebar();
             });
         });
 
-        // Handle window resize
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', () => {
             if (!isMobile()) {
-                // Reset mobile state when switching to desktop
                 overlay.classList.add('hidden');
                 closeBtn.classList.add('hidden');
                 document.body.style.overflow = '';

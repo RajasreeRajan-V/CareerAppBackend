@@ -1,0 +1,8 @@
+[20-Jan-2026 19:58:11 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Testing\TestCase" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/TestCase.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/TestCase.php on line 7
+[20-Jan-2026 20:38:51 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Testing\TestCase" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/TestCase.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/TestCase.php on line 7

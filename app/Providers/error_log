@@ -1,0 +1,16 @@
+[20-Jan-2026 20:00:51 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Laravel\Telescope\TelescopeApplicationServiceProvider" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Providers/TelescopeServiceProvider.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Providers/TelescopeServiceProvider.php on line 10
+[20-Jan-2026 20:00:52 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\ServiceProvider" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Providers/AppServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Providers/AppServiceProvider.php on line 8
+[20-Jan-2026 20:41:29 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Laravel\Telescope\TelescopeApplicationServiceProvider" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Providers/TelescopeServiceProvider.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Providers/TelescopeServiceProvider.php on line 10
+[20-Jan-2026 20:41:29 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\ServiceProvider" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Providers/AppServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Providers/AppServiceProvider.php on line 8

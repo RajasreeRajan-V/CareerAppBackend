@@ -1,0 +1,8 @@
+[20-Jan-2026 20:19:18 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "PHPUnit\Framework\TestCase" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Unit/ExampleTest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Unit/ExampleTest.php on line 7
+[20-Jan-2026 21:01:31 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "PHPUnit\Framework\TestCase" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Unit/ExampleTest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Unit/ExampleTest.php on line 7
