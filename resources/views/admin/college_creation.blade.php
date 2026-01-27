@@ -7,7 +7,7 @@
         <div class="col-lg-9">
 
             <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white text-center">
+                <div class="card-header text-white text-center" style="background-color: #306060;">
                     <h4 class="mb-0">Create New College</h4>
                 </div>
                 <div class="card-body">

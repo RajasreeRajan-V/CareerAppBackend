@@ -79,7 +79,7 @@
                 <i class="fa-solid fa-building-columns mr-3 flex-shrink-0"></i>
 
                 <span class="font-medium sidebar-text flex-1 text-left">
-                    Manage Colleges
+                    Colleges
                 </span>
 
                 <i id="collegeChevron"
@@ -90,22 +90,50 @@
             <div id="collegeDropdown" class="ml-10 mt-1 space-y-1 hidden">
 
                 <a href="{{ route('admin.college.create') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
-           {{ request()->routeIs('admin.college.create') ? 'bg-white/15' : '' }}">
-                    Create College
+                     {{ request()->routeIs('admin.college.create') ? 'bg-white/15' : '' }}">
+                    <i class="fas fa-school me-2"></i>Create College
                 </a>
 
                 <a href="{{ route('admin.college.index') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
-           {{ request()->routeIs('admin.college.index') ? 'bg-white/15' : '' }}">
-                    Edit Colleges
+                     {{ request()->routeIs('admin.college.index') ? 'bg-white/15' : '' }}">
+                    <i class="fa-solid fa-book-open"></i> Manage Colleges
                 </a>
             </div>
         </div>
+        <!-- Careers Dropdown -->
+        <div class="group">
+            <!-- Dropdown Toggle -->
+            <button type="button" class="w-full flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+        {{ request()->routeIs('admin.career_nodes.*') ? 'bg-white/15 shadow-lg' : '' }}"
+                onclick="toggleCareerDropdown()">
+
+                <i class="fa-solid fa-graduation-cap mr-3 flex-shrink-0"></i>
+
+                <span class="font-medium sidebar-text flex-1 text-left">
+                    Careers
+                </span>
+
+                <i id="careerChevron"
+                    class="fa-solid fa-chevron-down text-xs transition-transform duration-300 sidebar-text"></i>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div id="careerDropdown" class="ml-10 mt-1 space-y-1 hidden">
+
+                <a href="{{ route('admin.career_nodes.create') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
+   {{ request()->routeIs('admin.career_nodes.create') ? 'bg-white/15' : '' }}">
+                    <i class="fa-solid fa-briefcase mr-2"></i>Create Career
+                </a>
 
 
-        <a href="#" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all">
-            <i class="fa-solid fa-users mr-3 flex-shrink-0"></i>
-            <span class="font-medium sidebar-text">Users</span>
-        </a>
+                <a href="{{ route('admin.career_nodes.index') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
+            {{ request()->routeIs('admin.career_nodes.index') ? 'bg-white/15' : '' }}">
+                    <i class="fa-solid fa-user-doctor"></i> Manage Career
+                </a>
+
+            </div>
+        </div>
+
 
         <a href="#" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all">
             <i class="fa-solid fa-chart-line mr-3 flex-shrink-0"></i>
@@ -239,4 +267,18 @@
             }
         });
     });
+    const careerDropdown = document.getElementById('careerDropdown');
+    const careerChevron = document.getElementById('careerChevron');
+
+    window.toggleCareerDropdown = function () {
+        careerDropdown.classList.toggle('hidden');
+        careerChevron.classList.toggle('rotate-180');
+    };
+
+    // Auto-open if route active
+    if ("{{ request()->routeIs('admin.career_nodes.*') }}") {
+        careerDropdown.classList.remove('hidden');
+        careerChevron.classList.add('rotate-180');
+    }
+
 </script>

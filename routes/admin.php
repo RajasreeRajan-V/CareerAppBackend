@@ -18,5 +18,8 @@ Route::name('admin.')->group(function () {
         Route::resource('admissionBanner', AdmisionBannerController::class);
         
         Route::resource('college', CollegeController::class);
+        
+        Route::resource('career_nodes', CareerNodeController::class);
+
      });
 });
