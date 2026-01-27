@@ -79,7 +79,7 @@
                 <i class="fa-solid fa-building-columns mr-3 flex-shrink-0"></i>
 
                 <span class="font-medium sidebar-text flex-1 text-left">
-                    Colleges
+                    Manage Colleges
                 </span>
 
                 <i id="collegeChevron"
@@ -96,7 +96,7 @@
 
                 <a href="{{ route('admin.college.index') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
            {{ request()->routeIs('admin.college.index') ? 'bg-white/15' : '' }}">
-                    Manage Colleges
+                    Edit Colleges
                 </a>
             </div>
         </div>
