@@ -12,7 +12,8 @@ class CareerNodeController extends Controller
      */
     public function index()
     {
-       return view('admin.career_creation');
+        $careerNodes = CareerNode::all();
+        return view('admin.manage_career', compact('careerNodes'));
     }
 
     /**
