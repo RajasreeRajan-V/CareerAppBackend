@@ -97,28 +97,68 @@ class CollegeController extends Controller
             ->with('success', 'College added successfully');
     }
 
-    public function update(Request $request, $id)
-    {
-        $college = College::findOrFail($id);
+   public function update(Request $request, $id)
+{
+    $college = College::findOrFail($id);
 
-        $request->validate([
-            'name'     => 'required|string|max:255',
-            'location' => 'nullable|string|max:255',
-            'rating'   => 'nullable|numeric|min:0|max:5',
-            'phone'    => 'nullable|string|max:20',
-            'email'    => 'nullable|email',
-            'website'  => 'nullable|url',
-            'about'    => 'nullable|string',
-        ]);
+    $request->validate([
+        'name'         => 'required|string|max:255',
 
-        $college->update($request->only([
-            'name', 'location', 'rating', 'phone', 'email', 'website', 'about'
-        ]));
+        'street'       => 'required|string|max:255',
+        'district'     => 'required|string|max:255',
+        'state'        => 'required|string|max:255',
 
-        return redirect()
-            ->route('admin.college.index')
-            ->with('success', 'College updated successfully!');
+        'rating'       => 'nullable|numeric|min:0|max:5',
+        'phone'        => 'nullable|string|max:20',
+        'email'        => 'nullable|email',
+        'website'      => 'nullable|url',
+        'about'        => 'nullable|string',
+        'images.*'     => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'facilities.*' => 'nullable|string',
+        'courses.*'    => 'nullable|string',
+    ]);
+
+    $location = $request->street . ', ' . $request->district . ', ' . $request->state;
+
+    $college->update([
+        'name'     => $request->name,
+        'location' => $location,
+        'rating'   => $request->rating,
+        'phone'    => $request->phone,
+        'email'    => $request->email,
+        'website'  => $request->website,
+        'about'    => $request->about,
+    ]);
+
+    $college->facilities()->delete();
+    if ($request->facilities) {
+        foreach ($request->facilities as $facility) {
+            if (!empty($facility)) {
+                $college->facilities()->create(['facility' => $facility]);
+            }
+        }
     }
+
+    $college->courses()->delete();
+    if ($request->courses) {
+        foreach ($request->courses as $course) {
+            if (!empty($course)) {
+                $college->courses()->create(['name' => $course]);
+            }
+        }
+    }
+
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+            $path = $image->store('colleges', 'public');
+            $college->images()->create(['image_url' => $path]);
+        }
+    }
+
+    return redirect()
+        ->route('admin.college.index')
+        ->with('success', 'College updated successfully!');
+}
 
     public function destroy($id)
     {
@@ -129,4 +169,13 @@ class CollegeController extends Controller
             ->route('admin.college.index')
             ->with('success', 'College deleted successfully!');
     }
+
+    public function editJson($id)
+{
+    $college = College::with(['facilities','courses'])->findOrFail($id);
+    return response()->json([
+        'facilities' => $college->facilities,
+        'courses' => $college->courses,
+    ]);
+}
 }

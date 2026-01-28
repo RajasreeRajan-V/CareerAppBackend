@@ -20,6 +20,7 @@ Route::name('admin.')->group(function () {
         Route::resource('college', CollegeController::class);
         
         Route::resource('career_nodes', CareerNodeController::class);
-
+        
+         Route::get('/college/{id}/edit-json', [CollegeController::class, 'editJson'])->name('college.edit-json');
      });
 });

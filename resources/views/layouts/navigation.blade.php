@@ -124,8 +124,6 @@
    {{ request()->routeIs('admin.career_nodes.create') ? 'bg-white/15' : '' }}">
                     <i class="fa-solid fa-briefcase mr-2"></i>Create Career
                 </a>
-
-
                 <a href="{{ route('admin.career_nodes.index') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
             {{ request()->routeIs('admin.career_nodes.index') ? 'bg-white/15' : '' }}">
                     <i class="fa-solid fa-user-doctor"></i> Manage Career
@@ -133,7 +131,6 @@
 
             </div>
         </div>
-
 
         <a href="#" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all">
             <i class="fa-solid fa-chart-line mr-3 flex-shrink-0"></i>
