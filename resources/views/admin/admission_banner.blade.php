@@ -5,16 +5,16 @@
 @section('content')
 
     <div class="max-w-6xl mx-auto" x-data="{
-                    openCreate: false,
-                    openEdit: false,
-                    editBanner: {
-                        id: null,
-                        title: '',
-                        description: '',
-                        link: '',
-                        image: ''
-                    }
-                 }">
+        openCreate: false,
+        openEdit: false,
+        editBanner: {
+            id: null,
+            title: '',
+            description: '',
+            link: '',
+            image: ''
+        }
+     }">
 
 
         {{-- Page Heading --}}
@@ -80,13 +80,13 @@
                                 <div class="flex justify-center gap-3">
 
                                     <button @click="
-                                                                openEdit = true;
-                                                                editBanner.id = {{ $banner->id }};
-                                                                editBanner.title = '{{ addslashes($banner->title) }}';
-                                                                editBanner.description = '{{ addslashes($banner->description) }}';
-                                                                editBanner.link = '{{ $banner->link }}';
-                                                                editBanner.image = '{{ asset('storage/' . $banner->image) }}';
-                                                            " class="text-blue-600 hover:text-blue-800" title="Edit">
+                                                                        openEdit = true;
+                                                                        editBanner.id = {{ $banner->id }};
+                                                                        editBanner.title = '{{ addslashes($banner->title) }}';
+                                                                        editBanner.description = '{{ addslashes($banner->description) }}';
+                                                                        editBanner.link = '{{ $banner->link }}';
+                                                                        editBanner.image = '{{ asset('storage/' . $banner->image) }}';
+                                                                    " class="text-blue-600 hover:text-blue-800" title="Edit">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
 
@@ -118,18 +118,20 @@
         </div>
 
         {{-- Modal --}}
-        <div x-show="openCreate" x-transition class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        {{-- Create Modal --}}
+        <div x-show="openCreate" x-cloak x-transition
+            class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
             <div class="bg-white w-full max-w-xl rounded-xl shadow-lg p-6 relative">
 
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">Create Admission Banner</h2>
 
-                    <button @click="openCreate = false" class="text-gray-500 hover:text-gray-700">
+                    <button type="button" @click="openCreate = false" class="text-gray-500 hover:text-gray-700">
                         <i class="fa-solid fa-xmark text-lg"></i>
                     </button>
                 </div>
 
-                {{-- Banner Form --}}
                 <form action="{{ route('admin.admissionBanner.store') }}" method="POST" enctype="multipart/form-data"
                     class="space-y-4">
                     @csrf
@@ -155,9 +157,10 @@
                     </div>
 
                     <div class="flex justify-end gap-3">
-                        <button type="button" @click="openModal = false" class="px-4 py-2 rounded-lg border">
+                        <button type="button" @click="openCreate = false" class="px-4 py-2 rounded-lg border">
                             Cancel
                         </button>
+
                         <button type="submit" class="px-6 py-2 bg-teal-600 text-white rounded-lg">
                             Save
                         </button>
@@ -165,15 +168,17 @@
                 </form>
             </div>
         </div>
+
         {{-- Edit Modal --}}
-        <div x-show="openEdit" x-transition class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        {{-- Edit Modal --}}
+        <div x-show="openEdit" x-cloak x-transition class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
 
             <div class="bg-white w-full max-w-xl rounded-xl shadow-lg p-6 relative">
 
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">Edit Admission Banner</h2>
 
-                    <button @click="openEdit = false" class="text-gray-500 hover:text-gray-700">
+                    <button type="button" @click="openEdit = false" class="text-gray-500 hover:text-gray-700">
                         <i class="fa-solid fa-xmark text-lg"></i>
                     </button>
                 </div>
@@ -210,6 +215,7 @@
                         <button type="button" @click="openEdit = false" class="px-4 py-2 rounded-lg border">
                             Cancel
                         </button>
+
                         <button type="submit" class="px-6 py-2 bg-teal-600 text-white rounded-lg">
                             Update
                         </button>
@@ -217,6 +223,7 @@
                 </form>
             </div>
         </div>
+
 
     </div>
 

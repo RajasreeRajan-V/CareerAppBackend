@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\College;
+use Illuminate\Support\Facades\Validator;
 
 class SearchCollegeController extends Controller
 {
@@ -68,7 +69,7 @@ class SearchCollegeController extends Controller
 {
     try {
         // Validate request
-        $validator = \Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'keyword' => 'nullable|string|max:255',
             'location' => 'nullable|string|max:255',
         ]);
@@ -153,7 +154,7 @@ public function collegeDetails(Request $request)
 {
     try {
         // Validate request
-        $validator = \Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'id' => 'required|numeric|exists:colleges,id'
         ]);
 
