@@ -19,17 +19,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('build/assets/app-DaluvxN5.css') }}">
 
     <style>
-       
-    body {
-        font-family: 'Inter', sans-serif;
-    }
-    [x-cloak] {
-        display: none !important;
-    }
-
+        body {
+            font-family: 'Inter', sans-serif;
+        }
     </style>
 </head>
 
@@ -107,7 +102,8 @@
 
             <!-- FOOTER -->
             <footer class="bg-white border-t border-gray-200 py-3 lg:py-4 px-4 lg:px-8">
-                <div class="flex flex-col sm:flex-row items-center justify-between text-xs lg:text-sm text-gray-600 space-y-2 sm:space-y-0">
+                <div
+                    class="flex flex-col sm:flex-row items-center justify-between text-xs lg:text-sm text-gray-600 space-y-2 sm:space-y-0">
                     <p>
                         &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
                     </p>
@@ -123,13 +119,7 @@
 
         </div>
     </div>
-
-    <!-- Add Bootstrap JS here -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Add Alpine.js here -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    @stack('scripts')
+    <script src="{{ asset('build/assets/app-BXS-Op9n.js') }}" defer></script>
 </body>
 
 </html>

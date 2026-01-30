@@ -1,22 +1,23 @@
 <!-- SIDEBAR -->
 <aside id="sidebar"
     class="fixed lg:static inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-[#306060] to-[#254848] 
-    text-white flex flex-col shadow-2xl transform -translate-x-full lg:translate-x-0 transition-all duration-300 ease-in-out overflow-hidden">
+    text-white flex flex-col shadow-2xl -translate-x-full lg:translate-x-0 transition-all duration-300 ease-in-out overflow-hidden">
 
     <!-- Decorative Elements -->
-    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl opacity-50"
+    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl opacity-50 pointer-events-none"
         style="transform: translate(40%, -40%);"></div>
-    <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-2xl opacity-50"
+    <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-2xl opacity-50 pointer-events-none"
         style="transform: translate(-40%, 40%);"></div>
-    <div class="absolute top-1/3 right-0 w-20 h-20 bg-white/5 rounded-full blur-xl opacity-30"
+    <div class="absolute top-1/3 right-0 w-20 h-20 bg-white/5 rounded-full blur-xl opacity-30 pointer-events-none"
         style="transform: translate(50%, 0);"></div>
 
-    <!-- Mobile Close Button -->
-    <button id="closeSidebar" class="lg:hidden absolute top-4 right-4 w-10 h-10 flex items-center justify-center 
-    rounded-lg hover:bg-white/10 transition-colors z-20 hidden">
+    <!-- Mobile Close Button - FIXED -->
+    <button id="closeSidebar"
+        class="lg:hidden absolute top-4 right-4 w-10 h-10 flex items-center justify-center 
+        rounded-lg hover:bg-white/10 active:bg-white/20 transition-colors bg-white/10 cursor-pointer border border-white/20"
+        style="z-index: 1000 !important;">
         <i class="fa-solid fa-times text-xl"></i>
     </button>
-
 
     <!-- Desktop Toggle Button -->
     <button id="toggleSidebar" class="hidden lg:flex absolute -right-3 top-24 w-6 h-12 bg-white rounded-r-lg 
@@ -96,10 +97,11 @@
 
                 <a href="{{ route('admin.college.index') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
                      {{ request()->routeIs('admin.college.index') ? 'bg-white/15' : '' }}">
-                    <i class="fa-solid fa-book-open"></i> Manage Colleges
+                    <i class="fa-solid fa-book-open me-2"></i> Manage Colleges
                 </a>
             </div>
         </div>
+
         <!-- Careers Dropdown -->
         <div class="group">
             <!-- Dropdown Toggle -->
@@ -126,7 +128,7 @@
                 </a>
                 <a href="{{ route('admin.career_nodes.index') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
             {{ request()->routeIs('admin.career_nodes.index') ? 'bg-white/15' : '' }}">
-                    <i class="fa-solid fa-user-doctor"></i> Manage Career
+                    <i class="fa-solid fa-user-doctor me-2"></i> Manage Career
                 </a>
 
             </div>
@@ -161,7 +163,7 @@
     <div class="px-4 py-4 border-t border-white/10 relative z-10">
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button class="w-full flex items-center px-4 py-3 rounded-xl hover:bg-red-500/20 transition-all">
+            <button type="submit" class="w-full flex items-center px-4 py-3 rounded-xl hover:bg-red-500/20 transition-all">
                 <i class="fa-solid fa-right-from-bracket mr-3 flex-shrink-0"></i>
                 <span class="sidebar-text">Logout</span>
             </button>
@@ -174,7 +176,10 @@
 
 <!-- JavaScript for Mobile Menu Toggle -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+(function() {
+    'use strict';
+    
+    function initSidebar() {
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('sidebarOverlay');
         const openBtn = document.getElementById('openSidebar');
@@ -185,8 +190,15 @@
 
         const collegeDropdown = document.getElementById('collegeDropdown');
         const collegeChevron = document.getElementById('collegeChevron');
+        const careerDropdown = document.getElementById('careerDropdown');
+        const careerChevron = document.getElementById('careerChevron');
 
         let isMinimized = false;
+
+        if (!sidebar || !overlay) {
+            console.error('Critical sidebar elements not found');
+            return;
+        }
 
         // ---------- Helpers ----------
         function isMobile() {
@@ -197,9 +209,7 @@
         function openSidebar() {
             sidebar.classList.remove('-translate-x-full');
             overlay.classList.remove('hidden');
-
             if (isMobile()) {
-                closeBtn.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
             }
         }
@@ -207,75 +217,139 @@
         function closeSidebar() {
             sidebar.classList.add('-translate-x-full');
             overlay.classList.add('hidden');
-            closeBtn.classList.add('hidden');
             document.body.style.overflow = '';
         }
 
         // ---------- Desktop Minimize ----------
         function toggleSidebarMinimize() {
+            if (isMobile()) return;
+            
             isMinimized = !isMinimized;
 
             if (isMinimized) {
                 sidebar.classList.replace('w-72', 'w-20');
-                toggleIcon.classList.replace('fa-chevron-left', 'fa-chevron-right');
-
-                sidebarTexts.forEach(text => {
-                    text.classList.add('hidden');
-                });
+                if (toggleIcon) {
+                    toggleIcon.classList.replace('fa-chevron-left', 'fa-chevron-right');
+                }
+                sidebarTexts.forEach(text => text.classList.add('hidden'));
             } else {
                 sidebar.classList.replace('w-20', 'w-72');
-                toggleIcon.classList.replace('fa-chevron-right', 'fa-chevron-left');
-
-                sidebarTexts.forEach(text => {
-                    text.classList.remove('hidden');
-                });
+                if (toggleIcon) {
+                    toggleIcon.classList.replace('fa-chevron-right', 'fa-chevron-left');
+                }
+                sidebarTexts.forEach(text => text.classList.remove('hidden'));
             }
         }
 
-        // ---------- Colleges Dropdown ----------
-        window.toggleCollegeDropdown = function () {
-            collegeDropdown.classList.toggle('hidden');
-            collegeChevron.classList.toggle('rotate-180');
+        // ---------- Dropdowns ----------
+        window.toggleCollegeDropdown = function() {
+            if (collegeDropdown && collegeChevron) {
+                collegeDropdown.classList.toggle('hidden');
+                collegeChevron.classList.toggle('rotate-180');
+            }
         };
 
-        // Auto-open if route active
-        if ("{{ request()->routeIs('admin.college.*') }}") {
+        window.toggleCareerDropdown = function() {
+            if (careerDropdown && careerChevron) {
+                careerDropdown.classList.toggle('hidden');
+                careerChevron.classList.toggle('rotate-180');
+            }
+        };
+
+        // Auto-open dropdowns if route is active
+        const isCollegeRouteActive = {{ request()->routeIs('admin.college.*') ? 'true' : 'false' }};
+        const isCareerRouteActive = {{ request()->routeIs('admin.career_nodes.*') ? 'true' : 'false' }};
+
+        if (isCollegeRouteActive && collegeDropdown && collegeChevron) {
             collegeDropdown.classList.remove('hidden');
             collegeChevron.classList.add('rotate-180');
         }
 
-        // ---------- Events ----------
-        openBtn?.addEventListener('click', openSidebar);
-        closeBtn?.addEventListener('click', closeSidebar);
-        overlay?.addEventListener('click', closeSidebar);
-        toggleBtn?.addEventListener('click', toggleSidebarMinimize);
+        if (isCareerRouteActive && careerDropdown && careerChevron) {
+            careerDropdown.classList.remove('hidden');
+            careerChevron.classList.add('rotate-180');
+        }
 
-        sidebar.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (isMobile()) closeSidebar();
+        // ---------- Event Listeners ----------
+        
+        // Close button - PRIMARY FIX
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeSidebar();
+            });
+        }
+
+        // Overlay click
+        if (overlay) {
+            overlay.addEventListener('click', function(e) {
+                e.preventDefault();
+                closeSidebar();
+            });
+        }
+
+        // Open button (hamburger menu)
+        if (openBtn) {
+            openBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openSidebar();
+            });
+        } else {
+            // Retry after delay in case it loads later
+            setTimeout(function() {
+                const laterOpenBtn = document.getElementById('openSidebar');
+                if (laterOpenBtn) {
+                    laterOpenBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        openSidebar();
+                    });
+                }
+            }, 500);
+        }
+
+        // Desktop toggle
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleSidebarMinimize();
+            });
+        }
+
+        // Close sidebar when clicking links on mobile
+        const sidebarLinks = sidebar.querySelectorAll('a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (isMobile()) {
+                    setTimeout(closeSidebar, 100); // Small delay for better UX
+                }
             });
         });
 
-        window.addEventListener('resize', () => {
+        // Handle window resize
+        window.addEventListener('resize', function() {
             if (!isMobile()) {
                 overlay.classList.add('hidden');
-                closeBtn.classList.add('hidden');
                 document.body.style.overflow = '';
+                sidebar.classList.remove('-translate-x-full');
+            } else {
+                if (isMinimized) {
+                    sidebar.classList.replace('w-20', 'w-72');
+                    if (toggleIcon) {
+                        toggleIcon.classList.replace('fa-chevron-right', 'fa-chevron-left');
+                    }
+                    sidebarTexts.forEach(text => text.classList.remove('hidden'));
+                    isMinimized = false;
+                }
             }
         });
-    });
-    const careerDropdown = document.getElementById('careerDropdown');
-    const careerChevron = document.getElementById('careerChevron');
-
-    window.toggleCareerDropdown = function () {
-        careerDropdown.classList.toggle('hidden');
-        careerChevron.classList.toggle('rotate-180');
-    };
-
-    // Auto-open if route active
-    if ("{{ request()->routeIs('admin.career_nodes.*') }}") {
-        careerDropdown.classList.remove('hidden');
-        careerChevron.classList.add('rotate-180');
     }
 
+    // Initialize
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSidebar);
+    } else {
+        initSidebar();
+    }
+})();
 </script>
