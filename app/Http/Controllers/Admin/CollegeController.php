@@ -130,14 +130,18 @@ class CollegeController extends Controller
         'about'    => $request->about,
     ]);
 
-    $college->facilities()->delete();
-    if ($request->facilities) {
-        foreach ($request->facilities as $facility) {
-            if (!empty($facility)) {
-                $college->facilities()->create(['facility' => $facility]);
-            }
+   $college->facilities()->delete();
+
+   if ($request->filled('facilities')) {
+    foreach ($request->facilities as $facility) {
+        if (!empty($facility)) {
+            CollegeFacility::create([
+                'college_id' => $college->id,
+                'facility'       => $facility, 
+            ]);
         }
     }
+}
 
     $college->courses()->delete();
     if ($request->courses) {

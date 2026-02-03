@@ -1,182 +1,398 @@
+@extends('layouts.app')
 
-<div class="modal fade" id="editCollegeModal" tabindex="-1">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-        <form method="POST" enctype="multipart/form-data" id="editCollegeForm">
-            @csrf
-            @method('PUT')
+@section('content')
 
-            <div class="modal-content">
-                <div class="modal-header bg-warning">
-                    <h5 class="modal-title">Edit College</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">College List</h4>
+                    </div>
+
+                    <div class="card-body table-responsive">
+                        <table class="table table-bordered table-hover align-middle">
+                            <thead class="table-dark text-center">
+                                <tr>
+                                    <th>#</th>
+                                    <th>College Name</th>
+                                    <th>Address</th>
+                                    <th>Rating</th>
+                                    <th>Contact</th>
+                                    <th>Facilities</th>
+                                    <th>Courses</th>
+                                    <th>Images</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @forelse($colleges as $college)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+
+                                        <td>
+                                            <strong>{{ $college->name }}</strong><br>
+                                            <small class="text-muted">{{ $college->about }}</small>
+                                        </td>
+
+                                        <td>
+                                            {{ $college->location }}
+
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ $college->rating ?? 'N/A' }}
+                                        </td>
+
+                                        <td>
+                                            {{ $college->phone ?? 'N/A' }}<br>
+                                            {{ $college->email ?? 'N/A' }}<br>
+                                            @if($college->website)
+                                                <a href="{{ $college->website }}" target="_blank">Visit</a>
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
+
+                                        <td>
+                                            <ul class="mb-0">
+                                                @foreach($college->facilities as $facility)
+                                                    <li>{{ $facility->facility }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+
+                                        <td>
+                                            <ul class="mb-0">
+                                                @foreach($college->courses as $course)
+                                                    <li>{{ $course->name }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+
+                                        <td class="text-center">
+                                            @forelse($college->images as $image)
+                                                <img src="{{ asset('storage/' . $image->image_url) }}" class="img-thumbnail mb-1"
+                                                    width="60">
+                                            @empty
+                                                <span class="text-muted">No Image</span>
+                                            @endforelse
+                                        </td>
+
+
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-sm btn-warning editBtn" data-bs-toggle="modal"
+                                                data-bs-target="#editCollegeModal" data-id="{{ $college->id }}"
+                                                data-name="{{ $college->name }}" data-location="{{ $college->location ?? '' }}"
+                                                data-rating="{{ $college->rating ?? '' }}"
+                                                data-phone="{{ $college->phone ?? '' }}"
+                                                data-email="{{ $college->email ?? '' }}"
+                                                data-website="{{ $college->website ?? '' }}"
+                                                data-about="{{ $college->about ?? '' }}"
+                                                data-facilities="{{ json_encode($college->facilities->pluck('facility')->toArray()) }}"
+                                                data-courses="{{ json_encode($college->courses->pluck('name')->toArray()) }}">
+                                                <i class="fas fa-edit me-1"></i>Edit
+                                            </button>
+
+                                            <form action="{{ route('admin.college.destroy', $college->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure you want to delete this college?')">
+                                                    <i class="fas fa-trash me-1"></i>Delete
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="9" class="text-center text-muted">
+                                            No colleges found.
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
 
-                <div class="modal-body">
+            </div>
+        </div>
+    </div>
 
-                    <input type="hidden" id="edit_college_id">
+    <!-- Edit College Modal -->
+    <div class="modal fade" id="editCollegeModal" tabindex="-1" aria-labelledby="editCollegeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form method="POST" id="editCollegeForm">
+                @csrf
+                @method('PUT')
 
-                    {{-- BASIC DETAILS --}}
-                    <h5 class="mb-3">Basic College Information</h5>
+                <div class="modal-content">
+                    <div class="modal-header bg-warning">
+                        <h5 class="modal-title" id="editCollegeModalLabel">Edit College</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
 
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">College Name *</label>
+                    <div class="modal-body">
+                        <input type="hidden" id="college_id" name="college_id">
+
+                        <div class="mb-3">
+                            <label for="edit_name" class="form-label">College Name <span
+                                    class="text-danger">*</span></label>
                             <input type="text" name="name" id="edit_name" class="form-control" required>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="mb-3">
                             <label class="form-label">Street *</label>
-                            <input type="text" name="street" id="edit_street" class="form-control" required>
+                            <input type="text" name="street" class="form-control" required>
                         </div>
-
-                        <div class="col-md-4">
+                        <div class="mb-3">
                             <label class="form-label">District *</label>
-                            <input type="text" name="district" id="edit_district" class="form-control" required>
+                            <input type="text" name="district" class="form-control" required>
                         </div>
-
-                        <div class="col-md-4">
+                        <div class="mb-3">
                             <label class="form-label">State *</label>
-                            <input type="text" name="state" id="edit_state" class="form-control" required>
+                            <input type="text" name="state" class="form-control" required>
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label">Rating</label>
-                            <input type="number" step="0.1" min="0" max="5" name="rating" id="edit_rating" class="form-control">
+                        <div class="mb-3">
+                            <label for="edit_rating" class="form-label">Rating</label>
+                            <input type="number" step="0.1" min="0" max="5" name="rating" id="edit_rating"
+                                class="form-control">
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label">Phone</label>
-                            <input type="tel" name="phone" id="edit_phone" class="form-control">
+                        <div class="mb-3">
+                            <label for="edit_phone" class="form-label">Phone</label>
+                            <input type="text" name="phone" id="edit_phone" class="form-control">
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label">Email</label>
+                        <div class="mb-3">
+                            <label for="edit_email" class="form-label">Email</label>
                             <input type="email" name="email" id="edit_email" class="form-control">
                         </div>
+                        <!-- Add before the Cancel/Update buttons -->
+                        <div class="mb-3">
+                            <label class="form-label">Facilities</label>
+                            <div id="facilitiesContainer"></div>
+                            <button type="button" class="btn btn-sm btn-secondary" onclick="addFacility()">Add
+                                Facility</button>
+                        </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label">Website</label>
+                        <div class="mb-3">
+                            <label class="form-label">Courses</label>
+                            <div id="coursesContainer"></div>
+                            <button type="button" class="btn btn-sm btn-secondary" onclick="addCourse()">Add Course</button>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_website" class="form-label">Website</label>
                             <input type="url" name="website" id="edit_website" class="form-control">
                         </div>
 
-                        <div class="col-12">
-                            <label class="form-label">About College</label>
-                            <textarea name="about" rows="4" id="edit_about" class="form-control"></textarea>
+                        <div class="mb-3">
+                            <label for="edit_about" class="form-label">About</label>
+                            <textarea name="about" id="edit_about" class="form-control" rows="3"></textarea>
                         </div>
                     </div>
 
-                    <hr class="my-4">
-
-                    {{-- IMAGES --}}
-                    <h5 class="mb-3">College Images</h5>
-
-                    <div class="mb-3">
-                        <input type="file" id="edit_imageInput" name="images[]" class="form-control" accept="image/*" multiple>
-                        <small class="text-muted">Select additional images</small>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save me-1"></i>Update College
+                        </button>
                     </div>
-
-                    <div id="edit_imagePreview" class="row g-3"></div>
-
-                    <hr class="my-4">
-
-                    {{-- FACILITIES --}}
-                    <h5 class="mb-3">Facilities</h5>
-                    <div id="edit-facility-wrapper"></div>
-                    <button type="button" class="btn btn-outline-primary mb-3" onclick="addEditFacility()">Add Facility</button>
-
-                    <hr class="my-4">
-
-                    {{-- COURSES --}}
-                    <h5 class="mb-3">Courses</h5>
-                    <div id="edit-course-wrapper"></div>
-                    <button type="button" class="btn btn-outline-primary mb-4" onclick="addEditCourse()">Add Course</button>
-
                 </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Update College</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+@endsection
 
-    document.querySelectorAll('.editBtn').forEach(button => {
-        button.addEventListener('click', function () {
-            const id = this.dataset.id;
-            const location = this.dataset.location.split(',');
+@push('scripts')
 
-            document.getElementById('edit_name').value = this.dataset.name;
-            document.getElementById('edit_street').value = location[0]?.trim() || '';
-            document.getElementById('edit_district').value = location[1]?.trim() || '';
-            document.getElementById('edit_state').value = location[2]?.trim() || '';
-            document.getElementById('edit_rating').value = this.dataset.rating;
-            document.getElementById('edit_phone').value = this.dataset.phone;
-            document.getElementById('edit_email').value = this.dataset.email;
-            document.getElementById('edit_website').value = this.dataset.website;
-            document.getElementById('edit_about').value = this.dataset.about;
+    <script>
+        console.log('Script loaded');
 
-            document.getElementById('editCollegeForm').action =
-                "{{ route('admin.college.update', ':id') }}".replace(':id', id);
+        let facilityCount = 0;
+        let courseCount = 0;
 
-            // Clear previous facilities & courses
-            document.getElementById('edit-facility-wrapper').innerHTML = '';
-            document.getElementById('edit-course-wrapper').innerHTML = '';
+        // Function to add a new facility input field
+        function addFacility(value = '') {
+            facilityCount++;
+            const container = document.getElementById('facilitiesContainer');
+            const div = document.createElement('div');
+            div.className = 'input-group mb-2';
+            div.id = `facility-${facilityCount}`;
+            div.innerHTML = `
+                <input type="text" name="facilities[]" class="form-control" value="${value}" placeholder="Enter facility name">
+                <button type="button" class="btn btn-danger btn-sm" onclick="removeFacility(${facilityCount})">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            container.appendChild(div);
+        }
 
-            // Fetch existing facilities & courses via route
-            fetch("{{ route('admin.college.edit-json', ':id') }}".replace(':id', id))
-                .then(res => res.json())
-                .then(data => {
-                    data.facilities.forEach(f => addEditFacility(f.facility));
-                    data.courses.forEach(c => addEditCourse(c.name));
-                });
+
+        // Function to remove a facility input field
+        function removeFacility(id) {
+            const element = document.getElementById(`facility-${id}`);
+            if (element) {
+                element.remove();
+            }
+        }
+
+        // Function to add a new course input field
+        function addCourse(value = '') {
+            courseCount++;
+            const container = document.getElementById('coursesContainer');
+            const div = document.createElement('div');
+            div.className = 'input-group mb-2';
+            div.id = `course-${courseCount}`;
+            div.innerHTML = `
+                        <input type="text" name="courses[]" class="form-control" value="${value}" placeholder="Enter course name">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="removeCourse(${courseCount})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+            container.appendChild(div);
+        }
+
+        // Function to remove a course input field
+        function removeCourse(id) {
+            const element = document.getElementById(`course-${id}`);
+            if (element) {
+                element.remove();
+            }
+        }
+
+        // Function to clear all facilities
+        function clearFacilities() {
+            document.getElementById('facilitiesContainer').innerHTML = '';
+            facilityCount = 0;
+        }
+
+        // Function to clear all courses
+        function clearCourses() {
+            document.getElementById('coursesContainer').innerHTML = '';
+            courseCount = 0;
+        }
+
+        // Wait for DOM and Bootstrap to be ready
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log('DOM loaded');
+
+            // Check if Bootstrap is loaded
+            if (typeof bootstrap === 'undefined') {
+                console.error('Bootstrap is not loaded!');
+                return;
+            }
+
+            console.log('Bootstrap is loaded');
+
+            // Get the modal element
+            const modalElement = document.getElementById('editCollegeModal');
+            if (!modalElement) {
+                console.error('Modal element not found!');
+                return;
+            }
+
+            console.log('Modal element found');
+
+            // Listen for the modal show event to populate data
+            modalElement.addEventListener('show.bs.modal', function (event) {
+                console.log('Modal is opening');
+
+                // Button that triggered the modal
+                const button = event.relatedTarget;
+
+                if (!button) {
+                    console.error('No button found');
+                    return;
+                }
+
+                // Extract data from data-* attributes
+                const id = button.getAttribute('data-id');
+                const name = button.getAttribute('data-name');
+                const location = button.getAttribute('data-location');
+                const rating = button.getAttribute('data-rating');
+                const phone = button.getAttribute('data-phone');
+                const email = button.getAttribute('data-email');
+                const website = button.getAttribute('data-website');
+                const about = button.getAttribute('data-about');
+                const facilitiesJson = button.getAttribute('data-facilities');
+                const coursesJson = button.getAttribute('data-courses');
+
+                console.log('College ID:', id);
+                console.log('College Name:', name);
+                console.log('Facilities JSON:', facilitiesJson);
+                console.log('Courses JSON:', coursesJson);
+
+                // Parse location (assuming format: "street, district, state")
+                let street = '', district = '', state = '';
+                if (location) {
+                    const locationParts = location.split(',').map(part => part.trim());
+                    street = locationParts[0] || '';
+                    district = locationParts[1] || '';
+                    state = locationParts[2] || '';
+                }
+
+                // Populate modal fields
+                document.getElementById('college_id').value = id || '';
+                document.getElementById('edit_name').value = name || '';
+                document.querySelector('input[name="street"]').value = street;
+                document.querySelector('input[name="district"]').value = district;
+                document.querySelector('input[name="state"]').value = state;
+                document.getElementById('edit_rating').value = rating || '';
+                document.getElementById('edit_phone').value = phone || '';
+                document.getElementById('edit_email').value = email || '';
+                document.getElementById('edit_website').value = website || '';
+                document.getElementById('edit_about').value = about || '';
+
+                // Clear existing facilities and courses
+                clearFacilities();
+                clearCourses();
+
+                // Populate facilities
+                try {
+                    const facilities = JSON.parse(facilitiesJson || '[]');
+                    if (facilities.length > 0) {
+                        facilities.forEach(facility => {
+                            addFacility(facility);
+                        });
+                    } else {
+                        addFacility(); // Add one empty field if no facilities
+                    }
+                } catch (e) {
+                    console.error('Error parsing facilities:', e);
+                    addFacility(); // Add one empty field on error
+                }
+
+                // Populate courses
+                try {
+                    const courses = JSON.parse(coursesJson || '[]');
+                    if (courses.length > 0) {
+                        courses.forEach(course => {
+                            addCourse(course);
+                        });
+                    } else {
+                        addCourse(); // Add one empty field if no courses
+                    }
+                } catch (e) {
+                    console.error('Error parsing courses:', e);
+                    addCourse(); // Add one empty field on error
+                }
+
+                // Set form action URL
+                const updateUrl = "{{ route('admin.college.update', ':id') }}".replace(':id', id);
+                document.getElementById('editCollegeForm').action = updateUrl;
+
+                console.log('Form action set to:', updateUrl);
+            });
+
+            console.log('Event listener attached');
         });
-    });
-
-    // Image preview
-    document.getElementById('edit_imageInput').addEventListener('change', function () {
-        const preview = document.getElementById('edit_imagePreview');
-        preview.innerHTML = '';
-        Array.from(this.files).forEach(file => {
-            const reader = new FileReader();
-            reader.onload = e => {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.className = 'img-thumbnail mb-1 me-1';
-                img.style.width = '60px';
-                preview.appendChild(img);
-            };
-            reader.readAsDataURL(file);
-        });
-    });
-
-});
-
-// Add facility input
-function addEditFacility(value = '') {
-    const wrapper = document.getElementById('edit-facility-wrapper');
-    const div = document.createElement('div');
-    div.className = 'input-group mb-2';
-    div.innerHTML = `
-        <input type="text" name="facilities[]" class="form-control" value="${value}">
-        <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()">Remove</button>
-    `;
-    wrapper.appendChild(div);
-}
-
-// Add course input
-function addEditCourse(value = '') {
-    const wrapper = document.getElementById('edit-course-wrapper');
-    const div = document.createElement('div');
-    div.className = 'input-group mb-2';
-    div.innerHTML = `
-        <input type="text" name="courses[]" class="form-control" value="${value}">
-        <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()">Remove</button>
-    `;
-    wrapper.appendChild(div);
-}
-</script>
+    </script>
+@endpush
