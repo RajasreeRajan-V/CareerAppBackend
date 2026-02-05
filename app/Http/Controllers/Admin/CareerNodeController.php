@@ -31,13 +31,14 @@ class CareerNodeController extends Controller
      */
    public function store(Request $request)
 {
+    
     $request->validate([
         'title' => 'required|unique:career_nodes,title',
         'description' => 'required',
         'subjects' => 'required|array',
         'career_options' => 'required|array',
         'video' => 'required|mimes:mp4,mov,avi|max:51200', 
-        'thumbnail' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        'thumbnail' => 'required|image|mimes:jpg,jpeg,png|max:5120',
     ]);
 
    

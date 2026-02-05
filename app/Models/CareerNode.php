@@ -20,4 +20,15 @@ class CareerNode extends Model
         'subjects' => 'array',
         'career_options' => 'array',
     ];
+
+    public function children()
+    {
+        return $this->hasMany(CareerLink::class, 'parent_career_id')
+            ->with('child');
+    }
+    public function parents()
+    {
+        return $this->hasMany(CareerLink::class, 'child_career_id')
+            ->with('parent');
+    }
 }
