@@ -139,6 +139,11 @@
             <i class="fa-solid fa-arrow-trend-up me-2"></i><span class="font-medium sidebar-text">Manage Career
                 Path</span>
         </a>
+        
+        <a href="{{ route('admin.careerBanner.index') }}" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+   {{ request()->routeIs('admin.careerBanner.index') ? 'bg-white/15' : '' }}">
+            <i class="fa-solid fa-image me-2"></i><span class="font-medium sidebar-text">Career Banners</span>
+        </a>
 
     </nav>
 

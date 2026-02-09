@@ -24,6 +24,8 @@ Route::name('admin.')->group(function () {
          Route::get('/college/{id}/edit-json', [CollegeController::class, 'editJson'])->name('college.edit-json');
 
         Route::resource('career_link' , CareerLinkController::class);
+
+        Route::resource('careerBanner' , CareerBannerController::class);
  
      });
 });
