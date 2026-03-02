@@ -39,16 +39,16 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Upload Video *</label>
-                                <input type="file" name="video" class="form-control @error('video') is-invalid @enderror"
+                                <label class="form-label"> Video *</label>
+                                <input type="text" name="video" class="form-control @error('video') is-invalid @enderror"
                                     accept="video/*" id="videoInput" required>
-                                <small class="text-muted">Allowed formats: mp4, mov, avi (Max: 50MB recommended)</small>
+                                {{-- <small class="text-muted">Allowed formats: mp4, mov, avi (Max: 50MB recommended)</small> --}}
                                 @error('video')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="mb-4">
+                            {{-- <div class="mb-4">
                                 <label class="form-label">Thumbnail *</label>
                                 <input type="file" name="thumbnail"
                                     class="form-control @error('thumbnail') is-invalid @enderror" accept="image/*"
@@ -56,12 +56,12 @@
                                 @error('thumbnail')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
 
-                            <video id="previewVideo" width="320" controls poster="">
+                            {{-- <video id="previewVideo" width="320" controls poster="">
                                 <source id="videoSource" src="" type="video/mp4">
                                 Your browser does not support HTML video.
-                            </video>
+                            </video> --}}
 
                             <hr class="my-4">
 

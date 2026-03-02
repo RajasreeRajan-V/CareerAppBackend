@@ -5,80 +5,25 @@
 @section('content')
     <div class="container-fluid px-4">
         {{-- Video Modal --}}
-        <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
-                <div class="modal-content bg-dark">
-                    <div class="modal-header border-0">
-                        <h5 class="modal-title text-white" id="videoModalLabel">Career Video</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+        <div class="modal fade" id="videoModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-header bg-dark text-white">
+                        <h5 class="modal-title" id="videoModalLabel">Career Video</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
+
                     <div class="modal-body p-0">
-                        <video id="modalVideo" class="w-100" controls style="max-height: 80vh;">
-                            <source id="modalVideoSource" src="" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                        <div class="ratio ratio-16x9">
+                            <iframe id="youtubeFrame" src="" title="YouTube video"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
                     </div>
 
                 </div>
-            </div>
-        </div>
-
-        {{-- Edit Career Modal --}}
-        <div class="modal fade" id="editCareerModal" tabindex="-1">
-            <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                <form method="POST" id="editCareerForm" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary text-white">
-                            <h5 class="modal-title">Edit Career</h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                        </div>
-
-                        <div class="modal-body">
-
-                            <div class="mb-3">
-                                <label class="form-label">Title</label>
-                                <input type="text" name="title" id="edit_title" class="form-control" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Description</label>
-                                <textarea name="description" id="edit_description" class="form-control" rows="3"></textarea>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Subjects (comma separated)</label>
-                                <input type="text" name="subjects" id="edit_subjects" class="form-control">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Career Options (comma separated)</label>
-                                <input type="text" name="career_options" id="edit_options" class="form-control">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Change Video</label>
-                                <input type="file" name="video" class="form-control">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Change Thumbnail</label>
-                                <input type="file" name="thumbnail" class="form-control">
-                            </div>
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">
-                                <i class="fas fa-save me-1"></i> Update
-                            </button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
 
@@ -111,27 +56,30 @@
                             @forelse ($careerNodes as $career)
                                 <tr>
                                     <td>
-                                        @if($career->video)
+                                        @if ($career->video)
+                                            @php
+                                                // Extract YouTube video ID from URL or use as-is if already an ID
+                                                $videoUrl = $career->video;
+                                                preg_match(
+                                                    '/(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([^&#]+)/',
+                                                    $videoUrl,
+                                                    $matches,
+                                                );
+                                                $videoId = $matches[1] ?? $videoUrl; // fallback to raw value if already an ID
+                                            @endphp
+
                                             <div class="position-relative video-thumbnail"
-                                                style="width: 100px; height: 75px; cursor: pointer; overflow: hidden; border-radius: 4px;"
-                                                data-video-url="{{ asset('storage/' . $career->video) }}"
-                                                data-video-title="{{ $career->title }}">
-                                                <video class="w-100 h-100" style="object-fit: cover;" muted preload="metadata"
-                                                    poster="{{ asset('storage/' . $career->thumbnail ?? 'default-thumb.jpg') }}">
-                                                    <source src="{{ asset('storage/' . $career->video) }}" type="video/mp4">
-                                                </video>
+                                                style="width: 120px; height: 75px; cursor: pointer; overflow: hidden; border-radius: 6px;"
+                                                data-video-id="{{ $videoId }}" data-video-title="{{ $career->title }}">
+
+                                                <img src="https://img.youtube.com/vi/{{ $videoId }}/hqdefault.jpg"
+                                                    class="w-100 h-100" style="object-fit: cover;">
 
                                                 <div class="position-absolute top-50 start-50 translate-middle">
                                                     <i class="fas fa-play-circle fa-3x text-white"
                                                         style="text-shadow: 0 0 10px rgba(0,0,0,0.8); opacity: 0.9;"></i>
                                                 </div>
-                                                <div class="position-absolute bottom-0 start-0 end-0 bg-dark bg-opacity-50 text-white text-center py-1"
-                                                    style="font-size: 0.7rem;">
-                                                    Click to play
-                                                </div>
                                             </div>
-                                        @else
-                                            <span class="text-muted">-</span>
                                         @endif
                                     </td>
                                     <td class="align-middle">{{ $career->title }}</td>
@@ -141,15 +89,16 @@
 
                                             if (is_string($subjects)) {
                                                 $decoded = json_decode($subjects, true);
-                                                $subjects = json_last_error() === JSON_ERROR_NONE
-                                                    ? $decoded
-                                                    : explode(',', $subjects);
+                                                $subjects =
+                                                    json_last_error() === JSON_ERROR_NONE
+                                                        ? $decoded
+                                                        : explode(',', $subjects);
                                             }
                                         @endphp
 
-                                        @if(is_array($subjects) && count($subjects))
+                                        @if (is_array($subjects) && count($subjects))
                                             <ul class="mb-0 ps-3" style="list-style-type: disc;">
-                                                @foreach($subjects as $subject)
+                                                @foreach ($subjects as $subject)
                                                     <li>{{ trim($subject) }}</li>
                                                 @endforeach
                                             </ul>
@@ -164,15 +113,16 @@
 
                                             if (is_string($options)) {
                                                 $decoded = json_decode($options, true);
-                                                $options = json_last_error() === JSON_ERROR_NONE
-                                                    ? $decoded
-                                                    : explode(',', $options);
+                                                $options =
+                                                    json_last_error() === JSON_ERROR_NONE
+                                                        ? $decoded
+                                                        : explode(',', $options);
                                             }
                                         @endphp
 
-                                        @if(is_array($options) && count($options))
+                                        @if (is_array($options) && count($options))
                                             <ul class="mb-0 ps-3" style="list-style-type: disc;">
-                                                @foreach($options as $option)
+                                                @foreach ($options as $option)
                                                     <li class="mb-1">{{ trim($option) }}</li>
                                                 @endforeach
                                             </ul>
@@ -185,42 +135,41 @@
                                         <div class="btn-group" role="group">
                                             {{-- Edit --}}
                                             @php
-                                            // Decode subjects
-                                            $subjects = $career->subjects;
-                                            if (is_string($subjects)) {
-                                                $decodedSubjects = json_decode($subjects, true);
-                                                if (json_last_error() === JSON_ERROR_NONE) {
-                                                    $subjects = $decodedSubjects;
-                                                } else {
-                                                    $subjects = explode(',', $subjects);
+                                                // Decode subjects
+                                                $subjects = $career->subjects;
+                                                if (is_string($subjects)) {
+                                                    $decodedSubjects = json_decode($subjects, true);
+                                                    if (json_last_error() === JSON_ERROR_NONE) {
+                                                        $subjects = $decodedSubjects;
+                                                    } else {
+                                                        $subjects = explode(',', $subjects);
+                                                    }
                                                 }
-                                            }
 
-                                            // Decode options
-                                            $options = $career->career_options;
-                                            if (is_string($options)) {
-                                                $decodedOptions = json_decode($options, true);
-                                                if (json_last_error() === JSON_ERROR_NONE) {
-                                                    $options = $decodedOptions;
-                                                } else {
-                                                    $options = explode(',', $options);
+                                                // Decode options
+                                                $options = $career->career_options;
+                                                if (is_string($options)) {
+                                                    $decodedOptions = json_decode($options, true);
+                                                    if (json_last_error() === JSON_ERROR_NONE) {
+                                                        $options = $decodedOptions;
+                                                    } else {
+                                                        $options = explode(',', $options);
+                                                    }
                                                 }
-                                            }
-                                        @endphp
+                                            @endphp
 
-                                        <button type="button" class="btn btn-sm btn-outline-primary editCareerBtn"
-                                            data-bs-toggle="modal" data-bs-target="#editCareerModal"
-                                            data-id="{{ $career->id }}"
-                                            data-title="{{ e($career->title) }}"
-                                            data-description="{{ e($career->description) }}"
-                                            data-subjects="{{ is_array($subjects) ? implode(', ', $subjects) : $subjects }}"
-                                            data-options="{{ is_array($options) ? implode(', ', $options) : $options }}"
-                                            title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
+                                            <button type="button" class="btn btn-sm btn-outline-primary editCareerBtn"
+                                                data-bs-toggle="modal" data-bs-target="#editCareerModal"
+                                                data-id="{{ $career->id }}" data-title="{{ e($career->title) }}"
+                                                data-description="{{ e($career->description) }}"
+                                                data-subjects="{{ is_array($subjects) ? implode(', ', $subjects) : '' }}"
+                                                data-options="{{ is_array($options) ? implode(', ', $options) : '' }}"
+                                                title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
                                             {{-- Delete --}}
-                                            <form action="{{ route('admin.career_nodes.destroy', $career->id) }}" method="POST"
-                                                class="d-inline"
+                                            <form action="{{ route('admin.career_nodes.destroy', $career->id) }}"
+                                                method="POST" class="d-inline"
                                                 onsubmit="return confirm('Are you sure you want to delete this career?')">
                                                 @csrf
                                                 @method('DELETE')
@@ -241,6 +190,9 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $colleges->links() }}
+                    </div>
                 </div>
                 {{-- Edit Career Modal --}}
                 <div class="modal fade" id="editCareerModal" tabindex="-1">
@@ -258,36 +210,48 @@
 
                                 <div class="modal-body">
 
+                                    {{-- Title --}}
                                     <div class="mb-3">
                                         <label class="form-label">Title</label>
                                         <input type="text" name="title" id="edit_title" class="form-control" required>
                                     </div>
 
+                                    {{-- Description --}}
                                     <div class="mb-3">
                                         <label class="form-label">Description</label>
-                                        <textarea name="description" id="edit_description" class="form-control"
-                                            rows="3"></textarea>
+                                        <textarea name="description" id="edit_description" class="form-control" rows="3" required></textarea>
                                     </div>
 
+                                    {{-- Subjects --}}
                                     <div class="mb-3">
                                         <label class="form-label">Subjects (comma separated)</label>
-                                        <input type="text" name="subjects" id="edit_subjects" class="form-control">
+                                        <input type="text" id="edit_subjects" class="form-control"
+                                            placeholder="Maths, Physics, Chemistry">
+                                        {{-- No name here intentionally — JS handles it --}}
                                     </div>
 
+                                    {{-- Career Options --}}
                                     <div class="mb-3">
                                         <label class="form-label">Career Options (comma separated)</label>
-                                        <input type="text" name="career_options" id="edit_options" class="form-control">
+                                        <input type="text" id="edit_options" class="form-control"
+                                            placeholder="Engineer, Teacher, Scientist">
                                     </div>
 
+                                    {{-- Hidden Array Fields --}}
+                                    <div id="hidden-fields"></div>
+
+                                    {{-- Video URL --}}
                                     <div class="mb-3">
-                                        <label class="form-label">Change Video</label>
-                                        <input type="file" name="video" class="form-control">
+                                        <label class="form-label">YouTube Video URL</label>
+                                        <input type="text" name="video" id="edit_video" class="form-control"
+                                            required>
                                     </div>
 
-                                    <div class="mb-3">
+                                    {{-- Thumbnail --}}
+                                    {{-- <div class="mb-3">
                                         <label class="form-label">Change Thumbnail</label>
                                         <input type="file" name="thumbnail" class="form-control">
-                                    </div>
+                                    </div> --}}
 
                                 </div>
 
@@ -295,7 +259,8 @@
                                     <button type="submit" class="btn btn-success">
                                         <i class="fas fa-save me-1"></i> Update
                                     </button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
                                 </div>
                             </div>
                         </form>
@@ -310,67 +275,94 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             const videoModalEl = document.getElementById('videoModal');
-            const modalVideo = document.getElementById('modalVideo');
-            const modalVideoSource = document.getElementById('modalVideoSource');
+            const youtubeFrame = document.getElementById('youtubeFrame');
             const modalTitle = document.getElementById('videoModalLabel');
-
             const videoModal = new bootstrap.Modal(videoModalEl);
 
-            // Handle thumbnail click
-            document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
-                thumbnail.addEventListener('click', function () {
+            function extractVideoId(url) {
+                const regExp = /(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([^&#]+)/;
+                const match = url.match(regExp);
+                return match ? match[1] : url;
+            }
 
-                    const videoUrl = this.dataset.videoUrl;
+            document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    const videoId = this.dataset.videoId;
                     const videoTitle = this.dataset.videoTitle;
 
-                    if (!videoUrl) return;
+                    if (!videoId) return;
 
-                    // Set video source
-                    modalVideoSource.src = videoUrl;
+                    const cleanId = extractVideoId(videoId);
+                    youtubeFrame.src = `https://www.youtube.com/embed/${cleanId}?autoplay=1`;
                     modalTitle.textContent = videoTitle || 'Career Video';
 
-                    modalVideo.load();
                     videoModal.show();
                 });
             });
 
-            // Auto play when modal opens
-            videoModalEl.addEventListener('shown.bs.modal', function () {
-                modalVideo.play().catch(() => { });
+            videoModalEl.addEventListener('hidden.bs.modal', function() {
+                youtubeFrame.src = "";
             });
 
-            // Stop video when modal closes
-            videoModalEl.addEventListener('hidden.bs.modal', function () {
-                modalVideo.pause();
-                modalVideo.currentTime = 0;
-                modalVideoSource.src = "";
-                modalVideo.load();
+            // Edit modal logic
+            document.querySelectorAll('.editCareerBtn').forEach(button => {
+                button.addEventListener('click', function() {
+
+                    const id = this.dataset.id;
+                    const title = this.dataset.title;
+                    const description = this.dataset.description;
+                    const subjects = this.dataset.subjects;
+                    const options = this.dataset.options;
+                    const videoId = this.closest('tr')
+                        .querySelector('.video-thumbnail')?.dataset.videoId;
+
+                    const editForm = document.getElementById('editCareerForm');
+                    const updateUrlTemplate = "{{ route('admin.career_nodes.update', ':id') }}";
+                    editForm.action = updateUrlTemplate.replace(':id', id);
+
+                    document.getElementById('edit_title').value = title;
+                    document.getElementById('edit_description').value = description;
+                    document.getElementById('edit_subjects').value = subjects ?? '';
+                    document.getElementById('edit_options').value = options ?? '';
+
+                    if (videoId) {
+                        document.getElementById('edit_video').value =
+                            "https://www.youtube.com/watch?v=" + videoId;
+                    }
+                });
+            });
+
+
+            // Convert comma separated to array before submit
+            document.getElementById('editCareerForm').addEventListener('submit', function() {
+
+                let hiddenFields = document.getElementById('hidden-fields');
+                hiddenFields.innerHTML = '';
+
+                // Subjects
+                let subjects = document.getElementById('edit_subjects').value.split(',');
+                subjects.forEach(function(subject) {
+                    let input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'subjects[]';
+                    input.value = subject.trim();
+                    hiddenFields.appendChild(input);
+                });
+
+                // Career Options
+                let options = document.getElementById('edit_options').value.split(',');
+                options.forEach(function(option) {
+                    let input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'career_options[]';
+                    input.value = option.trim();
+                    hiddenFields.appendChild(input);
+                });
             });
 
         });
-
-        document.querySelectorAll('.editCareerBtn').forEach(button => {
-            button.addEventListener('click', function () {
-                const id = this.dataset.id;
-                const title = this.dataset.title;
-                const description = this.dataset.description;
-                const subjects = this.dataset.subjects; 
-                const options = this.dataset.options;   
-
-                const editForm = document.getElementById('editCareerForm');
-                const updateUrlTemplate = "{{ route('admin.career_nodes.update', ':id') }}";
-                editForm.action = updateUrlTemplate.replace(':id', id);
-
-                document.getElementById('edit_title').value = title;
-                document.getElementById('edit_description').value = description;
-                document.getElementById('edit_subjects').value = subjects ?? '';
-                document.getElementById('edit_options').value = options ?? '';
-            });
-        });
-
-
     </script>
 @endpush

@@ -14,7 +14,7 @@ class CareerNodeController extends Controller
      */
     public function index()
     {
-        $careerNodes = CareerNode::all();
+        $careerNodes = CareerNode::latest()->paginate(5);
         return view('admin.manage_career', compact('careerNodes'));
     }
 
@@ -30,21 +30,22 @@ class CareerNodeController extends Controller
      * Store a newly created resource in storage.
      */
    public function store(Request $request)
-{
-    
+{ 
     $request->validate([
         'title' => 'required|unique:career_nodes,title',
         'description' => 'required',
         'subjects' => 'required|array',
         'career_options' => 'required|array',
-        'video' => 'required|mimes:mp4,mov,avi|max:51200', 
-        'thumbnail' => 'required|image|mimes:jpg,jpeg,png|max:5120',
+        'video'          => ['required', 'url', 'regex:/(?:youtube\.com.*v=|youtu\.be\/)([^&#]+)/'],
+        'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
     ]);
 
-   
-    if ($request->hasFile('video')) {
-        $videoPath = $request->file('video')->store('career_videos', 'public');
+    $videoId = $this->extractYoutubeId($request->video);
+
+    if (!$videoId) {
+        return back()->withErrors(['video' => 'Invalid YouTube URL'])->withInput();
     }
+    $thumbnailPath = null;
 
     // Upload Thumbnail
     if ($request->hasFile('thumbnail')) {
@@ -56,7 +57,7 @@ class CareerNodeController extends Controller
         'description' => $request->description,
         'subjects' => json_encode($request->subjects),
         'career_options' => json_encode($request->career_options),
-        'video' => $videoPath,
+        'video' => $videoId, // Store ONLY YouTube ID
         'thumbnail' => $thumbnailPath,
     ]);
 
@@ -65,6 +66,25 @@ class CareerNodeController extends Controller
 }
 
 
+    private function extractYoutubeId($url)
+{
+    $parsedUrl = parse_url($url);
+
+    // youtube.com/watch?v=VIDEO_ID
+    if (isset($parsedUrl['query'])) {
+        parse_str($parsedUrl['query'], $query);
+        if (isset($query['v'])) {
+            return $query['v'];
+        }
+    }
+
+    // youtu.be/VIDEO_ID
+    if (isset($parsedUrl['host']) && $parsedUrl['host'] === 'youtu.be') {
+        return ltrim($parsedUrl['path'], '/');
+    }
+
+    return null;
+}
     /**
      * Display the specified resource.
      */
@@ -84,44 +104,49 @@ class CareerNodeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $career = CareerNode::findOrFail($id);
-        $validated = $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'subjects' => 'nullable|string',
-        'career_options' => 'nullable|string',
-        'video' => 'nullable|mimes:mp4,mov,avi|max:51200', 
-        'thumbnail' => 'nullable|image|max:10240', 
-    ]);
-    $career->title = $validated['title'];
-    $career->description = $validated['description'] ?? '';
-    $career->subjects = !empty($validated['subjects'])
-        ? json_encode(array_map('trim', explode(',', $validated['subjects'])))
-        : null;
-    $career->career_options = !empty($validated['career_options'])
-        ? json_encode(array_map('trim', explode(',', $validated['career_options'])))
-        : null;
+   public function update(Request $request, string $id)
+{
+    $career = CareerNode::findOrFail($id);
 
-    if ($request->hasFile('video')) {
-        // Delete old video if exists
-        if ($career->video && Storage::exists('public/' . $career->video)) {
-            Storage::delete('public/' . $career->video);
-        }
-        $career->video = $request->file('video')->store('career_videos', 'public');
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'subjects' => 'required|array',
+        'career_options' => 'required|array',
+        'video' => ['required', 'url', 'regex:/(?:youtube\.com.*v=|youtu\.be\/)([^&#]+)/'],
+        'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
+    ]);
+
+    $videoId = $this->extractYoutubeId($request->video);
+
+    if (!$videoId) {
+        return back()->withErrors(['video' => 'Invalid YouTube URL'])->withInput();
     }
+
+    // Update basic fields
+    $career->title = $request->title;
+    $career->description = $request->description;
+    $career->subjects = json_encode($request->subjects);
+    $career->career_options = json_encode($request->career_options);
+    $career->video = $videoId; // Store ONLY YouTube ID
+
+    // Upload Thumbnail (if changed)
     if ($request->hasFile('thumbnail')) {
-        // Delete old thumbnail if exists
+
+        // Delete old thumbnail
         if ($career->thumbnail && Storage::exists('public/' . $career->thumbnail)) {
             Storage::delete('public/' . $career->thumbnail);
         }
-        $career->thumbnail = $request->file('thumbnail')->store('career_thumbnails', 'public');
+
+        $career->thumbnail = $request->file('thumbnail')
+            ->store('career_thumbnails', 'public');
     }
+
     $career->save();
+
     return redirect()->route('admin.career_nodes.index')
         ->with('success', 'Career updated successfully.');
-    }
+}
     
 
     /**

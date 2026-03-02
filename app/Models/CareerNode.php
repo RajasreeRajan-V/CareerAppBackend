@@ -16,10 +16,7 @@ class CareerNode extends Model
         'thumbnail'
     ];
 
-    protected $casts = [
-        'subjects' => 'array',
-        'career_options' => 'array',
-    ];
+
 
     public function children()
     {
