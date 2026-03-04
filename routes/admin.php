@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\AdmisionBannerController;
+use App\Http\Controllers\Admin\CollegeController;
+use App\Http\Controllers\Admin\CareerNodeController;
+use App\Http\Controllers\Admin\CareerLinkController;
+use App\Http\Controllers\Admin\CareerBannerController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +31,8 @@ Route::name('admin.')->group(function () {
         Route::resource('career_link' , CareerLinkController::class);
 
         Route::resource('careerBanner' , CareerBannerController::class);
+
+        Route::resource('RecordVideo' , CareerRecordVideoController::class);
  
      });
 });

@@ -191,7 +191,7 @@
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-center mt-3">
-                        {{ $colleges->links() }}
+                        {{ $careerNodes->links() }}
                     </div>
                 </div>
                 {{-- Edit Career Modal --}}

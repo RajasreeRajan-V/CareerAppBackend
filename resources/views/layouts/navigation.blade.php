@@ -20,7 +20,8 @@
     </button>
 
     <!-- Desktop Toggle Button -->
-    <button id="toggleSidebar" class="hidden lg:flex absolute -right-3 top-24 w-6 h-12 bg-white rounded-r-lg 
+    <button id="toggleSidebar"
+        class="hidden lg:flex absolute -right-3 top-24 w-6 h-12 bg-white rounded-r-lg 
         items-center justify-center shadow-lg hover:bg-gray-100 transition-colors z-20 group">
         <i class="fa-solid fa-chevron-left text-gray-600 text-xs group-hover:text-[#306060] transition-colors"
             id="toggleIcon"></i>
@@ -59,13 +60,15 @@
             Main Menu
         </p>
 
-        <a href="{{ route('admin.dashboard') }}" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+        <a href="{{ route('admin.dashboard') }}"
+            class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
         {{ request()->routeIs('admin.dashboard') ? 'bg-white/15 shadow-lg' : '' }}">
             <i class="fa-solid fa-house mr-3 flex-shrink-0"></i>
             <span class="font-medium sidebar-text">Dashboard</span>
         </a>
 
-        <a href="{{ route('admin.admissionBanner.index') }}" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+        <a href="{{ route('admin.admissionBanner.index') }}"
+            class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
    {{ request()->routeIs('admin.admissionBanner.*') ? 'bg-white/15 shadow-lg' : '' }}">
             <i class="fa-solid fa-photo-film mr-3 flex-shrink-0"></i>
             <span class="font-medium sidebar-text">Admission Banner</span>
@@ -74,8 +77,10 @@
         <!-- Colleges Dropdown -->
         <div class="group">
             <!-- Dropdown Toggle -->
-            <button type="button" class="w-full flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
-        {{ request()->routeIs('admin.college.*') ? 'bg-white/15 shadow-lg' : '' }}" onclick="toggleCollegeDropdown()">
+            <button type="button"
+                class="w-full flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+        {{ request()->routeIs('admin.college.*') ? 'bg-white/15 shadow-lg' : '' }}"
+                onclick="toggleCollegeDropdown()">
 
                 <i class="fa-solid fa-building-columns mr-3 flex-shrink-0"></i>
 
@@ -90,12 +95,14 @@
             <!-- Dropdown Menu -->
             <div id="collegeDropdown" class="ml-10 mt-1 space-y-1 hidden">
 
-                <a href="{{ route('admin.college.create') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
+                <a href="{{ route('admin.college.create') }}"
+                    class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
                      {{ request()->routeIs('admin.college.create') ? 'bg-white/15' : '' }}">
                     <i class="fas fa-school me-2"></i>Create College
                 </a>
 
-                <a href="{{ route('admin.college.index') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
+                <a href="{{ route('admin.college.index') }}"
+                    class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
                      {{ request()->routeIs('admin.college.index') ? 'bg-white/15' : '' }}">
                     <i class="fa-solid fa-book-open me-2"></i> Manage Colleges
                 </a>
@@ -105,7 +112,8 @@
         <!-- Careers Dropdown -->
         <div class="group">
             <!-- Dropdown Toggle -->
-            <button type="button" class="w-full flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+            <button type="button"
+                class="w-full flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
         {{ request()->routeIs('admin.career_nodes.*') ? 'bg-white/15 shadow-lg' : '' }}"
                 onclick="toggleCareerDropdown()">
 
@@ -122,11 +130,13 @@
             <!-- Dropdown Menu -->
             <div id="careerDropdown" class="ml-10 mt-1 space-y-1 hidden">
 
-                <a href="{{ route('admin.career_nodes.create') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
+                <a href="{{ route('admin.career_nodes.create') }}"
+                    class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
    {{ request()->routeIs('admin.career_nodes.create') ? 'bg-white/15' : '' }}">
                     <i class="fa-solid fa-briefcase mr-2"></i>Create Career
                 </a>
-                <a href="{{ route('admin.career_nodes.index') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
+                <a href="{{ route('admin.career_nodes.index') }}"
+                    class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
             {{ request()->routeIs('admin.career_nodes.index') ? 'bg-white/15' : '' }}">
                     <i class="fa-solid fa-user-doctor me-2"></i> Manage Career
                 </a>
@@ -134,17 +144,25 @@
             </div>
         </div>
 
-        <a href="{{ route('admin.career_link.index') }}" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+        <a href="{{ route('admin.career_link.index') }}"
+            class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
    {{ request()->routeIs('admin.career_link.index') ? 'bg-white/15' : '' }}">
             <i class="fa-solid fa-arrow-trend-up me-2"></i><span class="font-medium sidebar-text">Manage Career
                 Path</span>
         </a>
-        
-        <a href="{{ route('admin.careerBanner.index') }}" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+
+        <a href="{{ route('admin.careerBanner.index') }}"
+            class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
    {{ request()->routeIs('admin.careerBanner.index') ? 'bg-white/15' : '' }}">
             <i class="fa-solid fa-image me-2"></i><span class="font-medium sidebar-text">Career Banners</span>
         </a>
 
+        <a href="{{ route('admin.RecordVideo.index') }}"
+            class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+        {{ request()->routeIs('admin.RecordVideo.*') ? 'bg-white/15 shadow-lg' : '' }}">
+            <i class="fa-solid fa-circle-play mr-3 flex-shrink-0"></i>
+            <span class="font-medium sidebar-text">Recorded Videos</span>
+        </a>
     </nav>
 
     <!-- Logout -->
@@ -165,7 +183,7 @@
 
 <!-- JavaScript for Mobile Menu Toggle -->
 <script>
-    (function () {
+    (function() {
         'use strict';
 
         function initSidebar() {
@@ -231,14 +249,14 @@
             }
 
             // ---------- Dropdowns ----------
-            window.toggleCollegeDropdown = function () {
+            window.toggleCollegeDropdown = function() {
                 if (collegeDropdown && collegeChevron) {
                     collegeDropdown.classList.toggle('hidden');
                     collegeChevron.classList.toggle('rotate-180');
                 }
             };
 
-            window.toggleCareerDropdown = function () {
+            window.toggleCareerDropdown = function() {
                 if (careerDropdown && careerChevron) {
                     careerDropdown.classList.toggle('hidden');
                     careerChevron.classList.toggle('rotate-180');
@@ -263,7 +281,7 @@
 
             // Close button - PRIMARY FIX
             if (closeBtn) {
-                closeBtn.addEventListener('click', function (e) {
+                closeBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     closeSidebar();
@@ -272,7 +290,7 @@
 
             // Overlay click
             if (overlay) {
-                overlay.addEventListener('click', function (e) {
+                overlay.addEventListener('click', function(e) {
                     e.preventDefault();
                     closeSidebar();
                 });
@@ -280,16 +298,16 @@
 
             // Open button (hamburger menu)
             if (openBtn) {
-                openBtn.addEventListener('click', function (e) {
+                openBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     openSidebar();
                 });
             } else {
                 // Retry after delay in case it loads later
-                setTimeout(function () {
+                setTimeout(function() {
                     const laterOpenBtn = document.getElementById('openSidebar');
                     if (laterOpenBtn) {
-                        laterOpenBtn.addEventListener('click', function (e) {
+                        laterOpenBtn.addEventListener('click', function(e) {
                             e.preventDefault();
                             openSidebar();
                         });
@@ -299,7 +317,7 @@
 
             // Desktop toggle
             if (toggleBtn) {
-                toggleBtn.addEventListener('click', function (e) {
+                toggleBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     toggleSidebarMinimize();
                 });
@@ -308,7 +326,7 @@
             // Close sidebar when clicking links on mobile
             const sidebarLinks = sidebar.querySelectorAll('a');
             sidebarLinks.forEach(link => {
-                link.addEventListener('click', function () {
+                link.addEventListener('click', function() {
                     if (isMobile()) {
                         setTimeout(closeSidebar, 100); // Small delay for better UX
                     }
@@ -316,7 +334,7 @@
             });
 
             // Handle window resize
-            window.addEventListener('resize', function () {
+            window.addEventListener('resize', function() {
                 if (!isMobile()) {
                     overlay.classList.add('hidden');
                     document.body.style.overflow = '';
