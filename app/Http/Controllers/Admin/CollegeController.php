@@ -8,12 +8,15 @@ use App\Models\College;
 use App\Models\CollegeImage;
 use App\Models\CollegeFacility;
 use App\Models\Course;
+use Illuminate\Support\Facades\Storage;
 
 class CollegeController extends Controller
 {
     public function index()
     {
-        $colleges = College::with(['facilities', 'courses', 'images'])->get();
+        $colleges = College::with(['facilities', 'courses', 'images'])
+        ->latest()
+        ->paginate(5);
         return view('admin.manage_college', compact('colleges'));
     }
 
@@ -103,11 +106,9 @@ class CollegeController extends Controller
 
     $request->validate([
         'name'         => 'required|string|max:255',
-
         'street'       => 'required|string|max:255',
         'district'     => 'required|string|max:255',
         'state'        => 'required|string|max:255',
-
         'rating'       => 'nullable|numeric|min:0|max:5',
         'phone'        => 'nullable|string|max:20',
         'email'        => 'nullable|email',
@@ -130,26 +131,13 @@ class CollegeController extends Controller
         'about'    => $request->about,
     ]);
 
-   $college->facilities()->delete();
 
-   if ($request->filled('facilities')) {
-    foreach ($request->facilities as $facility) {
-        if (!empty($facility)) {
-            CollegeFacility::create([
-                'college_id' => $college->id,
-                'facility'       => $facility, 
-            ]);
-        }
-    }
-}
+    $keepImages = $request->input('existing_images', []);
+    $oldImages  = $college->images()->whereNotIn('image_url', $keepImages)->get();
 
-    $college->courses()->delete();
-    if ($request->courses) {
-        foreach ($request->courses as $course) {
-            if (!empty($course)) {
-                $college->courses()->create(['name' => $course]);
-            }
-        }
+    foreach ($oldImages as $oldImage) {
+        Storage::disk('public')->delete($oldImage->image_url); // delete file
+        $oldImage->delete(); // delete DB record
     }
 
     if ($request->hasFile('images')) {
@@ -159,11 +147,30 @@ class CollegeController extends Controller
         }
     }
 
+    // Facilities
+    $college->facilities()->delete();
+    if ($request->filled('facilities')) {
+        foreach ($request->facilities as $facility) {
+            if (!empty($facility)) {
+                $college->facilities()->create(['facility' => $facility]);
+            }
+        }
+    }
+
+    // Courses
+    $college->courses()->delete();
+    if ($request->filled('courses')) {
+        foreach ($request->courses as $course) {
+            if (!empty($course)) {
+                $college->courses()->create(['name' => $course]);
+            }
+        }
+    }
+
     return redirect()
         ->route('admin.college.index')
         ->with('success', 'College updated successfully!');
 }
-
     public function destroy($id)
     {
         $college = College::findOrFail($id);
