@@ -10,7 +10,6 @@ class CareerGuidanceBanner extends Model
     /** @use HasFactory<\Database\Factories\CareerGuidanceBannerFactory> */
     use HasFactory;
     protected $fillable = [
-        'title',
         'name',
         'instructor_name',
         'description',

@@ -26,7 +26,6 @@
                         <thead class="table-light">
                             <tr>
                                 <th>Image</th>
-                                <th>Title</th>
                                 <th>Event Name</th>
                                 <th>Instructor</th>
                                 <th>Date</th>
@@ -48,7 +47,6 @@
                                         @endif
                                     </td>
 
-                                    <td>{{ $banner->title }}</td>
                                     <td>{{ $banner->name }}</td>
                                     <td>{{ $banner->instructor_name }}</td>
                                     <td>{{ \Carbon\Carbon::parse($banner->event_date)->format('d M Y') }}</td>
@@ -74,7 +72,7 @@
                                             <!-- Edit -->
                                             <button class="btn btn-sm btn-outline-primary editBtn" data-bs-toggle="modal"
                                                 data-bs-target="#editModal" data-id="{{ $banner->id }}"
-                                                data-title="{{ e($banner->title) }}" data-name="{{ e($banner->name) }}"
+                                                data-name="{{ e($banner->name) }}"
                                                 data-instructor_name="{{ e($banner->instructor_name) }}"
                                                 data-description="{{ e($banner->description) }}"
                                                 data-event_date="{{ $banner->event_date }}"
@@ -140,15 +138,6 @@
 
                         <!-- Row 1 -->
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Title</label>
-                                <input type="text" name="title" value="{{ old('title') }}"
-                                    class="form-control @error('title') is-invalid @enderror">
-
-                                @error('title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Event Name</label>
@@ -277,11 +266,6 @@
                     <div class="modal-body">
 
                         <div class="mb-3">
-                            <label>Title</label>
-                            <input type="text" name="title" id="edit_title" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
                             <label>Event Name</label>
                             <input type="text" name="name" id="edit_name" class="form-control" required>
                         </div>
@@ -360,7 +344,6 @@
                 document.getElementById('editForm').action =
                     updateUrlTemplate.replace(':id', id);
 
-                document.getElementById('edit_title').value = this.dataset.title;
                 document.getElementById('edit_name').value = this.dataset.name;
                 document.getElementById('edit_instructor_name').value = this.dataset.instructor_name;
                 document.getElementById('edit_description').value = this.dataset.description;

@@ -32,7 +32,6 @@ class CareerGuidanceBannerController
    public function store(Request $request)
 {
     $request->validate([
-        'title'            => 'required|string|max:255',
         'name'             => 'required|string|max:255',
         'instructor_name'  => 'required|string|max:255',
         'description'      => 'required|string',
@@ -59,7 +58,6 @@ class CareerGuidanceBannerController
     }
 
     CareerGuidanceBanner::create([
-        'title'            => $request->title,
         'name'             => $request->name,
         'instructor_name'  => $request->instructor_name,
         'description'      => $request->description,
@@ -114,7 +112,6 @@ class CareerGuidanceBannerController
     {
        $banner = CareerGuidanceBanner::findOrFail($id);
        $request->validate([
-        'title'            => 'required|string|max:255',
         'name'             => 'required|string|max:255',
         'instructor_name'  => 'required|string|max:255',
         'description'      => 'required|string',
@@ -124,7 +121,6 @@ class CareerGuidanceBannerController
         'google_meet_link' => 'required',
         'image'            => 'nullable|image|mimes:jpg,jpeg,png,webp|max:3072', // 3MB
     ]);
-    $banner->title           = $request->title;
     $banner->name            = $request->name;
     $banner->instructor_name = $request->instructor_name;
     $banner->description     = $request->description;
