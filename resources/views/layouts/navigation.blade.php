@@ -163,6 +163,12 @@
             <i class="fa-solid fa-circle-play mr-3 flex-shrink-0"></i>
             <span class="font-medium sidebar-text">Recorded Videos</span>
         </a>
+         <a href="{{ route('admin.guidance_banners.index') }}"
+            class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+        {{ request()->routeIs('admin.guidance_banners.*') ? 'bg-white/15 shadow-lg' : '' }}">
+            <i class="fa-solid fa-chalkboard-user mr-3 flex-shrink-0"></i>
+            <span class="font-medium sidebar-text">Career Guidance </span>
+        </a>
     </nav>
 
     <!-- Logout -->
