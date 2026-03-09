@@ -11,6 +11,7 @@ class CareerGuidanceBanner extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'profession',
         'instructor_name',
         'description',
         'event_date',

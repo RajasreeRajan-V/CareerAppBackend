@@ -27,6 +27,7 @@
                             <tr>
                                 <th>Image</th>
                                 <th>Event Name</th>
+                                <th>Profession</th>
                                 <th>Instructor</th>
                                 <th>Date</th>
                                 <th>Time</th>
@@ -48,6 +49,7 @@
                                     </td>
 
                                     <td>{{ $banner->name }}</td>
+                                    <td>{{ $banner->profession }}</td>
                                     <td>{{ $banner->instructor_name }}</td>
                                     <td>{{ \Carbon\Carbon::parse($banner->event_date)->format('d M Y') }}</td>
                                     <td>
@@ -73,6 +75,7 @@
                                             <button class="btn btn-sm btn-outline-primary editBtn" data-bs-toggle="modal"
                                                 data-bs-target="#editModal" data-id="{{ $banner->id }}"
                                                 data-name="{{ e($banner->name) }}"
+                                                data-profession="{{ e($banner->profession) }}"
                                                 data-instructor_name="{{ e($banner->instructor_name) }}"
                                                 data-description="{{ e($banner->description) }}"
                                                 data-event_date="{{ $banner->event_date }}"
@@ -120,8 +123,8 @@
 
 
     <!-- ===========================
-                                CREATE MODAL (With Validation)
-                            =========================== -->
+                                    CREATE MODAL (With Validation)
+                                =========================== -->
     <div class="modal fade" id="createBannerModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <form method="POST" action="{{ route('admin.guidance_banners.store') }}" enctype="multipart/form-data">
@@ -148,6 +151,16 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Profession</label>
+                                <input type="text" name="profession" value="{{ old('profession') }}"
+                                    class="form-control @error('profession') is-invalid @enderror">
+
+                                @error('profession')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                         </div>
 
                         <!-- Row 2 -->
@@ -248,8 +261,8 @@
     </div>
 
     <!-- ===========================
-                                EDIT MODAL
-                            =========================== -->
+                                    EDIT MODAL
+                                =========================== -->
     <div class="modal fade" id="editModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <form method="POST" id="editForm" enctype="multipart/form-data">
@@ -270,6 +283,10 @@
                             <input type="text" name="name" id="edit_name" class="form-control" required>
                         </div>
 
+                        <div class="mb-3">
+                            <label>Profession</label>
+                            <input type="text" name="profession" id="edit_profession" class="form-control">
+                        </div>
                         <div class="mb-3">
                             <label>Instructor Name</label>
                             <input type="text" name="instructor_name" id="edit_instructor_name" class="form-control"
@@ -346,6 +363,7 @@
 
                 document.getElementById('edit_name').value = this.dataset.name;
                 document.getElementById('edit_instructor_name').value = this.dataset.instructor_name;
+                document.getElementById('edit_profession').value = this.dataset.profession;
                 document.getElementById('edit_description').value = this.dataset.description;
                 document.getElementById('edit_event_date').value = this.dataset.event_date;
                 document.getElementById('edit_start_time').value = this.dataset.start_time;

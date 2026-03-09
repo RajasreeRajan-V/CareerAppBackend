@@ -33,6 +33,7 @@ class CareerGuidanceBannerController
 {
     $request->validate([
         'name'             => 'required|string|max:255',
+        'profession'       => 'nullable|string|max:255',
         'instructor_name'  => 'required|string|max:255',
         'description'      => 'required|string',
         'event_date'       => 'required|date',
@@ -59,6 +60,7 @@ class CareerGuidanceBannerController
 
     CareerGuidanceBanner::create([
         'name'             => $request->name,
+        'profession'       => $request->profession,
         'instructor_name'  => $request->instructor_name,
         'description'      => $request->description,
         'event_date'       => $request->event_date,
@@ -113,6 +115,7 @@ class CareerGuidanceBannerController
        $banner = CareerGuidanceBanner::findOrFail($id);
        $request->validate([
         'name'             => 'required|string|max:255',
+        'profession'       => 'nullable|string|max:255',
         'instructor_name'  => 'required|string|max:255',
         'description'      => 'required|string',
         'event_date'       => 'required|date',
@@ -122,6 +125,7 @@ class CareerGuidanceBannerController
         'image'            => 'nullable|image|mimes:jpg,jpeg,png,webp|max:3072', // 3MB
     ]);
     $banner->name            = $request->name;
+    $banner->profession      = $request->profession;
     $banner->instructor_name = $request->instructor_name;
     $banner->description     = $request->description;
     $banner->event_date      = $request->event_date;

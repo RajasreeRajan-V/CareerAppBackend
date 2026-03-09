@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('career_guidance_banners', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->string('name');
             $table->string('instructor_name');
             $table->text('description');

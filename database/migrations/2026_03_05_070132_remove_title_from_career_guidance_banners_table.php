@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('career_guidance_banners', function (Blueprint $table) {
-            $table->dropColumn('title');
+            $table->string('profession')->nullable()->after('name');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('career_guidance_banners', function (Blueprint $table) {
-            $table->string('title')->after('id');
+       Schema::table('career_guidance_banners', function (Blueprint $table) {
+            $table->dropColumn('profession');
         });
     }
 };
