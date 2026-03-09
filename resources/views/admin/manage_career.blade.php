@@ -164,7 +164,7 @@
                                                 data-description="{{ e($career->description) }}"
                                                 data-subjects="{{ is_array($subjects) ? implode(', ', $subjects) : '' }}"
                                                 data-options="{{ is_array($options) ? implode(', ', $options) : '' }}"
-                                                title="Edit">
+                                                data-thumbnail="{{ asset('storage/'.$career->thumbnail) }}" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             {{-- Delete --}}
@@ -252,7 +252,19 @@
                                         <label class="form-label">Change Thumbnail</label>
                                         <input type="file" name="thumbnail" class="form-control">
                                     </div> --}}
+                                    {{-- Thumbnail --}}
+                                    <div class="mb-3">
+                                        <label class="form-label">Change Thumbnail</label>
 
+                                        <!-- Preview -->
+                                        <div class="mb-2">
+                                            <img id="thumbnailPreview" src="" alt="Thumbnail Preview"
+                                                width="120" class="img-thumbnail">
+                                        </div>
+
+                                        <!-- File Input -->
+                                        <input type="file" name="thumbnail" class="form-control" id="thumbnailInput">
+                                    </div>
                                 </div>
 
                                 <div class="modal-footer">
@@ -275,94 +287,118 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
 
-            const videoModalEl = document.getElementById('videoModal');
-            const youtubeFrame = document.getElementById('youtubeFrame');
-            const modalTitle = document.getElementById('videoModalLabel');
-            const videoModal = new bootstrap.Modal(videoModalEl);
+    const videoModalEl = document.getElementById('videoModal');
+    const youtubeFrame = document.getElementById('youtubeFrame');
+    const modalTitle = document.getElementById('videoModalLabel');
+    const videoModal = new bootstrap.Modal(videoModalEl);
 
-            function extractVideoId(url) {
-                const regExp = /(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([^&#]+)/;
-                const match = url.match(regExp);
-                return match ? match[1] : url;
+    function extractVideoId(url) {
+        const regExp = /(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([^&#]+)/;
+        const match = url.match(regExp);
+        return match ? match[1] : url;
+    }
+
+    document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
+        thumbnail.addEventListener('click', function() {
+            const videoId = this.dataset.videoId;
+            const videoTitle = this.dataset.videoTitle;
+
+            if (!videoId) return;
+
+            const cleanId = extractVideoId(videoId);
+            youtubeFrame.src = `https://www.youtube.com/embed/${cleanId}?autoplay=1`;
+            modalTitle.textContent = videoTitle || 'Career Video';
+
+            videoModal.show();
+        });
+    });
+
+    videoModalEl.addEventListener('hidden.bs.modal', function() {
+        youtubeFrame.src = "";
+    });
+
+    // Edit modal logic
+    document.querySelectorAll('.editCareerBtn').forEach(button => {
+        button.addEventListener('click', function() {
+
+            const id = this.dataset.id;
+            const title = this.dataset.title;
+            const description = this.dataset.description;
+            const subjects = this.dataset.subjects;
+            const options = this.dataset.options;
+            const thumbnail = this.dataset.thumbnail;   // NEW
+            const videoId = this.closest('tr')
+                .querySelector('.video-thumbnail')?.dataset.videoId;
+
+            const editForm = document.getElementById('editCareerForm');
+            const updateUrlTemplate = "{{ route('admin.career_nodes.update', ':id') }}";
+            editForm.action = updateUrlTemplate.replace(':id', id);
+
+            document.getElementById('edit_title').value = title;
+            document.getElementById('edit_description').value = description;
+            document.getElementById('edit_subjects').value = subjects ?? '';
+            document.getElementById('edit_options').value = options ?? '';
+
+            if (videoId) {
+                document.getElementById('edit_video').value =
+                    "https://www.youtube.com/watch?v=" + videoId;
             }
 
-            document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
-                thumbnail.addEventListener('click', function() {
-                    const videoId = this.dataset.videoId;
-                    const videoTitle = this.dataset.videoTitle;
-
-                    if (!videoId) return;
-
-                    const cleanId = extractVideoId(videoId);
-                    youtubeFrame.src = `https://www.youtube.com/embed/${cleanId}?autoplay=1`;
-                    modalTitle.textContent = videoTitle || 'Career Video';
-
-                    videoModal.show();
-                });
-            });
-
-            videoModalEl.addEventListener('hidden.bs.modal', function() {
-                youtubeFrame.src = "";
-            });
-
-            // Edit modal logic
-            document.querySelectorAll('.editCareerBtn').forEach(button => {
-                button.addEventListener('click', function() {
-
-                    const id = this.dataset.id;
-                    const title = this.dataset.title;
-                    const description = this.dataset.description;
-                    const subjects = this.dataset.subjects;
-                    const options = this.dataset.options;
-                    const videoId = this.closest('tr')
-                        .querySelector('.video-thumbnail')?.dataset.videoId;
-
-                    const editForm = document.getElementById('editCareerForm');
-                    const updateUrlTemplate = "{{ route('admin.career_nodes.update', ':id') }}";
-                    editForm.action = updateUrlTemplate.replace(':id', id);
-
-                    document.getElementById('edit_title').value = title;
-                    document.getElementById('edit_description').value = description;
-                    document.getElementById('edit_subjects').value = subjects ?? '';
-                    document.getElementById('edit_options').value = options ?? '';
-
-                    if (videoId) {
-                        document.getElementById('edit_video').value =
-                            "https://www.youtube.com/watch?v=" + videoId;
-                    }
-                });
-            });
-
-
-            // Convert comma separated to array before submit
-            document.getElementById('editCareerForm').addEventListener('submit', function() {
-
-                let hiddenFields = document.getElementById('hidden-fields');
-                hiddenFields.innerHTML = '';
-
-                // Subjects
-                let subjects = document.getElementById('edit_subjects').value.split(',');
-                subjects.forEach(function(subject) {
-                    let input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = 'subjects[]';
-                    input.value = subject.trim();
-                    hiddenFields.appendChild(input);
-                });
-
-                // Career Options
-                let options = document.getElementById('edit_options').value.split(',');
-                options.forEach(function(option) {
-                    let input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = 'career_options[]';
-                    input.value = option.trim();
-                    hiddenFields.appendChild(input);
-                });
-            });
+            // Show current thumbnail
+            if (thumbnail) {
+                document.getElementById('thumbnailPreview').src = thumbnail;
+            }
 
         });
-    </script>
+    });
+
+
+    // Preview newly selected thumbnail
+    document.getElementById('thumbnailInput').addEventListener('change', function(e) {
+
+        const file = e.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                document.getElementById('thumbnailPreview').src = event.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+
+    // Convert comma separated to array before submit
+    document.getElementById('editCareerForm').addEventListener('submit', function() {
+
+        let hiddenFields = document.getElementById('hidden-fields');
+        hiddenFields.innerHTML = '';
+
+        // Subjects
+        let subjects = document.getElementById('edit_subjects').value.split(',');
+        subjects.forEach(function(subject) {
+            let input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'subjects[]';
+            input.value = subject.trim();
+            hiddenFields.appendChild(input);
+        });
+
+        // Career Options
+        let options = document.getElementById('edit_options').value.split(',');
+        options.forEach(function(option) {
+            let input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'career_options[]';
+            input.value = option.trim();
+            hiddenFields.appendChild(input);
+        });
+    });
+
+});
+</script>
 @endpush

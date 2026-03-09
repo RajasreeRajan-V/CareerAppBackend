@@ -9,7 +9,8 @@ use App\Http\Controllers\Admin\CareerNodeController;
 use App\Http\Controllers\Admin\CareerLinkController;
 use App\Http\Controllers\Admin\CareerBannerController;
 use App\Http\Controllers\Admin\CareerRecordVideoController;
-
+use App\Http\Controllers\Admin\CollegeRegistrationController;
+use App\Http\Controllers\Admin\CareerGuidanceBannerController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')->group(function () {
@@ -36,6 +37,8 @@ Route::name('admin.')->group(function () {
         Route::resource('RecordVideo' , CareerRecordVideoController::class);
 
         Route::resource('guidance_banners' , CareerGuidanceBannerController::class);
+
+         Route::resource('college_registration' , CollegeRegistrationController::class);
  
      });
 });

@@ -168,6 +168,13 @@
         {{ request()->routeIs('admin.guidance_banners.*') ? 'bg-white/15 shadow-lg' : '' }}">
             <i class="fa-solid fa-chalkboard-user mr-3 flex-shrink-0"></i>
             <span class="font-medium sidebar-text">Career Guidance </span>
+        </a> 
+        
+        <a href="{{ route('admin.college_registration.index') }}"
+            class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
+        {{ request()->routeIs('admin.college_registration.*') ? 'bg-white/15 shadow-lg' : '' }}">
+            <i class="fa-solid fa-chalkboard-user mr-3 flex-shrink-0"></i>
+            <span class="font-medium sidebar-text">College Registrations</span>
         </a>
     </nav>
 
