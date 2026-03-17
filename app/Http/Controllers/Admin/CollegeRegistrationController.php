@@ -9,17 +9,30 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CollegeRegisteredMail;
 use Illuminate\Http\Request;
+use App\Models\College;
+
 
 class CollegeRegistrationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $collegeRegistrations = CollegeRegistration::latest()->paginate(10);
-        return view('admin.admin_college_registration', compact('collegeRegistrations'));
-    }
+   public function index()
+{
+    $registeredCollegeIds = CollegeRegistration::pluck('college_id');
+
+    $colleges = College::whereNotIn('id', $registeredCollegeIds)
+        ->select('id', 'name')
+        ->orderBy('name')
+        ->get();
+
+    $collegeRegistrations = CollegeRegistration::with('college')
+        ->latest()
+        ->paginate(10);
+
+    return view('admin.admin_college_registration', compact('colleges', 'collegeRegistrations'));
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,20 +47,23 @@ class CollegeRegistrationController extends Controller
      */
     public function store(Request $request)
     {
-       $request->validate([
-            'college_name'   => 'required|string|max:255',
-            'principal_name' => 'required|string|max:255',
-            'email'          => 'required|email|unique:college_registrations,email',
-            'contact_no'     => 'required|string|max:12|unique:college_registrations,contact_no',
-            'website'        => 'nullable|url',
-            'address'        => 'required|string',
-            'city'           => 'required|string|max:255',
-            'state'          => 'required|string|max:255',
-            'pincode'        => 'required|string|max:10',
-        ]);
-    $plainPassword = Str::random(8);
+        $request->validate([
+                'college_id'     => 'required|exists:colleges,id',
+                'principal_name' => 'required|string|max:255',
+                'email'          => 'required|email|unique:college_registrations,email',
+                'contact_no'     => 'required|string|max:12|unique:college_registrations,contact_no',
+                'website'        => 'nullable|url',
+                'address'        => 'required|string',
+                'city'           => 'required|string|max:255',
+                'state'          => 'required|string|max:255',
+                'pincode'        => 'required|string|max:10',
+            ]);
+
+        $college = College::findOrFail($request->college_id);
+        $plainPassword = Str::random(8);
     CollegeRegistration::create([
-        'college_name'   => $request->college_name,
+        'college_id'     => $request->college_id,
+        'college_name'   => $college->name,
         'principal_name' => $request->principal_name,
         'email'          => $request->email,
         'contact_no'     => $request->contact_no,
@@ -56,11 +72,16 @@ class CollegeRegistrationController extends Controller
         'city'           => $request->city,
         'state'          => $request->state,
         'pincode'        => $request->pincode,
-        'password'       => Hash::make($plainPassword), 
+        'password'       => Hash::make($plainPassword),
     ]);
-    Mail::to($request->email)->send(
-        new CollegeRegisteredMail($request->college_name, $request->email, $plainPassword)
-    );
+   $mail = new CollegeRegisteredMail(
+    $college->name,
+    $request->email,
+    $plainPassword
+);
+
+Mail::to($request->email)->send($mail);
+
     return redirect()->route('admin.college_registration.index')->with('success', 'College registration successful.');
     }
 

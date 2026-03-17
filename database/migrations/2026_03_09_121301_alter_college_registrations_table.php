@@ -12,17 +12,35 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('college_registrations', function (Blueprint $table) {
-            $table->string('password')->after('pincode');
-        });
-        }
 
-    /**
-     * Reverse the migrations.
-     */
+            if (!Schema::hasColumn('college_registrations', 'password')) {
+                $table->string('password')->after('pincode');
+            }
+
+            if (!Schema::hasColumn('college_registrations', 'college_id')) {
+                $table->foreignId('college_id')
+                      ->nullable()
+                      ->after('id')
+                      ->constrained('colleges')
+                      ->onDelete('cascade');
+            }
+
+        });
+    }
+
     public function down(): void
     {
         Schema::table('college_registrations', function (Blueprint $table) {
-            $table->dropColumn('password');
+
+            if (Schema::hasColumn('college_registrations', 'college_id')) {
+                $table->dropForeign(['college_id']);
+                $table->dropColumn('college_id');
+            }
+
+            if (Schema::hasColumn('college_registrations', 'password')) {
+                $table->dropColumn('password');
+            }
+
         });
     }
 };

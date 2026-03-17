@@ -12,6 +12,7 @@ class CollegeRegistration extends Authenticatable
     /** @use HasFactory<\Database\Factories\CollegeRegistrationFactory> */
     use HasFactory;
     protected $fillable = [
+        'college_id',
         'college_name',
         'principal_name',
         'email',
@@ -23,4 +24,8 @@ class CollegeRegistration extends Authenticatable
         'pincode',
         'password',
     ];
+    public function college()
+    {
+        return $this->belongsTo(College::class);
+    }
 }

@@ -123,13 +123,10 @@
                 </div>
             </div>
         </div>
-
     </div>
-
-
     <!-- =========================
-            CREATE COLLEGE MODAL
-    ========================= -->
+                CREATE COLLEGE MODAL
+        ========================= -->
     <div class="modal fade" id="createCollegeModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
 
@@ -150,7 +147,12 @@
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">College Name</label>
-                                <input type="text" name="college_name" class="form-control" required>
+                                <select name="college_id" class="form-select" required>
+                                    <option value="" disabled selected>-- Select College --</option>
+                                    @foreach ($colleges as $college)
+                                        <option value="{{ $college->id }}">{{ $college->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="col-md-6 mb-3">
