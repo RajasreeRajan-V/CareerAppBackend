@@ -13,6 +13,8 @@ return new class extends Migration
     {
        Schema::table('career_nodes', function (Blueprint $table) {
             $table->string('video')->nullable()->change();
+
+            $table->string('specialization')->nullable()->after('video');
         });
     }
 
@@ -23,6 +25,7 @@ return new class extends Migration
     {
         Schema::table('career_nodes', function (Blueprint $table) {
             $table->string('video')->nullable(false)->change();
+            $table->dropColumn('specialization');
         });
     }
 };

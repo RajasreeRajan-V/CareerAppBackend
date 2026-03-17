@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CollegeRegistration extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class CollegeRegistration extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\CollegeRegistrationFactory> */
     use HasFactory;
@@ -19,5 +21,6 @@ class CollegeRegistration extends Model
         'city',
         'state',
         'pincode',
+        'password',
     ];
 }

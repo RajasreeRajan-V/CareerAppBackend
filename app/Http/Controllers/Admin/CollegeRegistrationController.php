@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CollegeRegistration;
-
-use App\Http\Requests\UpdateCollegeRegistrationRequest;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CollegeRegisteredMail;
 use Illuminate\Http\Request;
 
 class CollegeRegistrationController extends Controller
@@ -43,6 +45,7 @@ class CollegeRegistrationController extends Controller
             'state'          => 'required|string|max:255',
             'pincode'        => 'required|string|max:10',
         ]);
+    $plainPassword = Str::random(8);
     CollegeRegistration::create([
         'college_name'   => $request->college_name,
         'principal_name' => $request->principal_name,
@@ -53,7 +56,11 @@ class CollegeRegistrationController extends Controller
         'city'           => $request->city,
         'state'          => $request->state,
         'pincode'        => $request->pincode,
+        'password'       => Hash::make($plainPassword), 
     ]);
+    Mail::to($request->email)->send(
+        new CollegeRegisteredMail($request->college_name, $request->email, $plainPassword)
+    );
     return redirect()->route('admin.college_registration.index')->with('success', 'College registration successful.');
     }
 

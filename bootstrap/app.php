@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
             Illuminate\Support\Facades\Route::middleware('web')
             ->prefix('admin')
             ->group(base_path('routes/admin.php'));
+
+            Illuminate\Support\Facades\Route::middleware('web')
+            ->prefix('college')
+            ->group(base_path('routes/college.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {

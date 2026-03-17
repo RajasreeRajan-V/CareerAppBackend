@@ -29,42 +29,52 @@ class CareerNodeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   public function store(Request $request)
-{ 
+public function store(Request $request)
+{
     $request->validate([
-        'title' => 'required|unique:career_nodes,title',
-        'description' => 'required',
-        'subjects' => 'required|array',
+        'title'          => 'required|unique:career_nodes,title',
+        'description'    => 'required',
+        'subjects'       => 'nullable|array',
+        'subjects.*'     => 'nullable|string',
         'career_options' => 'required|array',
-        'video'          => ['required', 'url', 'regex:/(?:youtube\.com.*v=|youtu\.be\/)([^&#]+)/'],
-        'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
+        'video'          => ['nullable', 'url', 'regex:/(?:youtube\.com.*v=|youtu\.be\/)([^&#]+)/'],
+        'thumbnail'      => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
+        'specialization' => 'nullable|string',
     ]);
 
-    $videoId = $this->extractYoutubeId($request->video);
+    $videoId = null;
 
-    if (!$videoId) {
-        return back()->withErrors(['video' => 'Invalid YouTube URL'])->withInput();
+    if ($request->filled('video')) {
+        $videoId = $this->extractYoutubeId($request->video);
+
+        if (!$videoId) {
+            return back()->withErrors(['video' => 'Invalid YouTube URL'])->withInput();
+        }
     }
-    $thumbnailPath = null;
 
-    // Upload Thumbnail
+    if (!$request->filled('video') && !$request->hasFile('thumbnail')) {
+        return back()->withErrors([
+            'video' => 'Upload either a video URL or a thumbnail.'
+        ])->withInput();
+    }
+
+    $career = new CareerNode();
+    $career->title          = $request->title;
+    $career->description    = $request->description;
+    $career->subjects       = json_encode($request->subjects ?? []);
+    $career->career_options = json_encode($request->career_options);
+    $career->video          = $videoId;
+    $career->specialization = $request->specialization;
+
     if ($request->hasFile('thumbnail')) {
-        $thumbnailPath = $request->file('thumbnail')->store('career_thumbnails', 'public');
+        $career->thumbnail = $request->file('thumbnail')->store('career_thumbnails', 'public');
     }
 
-    CareerNode::create([
-        'title' => $request->title,
-        'description' => $request->description,
-        'subjects' => json_encode($request->subjects),
-        'career_options' => json_encode($request->career_options),
-        'video' => $videoId, // Store ONLY YouTube ID
-        'thumbnail' => $thumbnailPath,
-    ]);
+    $career->save();
 
     return redirect()->route('admin.career_nodes.index')
-                     ->with('success', 'Careers Created Successfully');
+        ->with('success', 'Career created successfully.');
 }
-
 
     private function extractYoutubeId($url)
 {
@@ -104,43 +114,63 @@ class CareerNodeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-   public function update(Request $request, string $id)
+ public function update(Request $request, string $id)
 {
     $career = CareerNode::findOrFail($id);
 
     $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'subjects' => 'required|array',
-        'career_options' => 'required|array',
-        'video' => ['required', 'url', 'regex:/(?:youtube\.com.*v=|youtu\.be\/)([^&#]+)/'],
-        'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
+        'title'            => 'nullable|unique:career_nodes,title,' . $career->id,
+        'description'      => 'nullable',
+        'subjects'         => 'nullable|array',
+        'subjects.*'       => 'nullable|string',
+        'career_options'   => 'nullable|array',
+        'video'            => ['nullable', 'url', 'regex:/(?:youtube\.com.*v=|youtu\.be\/)([^&#]+)/'],
+        'thumbnail'        => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
+        'specialization'   => 'nullable|string',
+        'remove_thumbnail' => 'nullable|string',
     ]);
 
-    $videoId = $this->extractYoutubeId($request->video);
+    $videoId   = $career->video;
+    $thumbnail = $career->thumbnail;
 
-    if (!$videoId) {
-        return back()->withErrors(['video' => 'Invalid YouTube URL'])->withInput();
-    }
+    if ($request->filled('video')) {
+        $videoId = $this->extractYoutubeId($request->video);
 
-    // Update basic fields
-    $career->title = $request->title;
-    $career->description = $request->description;
-    $career->subjects = json_encode($request->subjects);
-    $career->career_options = json_encode($request->career_options);
-    $career->video = $videoId; // Store ONLY YouTube ID
-
-    // Upload Thumbnail (if changed)
-    if ($request->hasFile('thumbnail')) {
-
-        // Delete old thumbnail
-        if ($career->thumbnail && Storage::exists('public/' . $career->thumbnail)) {
-            Storage::delete('public/' . $career->thumbnail);
+        if (!$videoId) {
+            return back()->withErrors(['video' => 'Invalid YouTube URL'])->withInput();
         }
 
-        $career->thumbnail = $request->file('thumbnail')
-            ->store('career_thumbnails', 'public');
+        if ($thumbnail && Storage::exists('public/' . $thumbnail)) {
+            Storage::delete('public/' . $thumbnail);
+        }
+        $thumbnail = null;
+
+    } else {
+        $videoId = null;
     }
+
+    if ($request->hasFile('thumbnail')) {
+        if ($thumbnail && Storage::exists('public/' . $thumbnail)) {
+            Storage::delete('public/' . $thumbnail);
+        }
+
+        $thumbnail = $request->file('thumbnail')->store('career_thumbnails', 'public');
+        $videoId   = null;
+
+    } elseif ($request->input('remove_thumbnail') === '1') {
+        if ($thumbnail && Storage::exists('public/' . $thumbnail)) {
+            Storage::delete('public/' . $thumbnail);
+        }
+        $thumbnail = null;
+    }
+
+    $career->title          = $request->title          ?? $career->title;
+    $career->description    = $request->description    ?? $career->description;
+    $career->subjects       = json_encode($request->subjects ?? []);
+    $career->career_options = json_encode($request->career_options ?? []);
+    $career->video          = $videoId;
+    $career->thumbnail      = $thumbnail;
+    $career->specialization = $request->specialization;
 
     $career->save();
 

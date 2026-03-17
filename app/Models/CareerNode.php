@@ -13,7 +13,8 @@ class CareerNode extends Model
         'career_options',
         'description',
         'video',
-        'thumbnail'
+        'thumbnail',
+        'specialization'
     ];
 
 
