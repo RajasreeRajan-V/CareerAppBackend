@@ -128,6 +128,7 @@ Mail::to($request->email)->send($mail);
             'city'           => $request->city,
             'state'          => $request->state,
             'pincode'        => $request->pincode,
+            'password_changed' => true,
         ]);
         return redirect()->route('admin.college_registration.index')->with('success', 'College registration updated successfully.');
     }

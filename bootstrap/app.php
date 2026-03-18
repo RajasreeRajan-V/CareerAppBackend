@@ -3,7 +3,11 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Middleware\ApiAuth;
+use App\Http\Middleware\AuthTokenMiddleware;
+use App\Http\Middleware\CollegePasswordChanged;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,25 +16,32 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
-            Illuminate\Support\Facades\Route::middleware('web')
-            ->prefix('admin')
-            ->group(base_path('routes/admin.php'));
 
-            Illuminate\Support\Facades\Route::middleware('web')
-            ->prefix('college')
-            ->group(base_path('routes/college.php'));
+            Route::middleware('web')
+                ->prefix('admin')
+                ->group(base_path('routes/admin.php'));
+
+            Route::middleware('web')
+                ->prefix('college')
+                ->group(base_path('routes/college.php'));
         },
     )
-    ->withMiddleware(function (Middleware $middleware): void {
-          $middleware->alias([
-        'auth.api' => ApiAuth::class,
-    ]);
-    
+    ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-    'auth.token' => \App\Http\Middleware\AuthTokenMiddleware::class,
-    ]);
+            'auth.api'                 => ApiAuth::class,
+            'auth.token'               => AuthTokenMiddleware::class,
+            'college.password_changed' => CollegePasswordChanged::class,
+        ]);
 
+        // Add this line
+        $middleware->redirectGuestsTo(function ($request) {
+            if ($request->is('college/*')) {
+                return route('college.login');
+            }
+            return route('login');
+        });
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
+    ->withExceptions(function (Exceptions $exceptions) {
         //
-    })->create();
+    })
+    ->create();

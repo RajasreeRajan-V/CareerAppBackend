@@ -23,9 +23,18 @@ class CollegeRegistration extends Authenticatable
         'state',
         'pincode',
         'password',
+        'password_changed',
     ];
     public function college()
     {
         return $this->belongsTo(College::class);
     }
+    
+    protected $casts = [
+        'password_changed' => 'boolean',
+    ];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 }
