@@ -14,7 +14,7 @@ class Authenticate extends Middleware
         }
 
         if ($request->is('college/*')) {
-            return route('college.login');
+            return url('collegelogin');
         }
 
         return route('login');

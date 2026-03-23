@@ -36,7 +36,8 @@ return Application::configure(basePath: dirname(__DIR__))
         // Add this line
         $middleware->redirectGuestsTo(function ($request) {
             if ($request->is('college/*')) {
-                return route('college.login');
+                return url('collegelogin');
+
             }
             return route('login');
         });

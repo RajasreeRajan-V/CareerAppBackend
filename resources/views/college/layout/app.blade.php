@@ -9,130 +9,307 @@
     <title>{{ config('app.name', 'CareerApp') }}</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 
-    <!-- Scripts -->
-    <link rel="stylesheet" href="{{ asset('build/assets/app-DaluvxN5.css') }}">
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        :root {
+            --brand:       #306060;
+            --brand-dark:  #254848;
+            --sidebar-w:   255px;
+            --topbar-h:    64px;
         }
 
-        [x-cloak] {
-            display: none !important;
-    }
-    .modal-body {
-    max-height: 70vh;
-    overflow-y: auto;
-}
-.form-label{
-    color:#000;
-    font-weight:500;
-}
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f2f5f7;
+            color: #1e2d3d;
+        }
+
+        /* ── LAYOUT SHELL ────────────────────────── */
+        #appShell {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ── MAIN AREA (right of sidebar) ────────── */
+        #mainArea {
+            margin-left: var(--sidebar-w);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            transition: margin-left .28s cubic-bezier(.4,0,.2,1);
+        }
+
+        @media (max-width: 991.98px) {
+            #mainArea { margin-left: 0; }
+        }
+
+        /* ── TOP BAR ─────────────────────────────── */
+        #topbar {
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+            height: var(--topbar-h);
+            background: #fff;
+            border-bottom: 1px solid #e4e9ee;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 14px;
+            box-shadow: 0 1px 6px rgba(0,0,0,.05);
+        }
+
+        .topbar-hamburger {
+            display: none;
+            width: 36px; height: 36px;
+            border: none;
+            background: #f2f5f7;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #5a6a7a;
+            font-size: .95rem;
+            flex-shrink: 0;
+            transition: background .15s;
+        }
+
+        .topbar-hamburger:hover { background: #e4e9ee; }
+
+        @media (max-width: 991.98px) {
+            .topbar-hamburger { display: flex; }
+        }
+
+        .topbar-titles {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .topbar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e2d3d;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .topbar-sub {
+            font-size: .75rem;
+            color: #8a97a6;
+            margin: 0;
+        }
+
+        /* Search */
+        .topbar-search {
+            position: relative;
+        }
+
+        .topbar-search input {
+            width: 210px;
+            padding: 8px 14px 8px 36px;
+            border: 1.5px solid #e4e9ee;
+            border-radius: 9px;
+            font-size: .83rem;
+            font-family: inherit;
+            background: #f7f9fb;
+            color: #1e2d3d;
+            outline: none;
+            transition: border-color .18s, box-shadow .18s;
+        }
+
+        .topbar-search input:focus {
+            border-color: var(--brand);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(48,96,96,.1);
+        }
+
+        .topbar-search input::placeholder { color: #adb8c4; }
+
+        .topbar-search i {
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #b0bac6;
+            font-size: .78rem;
+        }
+
+        @media (max-width: 767.98px) {
+            .topbar-search { display: none; }
+        }
+
+        /* Icon buttons */
+        .topbar-icon-btn {
+            width: 36px; height: 36px;
+            border: none;
+            background: #f2f5f7;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5a6a7a;
+            cursor: pointer;
+            flex-shrink: 0;
+            font-size: .9rem;
+            position: relative;
+            transition: background .15s, color .15s;
+        }
+
+        .topbar-icon-btn:hover { background: #e4e9ee; color: var(--brand); }
+
+        .notif-dot::after {
+            content: '';
+            position: absolute;
+            top: 7px; right: 7px;
+            width: 7px; height: 7px;
+            background: #e74c3c;
+            border-radius: 50%;
+            border: 1.5px solid #fff;
+        }
+
+        /* Avatar */
+        .topbar-avatar {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: .82rem;
+            flex-shrink: 0;
+        }
+
+        /* ── PAGE CONTENT ────────────────────────── */
+        #pageContent {
+            flex: 1;
+            padding: 26px 28px;
+            overflow-y: auto;
+        }
+
+        #pageContent > .content-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 575.98px) {
+            #pageContent { padding: 16px; }
+            #topbar { padding: 0 16px; }
+        }
+
+        /* ── FOOTER ──────────────────────────────── */
+        #appFooter {
+            background: #fff;
+            border-top: 1px solid #e4e9ee;
+            padding: 13px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: .78rem;
+            color: #8a97a6;
+        }
+
+        #appFooter a {
+            color: #8a97a6;
+            text-decoration: none;
+            transition: color .15s;
+        }
+
+        #appFooter a:hover { color: var(--brand); }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+        }
+
+        /* ── Tailwind conflict fix ───────────────── */
+        /* Ensure Tailwind's preflight doesn't break sidebar/topbar custom styles */
+        button { font-family: inherit; }
     </style>
 </head>
 
-<body class="font-sans antialiased bg-gray-50">
-    <div class="min-h-screen flex">
+<body>
+<div id="appShell">
 
-        {{-- SIDEBAR --}}
-        @include('layouts.navigation')
+    {{-- SIDEBAR (navigation.blade.php) --}}
+    @include('college.layout.navigation')
 
-        <!-- MAIN CONTENT -->
-        <div class="flex-1 flex flex-col min-w-0">
+    <!-- MAIN AREA -->
+    <div id="mainArea">
 
-            <!-- TOP BAR -->
-            <header class="bg-white shadow-sm h-16 lg:h-20 flex items-center px-4 lg:px-8 sticky top-0 z-40">
-                <div class="flex items-center justify-between w-full">
-                    <div class="flex items-center space-x-3">
-                        <!-- Mobile Menu Button -->
-                        <button id="openSidebar" class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                            <i class="fa-solid fa-bars text-xl text-gray-600"></i>
-                        </button>
+        <!-- TOP BAR -->
+        <header id="topbar">
 
-                        <div>
-                            <h1 class="text-xl lg:text-2xl font-bold text-gray-800">
-                                @isset($header)
-                                    {{ $header }}
-                                @else
-                                    Dashboard
-                                @endisset
-                            </h1>
-                            <p class="text-xs lg:text-sm text-gray-500 mt-0.5 hidden sm:block">
-                                Welcome back, {{ Auth::user()->name }}!
-                            </p>
-                        </div>
-                    </div>
+            <!-- Hamburger (mobile only) -->
+            <button class="topbar-hamburger" onclick="window.openAppSidebar && openAppSidebar()" aria-label="Open menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
 
-                    <!-- Top Bar Actions -->
-                    <div class="flex items-center space-x-2 lg:space-x-4">
+            <!-- Page Title -->
+            <div class="topbar-titles">
+                <p class="topbar-title">
+                    @isset($header){{ $header }}@else Dashboard @endisset
+                </p>
+                <p class="topbar-sub">Welcome back, {{ Auth::user()->name }}!</p>
+            </div>
 
-                        <!-- Search -->
-                        <div class="relative hidden md:block">
-                            <input type="text" placeholder="Search..." class="w-48 lg:w-64 pl-10 pr-4 py-2 rounded-lg border border-gray-200
-                                       focus:outline-none focus:ring-2 focus:ring-[#306060]">
-                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400"></i>
-                        </div>
+            <!-- Search -->
+            <div class="topbar-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search…">
+            </div>
 
-                        <!-- Mobile Search Button -->
-                        <button class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                            <i class="fa-solid fa-magnifying-glass text-lg text-gray-600"></i>
-                        </button>
+            <!-- Notifications -->
+            <button class="topbar-icon-btn notif-dot" aria-label="Notifications">
+                <i class="fa-regular fa-bell"></i>
+            </button>
 
-                        <!-- Notifications -->
-                        <button class="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                            <i class="fa-regular fa-bell text-lg lg:text-xl text-gray-600"></i>
-                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-                        </button>
+            <!-- Avatar -->
+            <div class="topbar-avatar">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
 
-                        <!-- Profile Icon -->
-                        <div class="flex items-center space-x-3 pl-2 lg:pl-4 border-l border-gray-200">
-                            <div class="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-[#306060] to-[#254848]
-                                        rounded-full flex items-center justify-center text-white shadow-md">
-                                <i class="fa-solid fa-graduation-cap text-sm lg:text-base"></i>
-                            </div>
-                        </div>
+        </header>
 
-                    </div>
-                </div>
-            </header>
+        <!-- PAGE CONTENT -->
+        <main id="pageContent">
+            <div class="content-inner">
+                @yield('content')
+            </div>
+        </main>
 
-            <!-- PAGE CONTENT -->
-            <main class="flex-1 p-4 lg:p-8 overflow-y-auto bg-gray-50">
-                <div class="max-w-7xl mx-auto">
-                    @yield('content')
-                </div>
-            </main>
+        <!-- FOOTER -->
+        <footer id="appFooter">
+            <span>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</span>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </footer>
 
-            <!-- FOOTER -->
-            <footer class="bg-white border-t border-gray-200 py-3 lg:py-4 px-4 lg:px-8">
-                <div
-                    class="flex flex-col sm:flex-row items-center justify-between text-xs lg:text-sm text-gray-600 space-y-2 sm:space-y-0">
-                    <p>
-                        &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
-                    </p>
-                    <div class="flex items-center space-x-3 lg:space-x-4">
-                        <a href="#" class="hover:text-[#306060]">Privacy Policy</a>
-                        <span class="text-gray-300">|</span>
-                        <a href="#" class="hover:text-[#306060]">Terms of Service</a>
-                        <span class="text-gray-300 hidden sm:inline">|</span>
-                        <a href="#" class="hover:text-[#306060] hidden sm:inline">Contact</a>
-                    </div>
-                </div>
-            </footer>
+    </div><!-- /mainArea -->
 
-        </div>
-    </div>
-<script src="{{ asset('build/assets/app-BXS-Op9n.js') }}" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</div><!-- /appShell -->
 
 @stack('scripts')
 </body>

@@ -12,93 +12,300 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
 
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Scripts -->
+    <!-- App CSS -->
     <link rel="stylesheet" href="{{ asset('build/assets/app-DaluvxN5.css') }}">
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Layout */
+        .app-wrapper {
+            display: flex;
+            min-height: 100vh;
+            gap: 0;
+            align-items: flex-start; /* allows sticky to work */
+        }
+
+        /* Main content area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            margin: 0;      /* no gap from sidebar */
+        }
+
+        /* Top bar */
+        .top-bar {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-bar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .top-bar-title h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .top-bar-title p {
+            font-size: 13px;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Search box */
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 220px;
+            padding: 8px 12px 8px 36px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            background: #fafafa;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: #306060;
+            background: #fff;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        /* Icon buttons */
+        .icon-btn {
+            background: none;
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #555;
+            font-size: 18px;
+            transition: background 0.2s;
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 8px;
+            height: 8px;
+            background: #e53e3e;
+            border-radius: 50%;
+        }
+
+        /* Avatar */
+        .avatar {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #306060, #254848);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 15px;
+            border-left: 1px solid #e0e0e0;
+            padding-left: 12px;
+            margin-left: 4px;
+        }
+
+        /* Sidebar toggle (mobile) */
+        .sidebar-toggle {
+            display: none;
+        }
+
+        /* Page content */
+        .page-content {
+            flex: 1;
+            padding: 28px 32px;
+            overflow-y: auto;
+        }
+
+        .page-content-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        .app-footer {
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+            padding: 14px 24px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .app-footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-links a {
+            color: #777;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #306060;
+        }
+
+        .footer-divider {
+            color: #ccc;
+        }
+
+        /* Modal override */
+        .modal-body {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .form-label {
+            color: #000;
+            font-weight: 500;
+        }
+
+        /* Alpine cloak */
         [x-cloak] {
             display: none !important;
-    }
-    .modal-body {
-    max-height: 70vh;
-    overflow-y: auto;
-}
-.form-label{
-    color:#000;
-    font-weight:500;
-}
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar-toggle {
+                display: block;
+            }
+
+            .search-box {
+                display: none;
+            }
+
+            .top-bar-title p {
+                display: none;
+            }
+
+            .page-content {
+                padding: 16px;
+            }
+        }
     </style>
 </head>
 
-<body class="font-sans antialiased bg-gray-50">
-    <div class="min-h-screen flex">
+<body>
+    <div class="app-wrapper">
 
         {{-- SIDEBAR --}}
         @include('layouts.navigation')
 
         <!-- MAIN CONTENT -->
-        <div class="flex-1 flex flex-col min-w-0">
+        <div class="main-content">
 
             <!-- TOP BAR -->
-            <header class="bg-white shadow-sm h-16 lg:h-20 flex items-center px-4 lg:px-8 sticky top-0 z-40">
-                <div class="flex items-center justify-between w-full">
-                    <div class="flex items-center space-x-3">
-                        <!-- Mobile Menu Button -->
-                        <button id="openSidebar" class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                            <i class="fa-solid fa-bars text-xl text-gray-600"></i>
+            <header class="top-bar">
+                <div class="top-bar-inner">
+
+                    <!-- Left: toggle + title -->
+                    <div class="top-bar-left">
+                        <button id="openSidebar" class="icon-btn sidebar-toggle">
+                            <i class="fa-solid fa-bars"></i>
                         </button>
 
-                        <div>
-                            <h1 class="text-xl lg:text-2xl font-bold text-gray-800">
+                        <div class="top-bar-title">
+                            <h1>
                                 @isset($header)
                                     {{ $header }}
                                 @else
                                     Dashboard
                                 @endisset
                             </h1>
-                            <p class="text-xs lg:text-sm text-gray-500 mt-0.5 hidden sm:block">
-                                Welcome back, {{ Auth::user()->name }}!
-                            </p>
+                            <p>Welcome back, {{ Auth::user()->name }}!</p>
                         </div>
                     </div>
 
-                    <!-- Top Bar Actions -->
-                    <div class="flex items-center space-x-2 lg:space-x-4">
+                    <!-- Right: search, notifications, avatar -->
+                    <div class="top-bar-right">
 
-                        <!-- Search -->
-                        <div class="relative hidden md:block">
-                            <input type="text" placeholder="Search..." class="w-48 lg:w-64 pl-10 pr-4 py-2 rounded-lg border border-gray-200
-                                       focus:outline-none focus:ring-2 focus:ring-[#306060]">
-                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400"></i>
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" placeholder="Search...">
                         </div>
 
-                        <!-- Mobile Search Button -->
-                        <button class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                            <i class="fa-solid fa-magnifying-glass text-lg text-gray-600"></i>
+                        <button class="icon-btn">
+                            <i class="fa-regular fa-bell"></i>
+                            <span class="notification-dot"></span>
                         </button>
 
-                        <!-- Notifications -->
-                        <button class="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                            <i class="fa-regular fa-bell text-lg lg:text-xl text-gray-600"></i>
-                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-                        </button>
-
-                        <!-- Profile Icon -->
-                        <div class="flex items-center space-x-3 pl-2 lg:pl-4 border-l border-gray-200">
-                            <div class="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-[#306060] to-[#254848]
-                                        rounded-full flex items-center justify-center text-white shadow-md">
-                                <i class="fa-solid fa-graduation-cap text-sm lg:text-base"></i>
-                            </div>
+                        <div class="avatar">
+                            <i class="fa-solid fa-graduation-cap"></i>
                         </div>
 
                     </div>
@@ -106,35 +313,34 @@
             </header>
 
             <!-- PAGE CONTENT -->
-            <main class="flex-1 p-4 lg:p-8 overflow-y-auto bg-gray-50">
-                <div class="max-w-7xl mx-auto">
+            <main class="page-content">
+                <div class="page-content-inner">
                     @yield('content')
                 </div>
             </main>
 
             <!-- FOOTER -->
-            <footer class="bg-white border-t border-gray-200 py-3 lg:py-4 px-4 lg:px-8">
-                <div
-                    class="flex flex-col sm:flex-row items-center justify-between text-xs lg:text-sm text-gray-600 space-y-2 sm:space-y-0">
-                    <p>
-                        &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
-                    </p>
-                    <div class="flex items-center space-x-3 lg:space-x-4">
-                        <a href="#" class="hover:text-[#306060]">Privacy Policy</a>
-                        <span class="text-gray-300">|</span>
-                        <a href="#" class="hover:text-[#306060]">Terms of Service</a>
-                        <span class="text-gray-300 hidden sm:inline">|</span>
-                        <a href="#" class="hover:text-[#306060] hidden sm:inline">Contact</a>
+            <footer class="app-footer">
+                <div class="app-footer-inner">
+                    <p>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <span class="footer-divider">|</span>
+                        <a href="#">Terms of Service</a>
+                        <span class="footer-divider">|</span>
+                        <a href="#">Contact</a>
                     </div>
                 </div>
             </footer>
 
         </div>
     </div>
-<script src="{{ asset('build/assets/app-BXS-Op9n.js') }}" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-@stack('scripts')
+    <!-- Scripts -->
+    <script src="{{ asset('build/assets/app-BXS-Op9n.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    @stack('scripts')
 </body>
 
 </html>
