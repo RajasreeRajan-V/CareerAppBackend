@@ -38,7 +38,10 @@ Route::name('admin.')->group(function () {
 
         Route::resource('guidance_banners' , CareerGuidanceBannerController::class);
 
-         Route::resource('college_registration' , CollegeRegistrationController::class);
- 
+        Route::resource('college_registration' , CollegeRegistrationController::class);
+
+        Route::resource('createLocation', LocationController::class);
+
+        
      });
 });

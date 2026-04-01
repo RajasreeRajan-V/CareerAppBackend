@@ -22,6 +22,16 @@ Route::name('college.')->group(function () {
             });
             // Route::post('/logout',[DashboardController::class,'logout'])->name('college.logout');
 
-        });
+        
+        Route::get('feeStructure',                          [CollegeFeeController::class, 'index'])->name('feeStructure.index');
+        Route::get('feeStructure/create/{course}',   [CollegeFeeController::class, 'create'])->name('feeStructure.create');
+        Route::post('feeStructure/{course}',         [CollegeFeeController::class, 'store'])->name('feeStructure.store');
+        Route::get('feeStructure/{feeStructure}',           [CollegeFeeController::class, 'show'])->name('feeStructure.show');
+        Route::get('feeStructure/{feeStructure}/edit',      [CollegeFeeController::class, 'edit'])->name('feeStructure.edit');
+
+        Route::put('/feeStructure/{course}/{feeStructure}', [CollegeFeeController::class, 'update'])->name('feeStructure.update');
+
+        Route::delete('feeStructure/{feeStructure}',        [CollegeFeeController::class, 'destroy'])->name('feeStructure.destroy');
+    });
 
 });

@@ -314,6 +314,12 @@
             College Course Updation
         </a>
 
+         <!-- Create Fee Structure -->
+        <a href="{{ route('college.feeStructure.index') }}"
+            class="sb-link {{ request()->routeIs('admin.feeStructure.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-indian-rupee-sign nav-icon"></i>
+            Create Fee Structure
+        </a>
     </nav>
 
     <!-- Logout -->
