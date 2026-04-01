@@ -641,8 +641,8 @@
             <span>{{ $course->college->name ?? '—' }}</span>
         </p>
     </div>
-    <a href="{{ route('college.feeStructure.index') }}" class="btn-back">
-        <i class="fa-solid fa-arrow-left"></i> Back
+    <a href="{{ route('college.feeStructure.show', $course->id) }}" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Back
     </a>
 </div>
 

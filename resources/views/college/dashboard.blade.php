@@ -142,6 +142,30 @@
     .pf-good   { background: #43a047; }
     .pf-warn   { background: #fb8c00; }
     .pf-danger { background: #e53935; }
+
+    .dashboard-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+    }
+
+    .dashboard-actions .action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.4rem 0.75rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #fff !important;
+        text-decoration: none;
+        border: 0;
+        transition: background-color .2s ease;
+    }
+
+    .dashboard-actions .action-btn:hover {
+        filter: brightness(0.95);
+    }
 </style>
 
 <div class="container-fluid px-0">
@@ -154,9 +178,20 @@
             </h5>
             <p class="mb-0 small" style="color:var(--text-muted);">{{ now()->format('l, d M Y') }}</p>
         </div>
-        <a href="#" class="btn btn-sm" style="background:var(--primary);color:#fff;border-radius:8px;font-size:0.8rem;">
-            <i class="fa-solid fa-bullhorn me-1"></i> 3 New Notices
-        </a>
+        <div class="dashboard-actions">
+            <a href="{{ route('college.collegeCourse.index') }}" class="action-btn" style="background:#2f7d7d;">
+                <i class="fa-solid fa-book-open"></i> Courses
+            </a>
+            <a href="{{ route('college.feeStructure.index') }}" class="action-btn" style="background:#306060;">
+                <i class="fa-solid fa-indian-rupee-sign"></i> Fee Structures
+            </a>
+            <a href="{{ route('college.collegeEdit.index') }}" class="action-btn" style="background:#4a90e2;">
+                <i class="fa-solid fa-user-pen"></i> Edit Profile
+            </a>
+            <a href="{{ route('college.password.change') }}" class="action-btn" style="background:#f39c12;">
+                <i class="fa-solid fa-key"></i> Change Password
+            </a>
+        </div>
     </div>
 
     {{-- Stat Cards --}}
@@ -209,168 +244,21 @@
 
     {{-- Events + Notices --}}
     <div class="row g-3 mb-4">
-
-        {{-- Upcoming Events --}}
-        <div class="col-lg-6">
-            <div class="section-card">
-                <div class="card-head">
-                    Upcoming Events
-                    <a href="#">View all</a>
-                </div>
-                <div class="event-item">
-                    <div class="event-date"><span class="day">15</span>Mar</div>
-                    <div>
-                        <div class="event-title">Internal Assessment – Mathematics</div>
-                        <div class="event-meta">09:00 AM · Hall A, B, C</div>
-                    </div>
-                    <span class="chip chip-exam">Exam</span>
-                </div>
-                <div class="event-item">
-                    <div class="event-date"><span class="day">18</span>Mar</div>
-                    <div>
-                        <div class="event-title">Annual Tech Fest – TechNova 2025</div>
-                        <div class="event-meta">10:00 AM · Main Auditorium</div>
-                    </div>
-                    <span class="chip chip-event">Event</span>
-                </div>
-                <div class="event-item">
-                    <div class="event-date"><span class="day">22</span>Mar</div>
-                    <div>
-                        <div class="event-title">Holi – College Holiday</div>
-                        <div class="event-meta">Full Day Holiday</div>
-                    </div>
-                    <span class="chip chip-holiday">Holiday</span>
-                </div>
-                <div class="event-item">
-                    <div class="event-date"><span class="day">25</span>Mar</div>
-                    <div>
-                        <div class="event-title">Parent–Teacher Meeting (Sem VI)</div>
-                        <div class="event-meta">11:00 AM · Seminar Hall</div>
-                    </div>
-                    <span class="chip chip-meet">Meeting</span>
-                </div>
+        <div class="col-12">
+            <div class="section-card p-3" style="text-align:center;color:var(--text-muted);">
+                <i class="fa-solid fa-circle-info" style="color:var(--primary);margin-right:8px;"></i>
+                No current notices or events to display.
             </div>
         </div>
-
-        {{-- Notice Board --}}
-        <div class="col-lg-6">
-            <div class="section-card">
-                <div class="card-head">
-                    Notice Board
-                    <a href="#">View all</a>
-                </div>
-                <div class="notice-item urgent">
-                    <div class="n-title">Scholarship Application – Last Date Extended <span class="badge-new">New</span></div>
-                    <div class="n-meta">10 Mar 2025 · Admin Office</div>
-                </div>
-                <div class="notice-item urgent">
-                    <div class="n-title">Hall Ticket Release – End Semester Exams <span class="badge-new">New</span></div>
-                    <div class="n-meta">09 Mar 2025 · Examination Cell</div>
-                </div>
-                <div class="notice-item info">
-                    <div class="n-title">Library Working Hours Updated for Exam Season</div>
-                    <div class="n-meta">07 Mar 2025 · Library</div>
-                </div>
-                <div class="notice-item info">
-                    <div class="n-title">Campus Recruitment – Infosys Drive on March 20</div>
-                    <div class="n-meta">05 Mar 2025 · Placement Cell</div>
-                </div>
-                <div class="notice-item info">
-                    <div class="n-title">UG Project Submission Guidelines Updated</div>
-                    <div class="n-meta">01 Mar 2025 · Academics</div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     {{-- Attendance + Recent Students --}}
     <div class="row g-3">
-
-        {{-- Attendance --}}
-        <div class="col-lg-5">
-            <div class="section-card p-3">
-                <div class="card-head px-0 pt-0" style="border-bottom:1px solid var(--border);margin-bottom:1rem;">
-                    Department Attendance
-                    <a href="#">Details</a>
-                </div>
-                @php
-                    $subjects = [
-                        ['name' => 'Computer Science',    'pct' => 88, 'cls' => 'pf-good'],
-                        ['name' => 'Electronics & Comm.', 'pct' => 75, 'cls' => 'pf-warn'],
-                        ['name' => 'Mathematics',         'pct' => 92, 'cls' => 'pf-good'],
-                        ['name' => 'Business Admin.',     'pct' => 61, 'cls' => 'pf-danger'],
-                        ['name' => 'Chemistry',           'pct' => 84, 'cls' => 'pf-good'],
-                    ];
-                @endphp
-                @foreach($subjects as $sub)
-                <div class="prog-row">
-                    <div class="prog-header">
-                        <span class="name">{{ $sub['name'] }}</span>
-                        <span class="pct">{{ $sub['pct'] }}%</span>
-                    </div>
-                    <div class="prog-track">
-                        <div class="prog-fill {{ $sub['cls'] }}" style="width:{{ $sub['pct'] }}%;"></div>
-                    </div>
-                </div>
-                @endforeach
+        <div class="col-12">
+            <div class="section-card p-4" style="text-align:center;color:var(--text-muted);">
+                Dashboard is now compact. Detailed attendance and student list are removed as requested.
             </div>
         </div>
-
-        {{-- Recent Students --}}
-        <div class="col-lg-7">
-            <div class="section-card">
-                <div class="card-head">
-                    Recently Admitted Students
-                    <a href="#">View all</a>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0" style="font-size:0.84rem;">
-                        <thead>
-                            <tr style="background:#f8fafc;">
-                                <th class="px-3 py-2 text-muted fw-semibold" style="font-size:0.72rem;letter-spacing:0.4px;">Student</th>
-                                <th class="px-3 py-2 text-muted fw-semibold" style="font-size:0.72rem;letter-spacing:0.4px;">Dept</th>
-                                <th class="px-3 py-2 text-muted fw-semibold" style="font-size:0.72rem;letter-spacing:0.4px;">Year</th>
-                                <th class="px-3 py-2 text-muted fw-semibold" style="font-size:0.72rem;letter-spacing:0.4px;">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $students = [
-                                    ['name' => 'Ananya Krishnan', 'dept' => 'CS',    'year' => 'III', 'status' => 'active',  'color' => '#306060'],
-                                    ['name' => 'Rohan Mehta',     'dept' => 'ECE',   'year' => 'II',  'status' => 'active',  'color' => '#e8855a'],
-                                    ['name' => 'Priya Nair',      'dept' => 'Maths', 'year' => 'I',   'status' => 'pending', 'color' => '#c9a84c'],
-                                    ['name' => 'Aditya Verma',    'dept' => 'BBA',   'year' => 'III', 'status' => 'active',  'color' => '#7b68ee'],
-                                    ['name' => 'Sneha Thomas',    'dept' => 'Chem',  'year' => 'II',  'status' => 'active',  'color' => '#2e7d32'],
-                                ];
-                            @endphp
-                            @foreach($students as $s)
-                            <tr>
-                                <td class="px-3 py-2">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div style="width:28px;height:28px;border-radius:50%;background:{{ $s['color'] }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;flex-shrink:0;">
-                                            {{ strtoupper(substr($s['name'],0,1)) }}
-                                        </div>
-                                        {{ $s['name'] }}
-                                    </div>
-                                </td>
-                                <td class="px-3 py-2 text-muted">{{ $s['dept'] }}</td>
-                                <td class="px-3 py-2 text-muted">Yr {{ $s['year'] }}</td>
-                                <td class="px-3 py-2">
-                                    @if($s['status'] === 'active')
-                                        <span style="font-size:0.7rem;font-weight:600;padding:2px 9px;border-radius:50px;background:#e8f5e9;color:#2e7d32;">Active</span>
-                                    @else
-                                        <span style="font-size:0.7rem;font-weight:600;padding:2px 9px;border-radius:50px;background:#fff3e0;color:#e65100;">Pending</span>
-                                    @endif
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
     </div>
 
 </div>

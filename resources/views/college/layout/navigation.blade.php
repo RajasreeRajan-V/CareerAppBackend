@@ -309,14 +309,14 @@
 
         <!-- College Registrations -->
         <a href="{{ route('college.collegeCourse.index') }}"
-            class="sb-link {{ request()->routeIs('admin.collegeCourse.*') ? 'active' : '' }}">
+            class="sb-link {{ request()->routeIs('college.collegeCourse.*') ? 'active' : '' }}">
             <i class="fa-solid fa-file-signature sb-link-icon"></i>
             College Course Updation
         </a>
 
          <!-- Create Fee Structure -->
         <a href="{{ route('college.feeStructure.index') }}"
-            class="sb-link {{ request()->routeIs('admin.feeStructure.*') ? 'active' : '' }}">
+            class="sb-link {{ request()->routeIs('college.feeStructure.*') ? 'active' : '' }}">
             <i class="fa-solid fa-indian-rupee-sign nav-icon"></i>
             Create Fee Structure
         </a>
