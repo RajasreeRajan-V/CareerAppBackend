@@ -32,6 +32,8 @@ Route::name('college.')->group(function () {
         Route::put('/feeStructure/{course}/{feeStructure}', [CollegeFeeController::class, 'update'])->name('feeStructure.update');
 
         Route::delete('feeStructure/{feeStructure}',        [CollegeFeeController::class, 'destroy'])->name('feeStructure.destroy');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     });
 
 });

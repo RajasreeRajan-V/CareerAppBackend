@@ -23,3 +23,4 @@ public function feeStructures()
         return $this->belongsTo(College::class);
     }
 }
+
