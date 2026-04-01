@@ -22,70 +22,77 @@ class CollegeFeeController extends Controller
         return view('college.fee_structure_list', compact('college', 'courses'));
     }
 
-    public function create(Course $course)
-    {
-        $course->load('college');
+public function create(Course $course)
+{
+    $course->load('college');
 
-        $currencies = ['INR' => '₹ INR'];
+    $currencies = ['INR' => '₹ INR'];
 
-        $existingCombos = $course->feeStructures()
-                                 ->get(['fee_type', 'fee_mode'])
-                                 ->toArray();
+    $usedFeeTypes = $course->feeStructures()
+                           ->pluck('fee_type')
+                           ->toArray();
 
-        return view('college.Create_fee_structure', compact('course', 'currencies', 'existingCombos'));
+    return view('college.Create_fee_structure', compact('course', 'currencies', 'usedFeeTypes'));
+}
+
+public function store(Request $request, Course $course)
+{
+    $validated = $request->validate([
+        'fee_type'              => 'required|in:government,management,nri',
+        'fee_mode'              => 'required|in:total,yearly,semester',
+        'currency'              => 'required|string|max:10',
+        'breakdowns'            => 'required|array|min:1',
+        'breakdowns.*.label'    => 'required|string|max:255',
+        'breakdowns.*.amount'   => 'required|numeric|min:0',
+        'breakdowns.*.sequence' => 'required|integer|min:1',
+    ]);
+
+    // Each fee_type can only exist once per course
+    $alreadyExists = CollegeFeeStructure::where('course_id', $course->id)
+                                        ->where('fee_type', $validated['fee_type'])
+                                        ->exists();
+
+    if ($alreadyExists) {
+        return redirect()->back()
+            ->withInput()
+            ->with('error', "A fee structure for {$validated['fee_type']} quota already exists for this course.");
     }
 
-    public function store(Request $request, Course $course)
-    {
-        $validated = $request->validate([
-            'fee_type'              => 'required|in:government,management,nri',
-            'fee_mode'              => 'required|in:total,yearly,semester',
-            'currency'              => 'required|string|max:10',
-            'breakdowns'            => 'required|array|min:1',
-            'breakdowns.*.label'    => 'required|string|max:255',
-            'breakdowns.*.amount'   => 'required|numeric|min:0',
-            'breakdowns.*.sequence' => 'required|integer|min:1',
+    // Max 3 fee structures per course
+    $totalCount = CollegeFeeStructure::where('course_id', $course->id)->count();
+    if ($totalCount >= 3) {
+        return redirect()->back()
+            ->withInput()
+            ->with('error', 'This course already has all 3 fee structures (Government, Management, NRI).');
+    }
+
+    DB::transaction(function () use ($validated, $course) {
+        $totalAmount = collect($validated['breakdowns'])->sum('amount');
+
+        $feeStructure = CollegeFeeStructure::create([
+            'course_id'    => $course->id,
+            'fee_type'     => $validated['fee_type'],
+            'fee_mode'     => $validated['fee_mode'],
+            'currency'     => $validated['currency'],
+            'total_amount' => $totalAmount,
         ]);
 
-        $alreadyExists = CollegeFeeStructure::where('course_id', $course->id)
-                                            ->where('fee_type', $validated['fee_type'])
-                                            ->where('fee_mode', $validated['fee_mode'])
-                                            ->exists();
+        $breakdowns = collect($validated['breakdowns'])
+            ->map(fn($item) => [
+                'fee_structure_id' => $feeStructure->id,
+                'label'            => $item['label'],
+                'amount'           => $item['amount'],
+                'sequence'         => $item['sequence'],
+                'created_at'       => now(),
+                'updated_at'       => now(),
+            ])->toArray();
 
-        if ($alreadyExists) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', "A fee structure for {$validated['fee_type']} / {$validated['fee_mode']} already exists for this course.");
-        }
+        CollegeFeeBreakdown::insert($breakdowns);
+    });
 
-        DB::transaction(function () use ($validated, $course) {
-
-            $totalAmount = collect($validated['breakdowns'])->sum('amount');
-
-            $feeStructure = CollegeFeeStructure::create([
-                'course_id'    => $course->id,
-                'fee_type'     => $validated['fee_type'],
-                'fee_mode'     => $validated['fee_mode'],
-                'currency'     => $validated['currency'],
-                'total_amount' => $totalAmount,
-            ]);
-
-            $breakdowns = collect($validated['breakdowns'])
-                ->map(fn($item) => [
-                    'fee_structure_id' => $feeStructure->id,
-                    'label'            => $item['label'],
-                    'amount'           => $item['amount'],
-                    'sequence'         => $item['sequence'],
-                    'created_at'       => now(),
-                    'updated_at'       => now(),
-                ])->toArray();
-
-            CollegeFeeBreakdown::insert($breakdowns);
-        });
-
-        return redirect()->back()
-            ->with('success', 'Fee structure saved successfully.');
-    }
+    return redirect()->back()
+        ->with('success', 'Fee structure saved successfully.');
+}
 
     public function show(string $id)
     {
@@ -113,63 +120,61 @@ class CollegeFeeController extends Controller
         return view('college.edit_fee_structure', compact('course', 'college', 'currencies'));
     }
 
-    public function update(Request $request, Course $course, CollegeFeeStructure $feeStructure)
-    {
-        $validated = $request->validate([
-            'fee_type'              => 'required|in:government,management,nri',
-            'fee_mode'              => 'required|in:total,yearly,semester',
-            'currency'              => 'required|string|max:10',
-            'breakdowns'            => 'required|array|min:1',
-            'breakdowns.*.label'    => 'required|string|max:255',
-            'breakdowns.*.amount'   => 'required|numeric|min:0',
-            'breakdowns.*.sequence' => 'required|integer|min:1',
-        ]);
+  public function update(Request $request, Course $course, CollegeFeeStructure $feeStructure)
+{
+    $validated = $request->validate([
+        'fee_type'              => 'required|in:government,management,nri',
+        'fee_mode'              => 'required|in:total,yearly,semester',
+        'currency'              => 'required|string|max:10',
+        'breakdowns'            => 'required|array|min:1',
+        'breakdowns.*.label'    => 'required|string|max:255',
+        'breakdowns.*.amount'   => 'required|numeric|min:0',
+        'breakdowns.*.sequence' => 'required|integer|min:1',
+    ]);
 
-        // Check if the new type+mode combo conflicts with another structure on the same course
-        // (excluding the one being updated)
-        $conflict = CollegeFeeStructure::where('course_id', $course->id)
-                                       ->where('fee_type', $validated['fee_type'])
-                                       ->where('fee_mode', $validated['fee_mode'])
-                                       ->where('id', '!=', $feeStructure->id)
-                                       ->exists();
+    // Each fee_type can only exist once per course —
+    // check if another structure (not this one) already owns that fee_type
+    $conflict = CollegeFeeStructure::where('course_id', $course->id)
+                                   ->where('fee_type', $validated['fee_type'])
+                                   ->where('id', '!=', $feeStructure->id)
+                                   ->exists();
 
-        if ($conflict) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', "A fee structure for {$validated['fee_type']} / {$validated['fee_mode']} already exists for this course.");
-        }
-
-        DB::transaction(function () use ($validated, $feeStructure) {
-
-            $totalAmount = collect($validated['breakdowns'])->sum('amount');
-
-            $feeStructure->update([
-                'fee_type'     => $validated['fee_type'],
-                'fee_mode'     => $validated['fee_mode'],
-                'currency'     => $validated['currency'],
-                'total_amount' => $totalAmount,
-            ]);
-
-            // Delete old breakdowns and re-insert fresh
-            $feeStructure->breakdowns()->delete();
-
-            $breakdowns = collect($validated['breakdowns'])
-                ->map(fn($item) => [
-                    'fee_structure_id' => $feeStructure->id,
-                    'label'            => $item['label'],
-                    'amount'           => $item['amount'],
-                    'sequence'         => $item['sequence'],
-                    'created_at'       => now(),
-                    'updated_at'       => now(),
-                ])->toArray();
-
-            CollegeFeeBreakdown::insert($breakdowns);
-        });
-
+    if ($conflict) {
         return redirect()->back()
-            ->with('success', 'Fee structure updated successfully.');
+            ->withInput()
+            ->with('error', "A fee structure for the {$validated['fee_type']} quota already exists for this course.");
     }
 
+    DB::transaction(function () use ($validated, $feeStructure) {
+
+        $totalAmount = collect($validated['breakdowns'])->sum('amount');
+
+        $feeStructure->update([
+            'fee_type'     => $validated['fee_type'],
+            'fee_mode'     => $validated['fee_mode'],
+            'currency'     => $validated['currency'],
+            'total_amount' => $totalAmount,
+        ]);
+
+        // Delete old breakdowns and re-insert fresh
+        $feeStructure->breakdowns()->delete();
+
+        $breakdowns = collect($validated['breakdowns'])
+            ->map(fn($item) => [
+                'fee_structure_id' => $feeStructure->id,
+                'label'            => $item['label'],
+                'amount'           => $item['amount'],
+                'sequence'         => $item['sequence'],
+                'created_at'       => now(),
+                'updated_at'       => now(),
+            ])->toArray();
+
+        CollegeFeeBreakdown::insert($breakdowns);
+    });
+
+    return redirect()->back()
+        ->with('success', 'Fee structure updated successfully.');
+}
     public function destroy(CollegeFeeStructure $feeStructure)
     {
         $feeStructure->delete();
