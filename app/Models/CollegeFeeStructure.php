@@ -14,7 +14,7 @@ class CollegeFeeStructure extends Model
         'total_amount',
         'currency'
     ];
-
+    
     public function breakdowns()
     {
         return $this->hasMany(CollegeFeeBreakdown::class, 'fee_structure_id')

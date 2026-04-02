@@ -253,13 +253,7 @@
     </div>
 
     {{-- Attendance + Recent Students --}}
-    <div class="row g-3">
-        <div class="col-12">
-            <div class="section-card p-4" style="text-align:center;color:var(--text-muted);">
-                Dashboard is now compact. Detailed attendance and student list are removed as requested.
-            </div>
-        </div>
-    </div>
+   
 
 </div>
 

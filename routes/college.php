@@ -33,7 +33,9 @@ Route::name('college.')->group(function () {
 
         Route::delete('feeStructure/{feeStructure}',        [CollegeFeeController::class, 'destroy'])->name('feeStructure.destroy');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('dashboard/viewers', [CollegeViewersController::class, 'index'])->name('dashboard.viewers');
     });
 
 });

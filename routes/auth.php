@@ -18,5 +18,7 @@ Route::get("/logout", [LoginController::class,'logout'])->name('logout');
 
 Route::get('/collegelogin',[CollegeLoginController::class,'collegeLogin']);
 
+Route::post('/college/logout', [CollegeLoginController::class, 'logout'])->name('college.logout');
+
 
 

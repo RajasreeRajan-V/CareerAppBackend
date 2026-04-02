@@ -5,6 +5,7 @@ namespace App\Http\Controllers\College;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CollegeRegistration;
+
 class CollegeManageController extends Controller
 {
     /**
@@ -13,31 +14,7 @@ class CollegeManageController extends Controller
     public function index()
     {
         $college = auth()->guard('college')->user();
-         return view('college.college_edit', compact('college'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return view('college.college_edit', compact('college'));
     }
 
     /**
@@ -45,7 +22,6 @@ class CollegeManageController extends Controller
      */
     public function edit(string $id)
     {
-        // $college = auth()->guard('college')->user();
         $college = CollegeRegistration::findOrFail($id);
         return view('college.college_edit', compact('college'));
     }
@@ -54,35 +30,41 @@ class CollegeManageController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request)
-{
-    $college = auth()->guard('college')->user();
+    {
+        $collegeRegistration = auth()->guard('college')->user();
 
-   $request->validate([
-        'college_name'   => 'required|string|max:255',
-        'principal_name' => 'nullable|string|max:255',
-        'email'          => 'required|email|max:255',
-        'contact_no'     => 'required|string|max:12',
-        'website'        => 'nullable|url|max:255',
-        'address'        => 'nullable|string',
-        'city'           => 'required|string|max:255',
-        'state'          => 'required|string|max:255',
-        'pincode'        => 'required|string|max:10',
-    ]);
+        $validated = $request->validate([
+            'college_name'   => 'required|string|max:255',
+            'principal_name' => 'nullable|string|max:255',
+            'email'          => 'required|email|max:255',
+            'contact_no'     => 'required|string|max:12',
+            'website'        => 'nullable|url|max:255',
+            'address'        => 'nullable|string',
+            'city'           => 'required|string|max:255',
+            'state'          => 'required|string|max:255',
+            'pincode'        => 'required|string|max:10',
+        ]);
 
-     $college->update([
-        'college_name'   => $request->college_name,
-        'principal_name' => $request->principal_name,
-        'email'          => $request->email,
-        'contact_no'     => $request->contact_no,
-        'website'        => $request->website,
-        'address'        => $request->address,
-        'city'           => $request->city,
-        'state'          => $request->state,
-        'pincode'        => $request->pincode,
-    ]);
+        // 1. Update CollegeRegistration (the auth user table)
+        $collegeRegistration->update($validated);
 
-    return redirect()->back()->with('success', 'Profile updated successfully');
-}
+        // 2. Also sync to the College table if linked
+        if ($collegeRegistration->college_id) {
+            $collegeModel = \App\Models\College::find($collegeRegistration->college_id);
+
+            if ($collegeModel) {
+                $collegeModel->update([
+                    'name'     => $request->college_name,
+                    'phone'    => $request->contact_no,
+                    'email'    => $request->email,
+                    'website'  => $request->website,
+                    'location' => $request->city . ', ' . $request->state,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Profile updated successfully');
+    }
 
     /**
      * Remove the specified resource from storage.

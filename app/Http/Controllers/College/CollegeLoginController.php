@@ -4,8 +4,8 @@ namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class CollegeLoginController extends Controller
@@ -36,4 +36,13 @@ class CollegeLoginController extends Controller
         return redirect()->back()->with('error', 'Invalid email or password');
     }
 
+    public function logout(Request $request)
+{
+    Auth::guard('college')->logout(); 
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/collegelogin')->with('success', 'Logged out successfully');
+}
 }
