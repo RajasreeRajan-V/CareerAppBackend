@@ -14,11 +14,12 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\College\CollegeLoginController;
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
-Route::get("/logout", [LoginController::class,'logout'])->name('logout');
+Route::post("/logout", [LoginController::class,'logout'])->name('logout');
 
 Route::get('/collegelogin',[CollegeLoginController::class,'collegeLogin']);
 
 Route::post('/college/logout', [CollegeLoginController::class, 'logout'])->name('college.logout');
 
 
+Route::get("/privacy-policy", [LoginController::class,'privacyPolicy'])->name('privacy-policy');
 

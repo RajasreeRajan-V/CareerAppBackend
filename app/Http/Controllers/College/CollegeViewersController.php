@@ -16,8 +16,11 @@ class CollegeViewersController extends Controller
 {
     try {
         $college = Auth::guard('college')->user();
-        $collegeId = $college->college_id; // ← use $college, not $collegeAuth
+         $collegeId = $college->id;
 
+        CollegeView::where('college_id', $collegeId)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
         $query = CollegeView::with(['user', 'user.children'])
             ->where('college_id', $collegeId)
             ->orderBy('created_at', 'desc');

@@ -294,11 +294,6 @@
                     <!-- Right: search, notifications, avatar -->
                     <div class="top-bar-right">
 
-                        <div class="search-box">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" placeholder="Search...">
-                        </div>
-
                         <button class="icon-btn">
                             <i class="fa-regular fa-bell"></i>
                             <span class="notification-dot"></span>

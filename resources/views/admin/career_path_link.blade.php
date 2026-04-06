@@ -139,30 +139,30 @@
                                 <tbody>
                                     @forelse($careerLinks as $link)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $careerLinks->firstItem() + $loop->index }}</td>
                                             <td>{{ $link->parent?->title ?? '-' }}</td>
                                             <td>{{ $link->child?->title ?? '-' }}</td>
 
                                             <td>
-                                                <button class="btn btn-sm btn-primary edit-link-btn" data-bs-toggle="modal"
-                                                    data-bs-target="#editCareerLinkModal"
-                                                    data-update-url="{{ route('admin.career_link.update', $link->id) }}"
-                                                    data-parent="{{ $link->parent_career_id }}"
-                                                    data-child="{{ $link->child_career_id }}">
-                                                    Edit
-                                                </button>
-
-
-
-                                                <form action="{{ route('admin.career_link.destroy', $link->id) }}" method="POST"
-                                                    style="display:inline-block;"
-                                                    onsubmit="return confirm('Are you sure you want to delete this career link?\n\n{{ $link->parent?->title }} → {{ $link->child?->title }}\n\nThis action cannot be undone!');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="bi bi-trash"></i> Delete
+                                                <div class="d-flex gap-2">
+                                                    <button class="btn btn-sm btn-primary edit-link-btn"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#editCareerLinkModal"
+                                                        data-update-url="{{ route('admin.career_link.update', $link->id) }}"
+                                                        data-parent="{{ $link->parent_career_id }}"
+                                                        data-child="{{ $link->child_career_id }}">
+                                                        <i class="bi bi-pencil"></i> Edit
                                                     </button>
-                                                </form>
+
+                                                    <form action="{{ route('admin.career_link.destroy', $link->id) }}" method="POST"
+                                                        onsubmit="return confirm('Are you sure you want to delete this career link?\n\n{{ $link->parent?->title }} → {{ $link->child?->title }}\n\nThis action cannot be undone!');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm">
+                                                            <i class="bi bi-trash"></i> Delete
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty
@@ -173,6 +173,13 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- Pagination -->
+                        @if($careerLinks->hasPages())
+                            <div class="d-flex justify-content-center mt-3">
+                                {{ $careerLinks->links() }}
+                            </div>
+                        @endif
 
                     </div>
                 </div>
@@ -300,7 +307,6 @@
                 });
             }
 
-            //  UPDATED: Allow either parents OR children (not require both)
             form.addEventListener('submit', function (e) {
 
                 const parentSelects = parentsContainer.querySelectorAll('select.parent-select');
@@ -314,28 +320,24 @@
                     .map(s => s.value)
                     .filter(v => v !== '');
 
-                //  NEW: At least one parent OR one child (not both required)
                 if (selectedParents.length === 0 && selectedChildren.length === 0) {
                     e.preventDefault();
                     alert('Please select at least one Parent Career or one Child Career');
                     return false;
                 }
 
-                //  Prevent duplicate parents
                 if (new Set(selectedParents).size !== selectedParents.length) {
                     e.preventDefault();
                     alert('Duplicate Parent Careers selected. Please choose unique parents.');
                     return false;
                 }
 
-                //  Prevent duplicate children
                 if (new Set(selectedChildren).size !== selectedChildren.length) {
                     e.preventDefault();
                     alert('Duplicate Child Careers selected. Please choose unique children.');
                     return false;
                 }
 
-                //  Prevent same career being parent & child
                 const overlap = selectedParents.filter(id => selectedChildren.includes(id));
                 if (overlap.length > 0) {
                     e.preventDefault();
@@ -354,14 +356,9 @@
 
             document.querySelectorAll('.edit-link-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
-
-                    // Set update URL
                     editForm.action = this.dataset.updateUrl;
-
-                    // Fill values
                     document.getElementById('edit_parent_career_id').value = this.dataset.parent;
                     document.getElementById('edit_child_career_id').value = this.dataset.child;
-
                 });
             });
 

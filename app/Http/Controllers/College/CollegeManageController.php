@@ -32,7 +32,7 @@ class CollegeManageController extends Controller
     public function update(Request $request)
     {
         $collegeRegistration = auth()->guard('college')->user();
-
+        
         $validated = $request->validate([
             'college_name'   => 'required|string|max:255',
             'principal_name' => 'nullable|string|max:255',
@@ -45,10 +45,10 @@ class CollegeManageController extends Controller
             'pincode'        => 'required|string|max:10',
         ]);
 
-        // 1. Update CollegeRegistration (the auth user table)
+        
         $collegeRegistration->update($validated);
 
-        // 2. Also sync to the College table if linked
+        
         if ($collegeRegistration->college_id) {
             $collegeModel = \App\Models\College::find($collegeRegistration->college_id);
 

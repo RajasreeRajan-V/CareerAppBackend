@@ -12,7 +12,7 @@ class CareerLinkController
 {
    public function index()
    {
-        $careerLinks = CareerLink::with(['parent', 'child'])->get();
+        $careerLinks = CareerLink::with(['parent', 'child'])->paginate(20);
         $careerNodes = CareerNode::orderBy('title')->get();
         return view('admin.career_path_link', compact('careerLinks', 'careerNodes'));
    }
@@ -24,15 +24,14 @@ public function store(Request $request)
 {
     $request->validate([
         'parent_career_id' => 'required|exists:career_nodes,id',
-        'parent_careers' => 'nullable|array',  // Changed to nullable
+        'parent_careers' => 'nullable|array',
         'parent_careers.*' => 'nullable|exists:career_nodes,id',
-        'child_careers' => 'nullable|array',   // Changed to nullable
+        'child_careers' => 'nullable|array',
         'child_careers.*' => 'nullable|exists:career_nodes,id',
     ]);
 
     $mainCareerId = $request->parent_career_id;
     
-    // Filter out empty values and get unique IDs
     $parentCareerIds = array_values(array_unique(array_filter($request->parent_careers, function($value) {
         return !empty($value);
     })));
@@ -41,29 +40,24 @@ public function store(Request $request)
         return !empty($value);
     })));
 
-    //  NEW: Ensure at least one parent OR one child (REPLACES the two blocks below)
     if (empty($parentCareerIds) && empty($childCareerIds)) {
         return redirect()->back()
             ->withInput()
             ->withErrors(['error' => 'Please select at least one parent or child career.']);
     }
 
-
-    // Validation: Main career cannot be in parent list
     if (in_array($mainCareerId, $parentCareerIds)) {
         return redirect()->back()
             ->withInput()
             ->withErrors(['error' => 'Main career cannot be its own parent.']);
     }
 
-    // Validation: Main career cannot be in child list
     if (in_array($mainCareerId, $childCareerIds)) {
         return redirect()->back()
             ->withInput()
             ->withErrors(['error' => 'Main career cannot be its own child.']);
     }
 
-    // Validation: No overlap between parents and children
     $overlap = array_intersect($parentCareerIds, $childCareerIds);
     if (!empty($overlap)) {
         return redirect()->back()
@@ -75,9 +69,7 @@ public function store(Request $request)
         $linksCreated = 0;
         $linksSkipped = 0;
 
-        // 1. Create links: Each Parent Career → Main Career
         foreach ($parentCareerIds as $parentId) {
-            // Check if link already exists
             $exists = CareerLink::where('parent_career_id', $parentId)
                                ->where('child_career_id', $mainCareerId)
                                ->exists();
@@ -93,9 +85,7 @@ public function store(Request $request)
             }
         }
 
-        // 2. Create links: Main Career → Each Child Career
         foreach ($childCareerIds as $childId) {
-            // Check if link already exists
             $exists = CareerLink::where('parent_career_id', $mainCareerId)
                                ->where('child_career_id', $childId)
                                ->exists();
@@ -111,7 +101,6 @@ public function store(Request $request)
             }
         }
 
-        // Build success message
         $message = '';
         if ($linksCreated > 0) {
             $message = "Successfully created {$linksCreated} career link(s)!";
@@ -145,14 +134,12 @@ public function store(Request $request)
         'child_career_id'  => 'required|exists:career_nodes,id',
     ]);
 
-    // Prevent same parent & child
     if ($request->parent_career_id == $request->child_career_id) {
         return back()->withErrors([
             'error' => 'Parent and Child career cannot be the same.'
         ]);
     }
 
-    // Prevent duplicate link
     $exists = CareerLink::where('parent_career_id', $request->parent_career_id)
         ->where('child_career_id', $request->child_career_id)
         ->where('id', '!=', $id)
@@ -187,11 +174,9 @@ public function store(Request $request)
     try {
         $careerLink = CareerLink::findOrFail($id);
         
-        // Store the career names for the success message
         $parentTitle = $careerLink->parent?->title ?? 'Unknown';
         $childTitle = $careerLink->child?->title ?? 'Unknown';
         
-        // Delete the career link
         $careerLink->delete();
         
         return redirect()

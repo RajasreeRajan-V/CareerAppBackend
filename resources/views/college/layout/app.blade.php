@@ -318,12 +318,12 @@
                 </div>
 
                 <!-- Notifications -->
+                <!-- Notifications -->
                 @php
                     $college = Auth::guard('college')->user();
+
                     $newViewCount = $college
-                        ? \App\Models\CollegeView::where('college_id', $college->id)
-                            ->where('created_at', '>=', now()->subDays(7))
-                            ->count()
+                        ? \App\Models\CollegeView::where('college_id', $college->id)->where('is_read', false)->count()
                         : 0;
                 @endphp
                 <a href="{{ route('college.dashboard.viewers') }}" class="topbar-icon-btn" aria-label="Notifications"
