@@ -37,10 +37,19 @@ public function store(Request $request)
         'subjects'       => 'nullable|array',
         'subjects.*'     => 'nullable|string',
         'career_options' => 'required|array',
+        'career_options.*' => 'required|string',
         'video'          => ['nullable', 'url', 'regex:/(?:youtube\.com.*v=|youtu\.be\/)([^&#]+)/'],
-        'thumbnail'      => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
+        'thumbnail'      => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:3072',
         'specialization' => 'nullable|string',
+        'newgen_course'  => 'required|boolean',
     ]);
+
+    // Ensure at least one media type is provided
+    if (!$request->filled('video') && !$request->hasFile('thumbnail')) {
+        return back()->withErrors([
+            'video' => 'Please provide a YouTube video URL or upload a thumbnail image.',
+        ])->withInput();
+    }
 
     $videoId = null;
 
@@ -48,23 +57,19 @@ public function store(Request $request)
         $videoId = $this->extractYoutubeId($request->video);
 
         if (!$videoId) {
-            return back()->withErrors(['video' => 'Invalid YouTube URL'])->withInput();
+            return back()->withErrors(['video' => 'Invalid YouTube URL.'])->withInput();
         }
-    }
-
-    if (!$request->filled('video') && !$request->hasFile('thumbnail')) {
-        return back()->withErrors([
-            'video' => 'Upload either a video URL or a thumbnail.'
-        ])->withInput();
     }
 
     $career = new CareerNode();
     $career->title          = $request->title;
     $career->description    = $request->description;
-    $career->subjects       = json_encode($request->subjects ?? []);
+    $career->subjects       = json_encode(array_filter($request->subjects ?? []));
     $career->career_options = json_encode($request->career_options);
-    $career->video          = $videoId;
     $career->specialization = $request->specialization;
+    $career->newgen_course  = $request->boolean('newgen_course');
+    $career->video          = $videoId ?? '';
+    $career->thumbnail      = '';
 
     if ($request->hasFile('thumbnail')) {
         $career->thumbnail = $request->file('thumbnail')->store('career_thumbnails', 'public');
