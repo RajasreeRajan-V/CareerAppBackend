@@ -11,14 +11,16 @@ class CareerNode extends Model
         'slug',
         'subjects',
         'career_options',
+        'newgen_course',
         'description',
         'video',
         'thumbnail',
         'specialization'
     ];
 
-
-
+    protected $casts = [
+        'newgen_course' => 'boolean',
+    ];
     public function children()
     {
         return $this->hasMany(CareerLink::class, 'parent_career_id')

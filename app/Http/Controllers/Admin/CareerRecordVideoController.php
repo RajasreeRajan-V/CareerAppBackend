@@ -35,7 +35,7 @@ class CareerRecordVideoController
         'title'     => 'required|string|max:255',
         'about'     => 'required|string',
         'url'       => 'required|url',
-        'duration'  => 'required|string|max:50',
+        'duration'  => 'required|string|regex:/^\d{1,2}:\d{2}$/',
         'creator'   => 'required|string|max:255',
     ]);
     $videoId = $this->extractYoutubeId($request->url);
@@ -101,7 +101,7 @@ class CareerRecordVideoController
         'title'     => 'required|string|max:255',
         'about'     => 'required|string',
         'url'       => 'required|url',
-        'duration'  => 'required|string|max:50',
+        'duration'  => 'required|string|regex:/^\d{1,2}:\d{2}$/',
         'creator'   => 'required|string|max:255',
     ]);
 

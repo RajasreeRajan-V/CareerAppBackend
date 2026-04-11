@@ -178,7 +178,8 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Event Date</label>
                                 <input type="date" name="event_date" value="{{ old('event_date') }}"
-                                    class="form-control @error('event_date') is-invalid @enderror">
+                                    class="form-control @error('event_date') is-invalid @enderror"
+                                    min="{{ date('Y-m-d') }}">
 
                                 @error('event_date')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -300,7 +301,8 @@
 
                         <div class="mb-3">
                             <label>Event Date</label>
-                            <input type="date" name="event_date" id="edit_event_date" class="form-control" required>
+                            <input type="date" name="event_date" id="edit_event_date" class="form-control" required
+                                   min="{{ date('Y-m-d') }}">
                         </div>
 
                         <div class="mb-3">

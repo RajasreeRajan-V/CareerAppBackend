@@ -44,7 +44,7 @@
 
                             @forelse ($collegeRegistrations as $college)
                                 <tr>
-                                    <td>{{ $college->id }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $college->college_name }}</td>
                                     <td>{{ $college->email }}</td>
                                     <td>{{ $college->contact_no }}</td>
@@ -105,7 +105,7 @@
                             @empty
 
                                 <tr>
-                                    <td colspan="10" class="text-center text-muted py-4">
+                                    <td colspan="11" class="text-center text-muted py-4">
                                         No colleges registered yet
                                     </td>
                                 </tr>
@@ -147,17 +147,27 @@
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">College Name</label>
-                                <select name="college_id" class="form-select" required>
+                                <select name="college_id" class="form-select @error('college_id') is-invalid @enderror" required>
                                     <option value="" disabled selected>-- Select College --</option>
-                                    @foreach ($colleges as $college)
-                                        <option value="{{ $college->id }}">{{ $college->name }}</option>
-                                    @endforeach
+                                    @if(isset($colleges) && $colleges->count())
+                                        @foreach ($colleges as $collegeOption)
+                                            <option value="{{ $collegeOption->id }}" {{ old('college_id') == $collegeOption->id ? 'selected' : '' }}>{{ $collegeOption->name }}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="" disabled>No colleges available</option>
+                                    @endif
                                 </select>
+                                @error('college_id')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Principal Name</label>
-                                <input type="text" name="principal_name" class="form-control" required>
+                                <input type="text" name="principal_name" value="{{ old('principal_name') }}" class="form-control @error('principal_name') is-invalid @enderror" required>
+                                @error('principal_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
@@ -167,12 +177,18 @@
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control" required>
+                                <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" required>
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Contact Number</label>
-                                <input type="text" name="contact_no" class="form-control" required>
+                                <input type="tel" name="contact_no" value="{{ old('contact_no') }}" class="form-control @error('contact_no') is-invalid @enderror" required pattern="[0-9]{7,12}" maxlength="12" inputmode="numeric" title="Enter digits only (7-12 characters)">
+                                @error('contact_no')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
@@ -182,12 +198,18 @@
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Website</label>
-                                <input type="text" name="website" class="form-control">
+                                <input type="text" name="website" value="{{ old('website') }}" class="form-control @error('website') is-invalid @enderror">
+                                @error('website')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">City</label>
-                                <input type="text" name="city" class="form-control" required>
+                                <input type="text" name="city" value="{{ old('city') }}" class="form-control @error('city') is-invalid @enderror" required>
+                                @error('city')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
@@ -197,12 +219,18 @@
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">State</label>
-                                <input type="text" name="state" class="form-control" required>
+                                <input type="text" name="state" value="{{ old('state') }}" class="form-control @error('state') is-invalid @enderror" required>
+                                @error('state')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Pincode</label>
-                                <input type="text" name="pincode" class="form-control" required>
+                                <input type="text" name="pincode" value="{{ old('pincode') }}" class="form-control @error('pincode') is-invalid @enderror" required>
+                                @error('pincode')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
@@ -210,7 +238,10 @@
                         <!-- Address -->
                         <div class="mb-3">
                             <label class="form-label">Address</label>
-                            <textarea name="address" class="form-control" rows="3" required></textarea>
+                            <textarea name="address" class="form-control @error('address') is-invalid @enderror" rows="3" required>{{ old('address') }}</textarea>
+                            @error('address')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                     </div>
@@ -252,13 +283,18 @@
 
                             <div class="col-md-6 mb-3">
                                 <label>College Name</label>
-                                <input type="text" name="college_name" id="edit_college_name" class="form-control">
+                                <input type="text" name="college_name" id="edit_college_name" class="form-control @error('college_name') is-invalid @enderror" required>
+                                @error('college_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label>Principal Name</label>
-                                <input type="text" name="principal_name" id="edit_principal_name"
-                                    class="form-control">
+                                <input type="text" name="principal_name" id="edit_principal_name" class="form-control @error('principal_name') is-invalid @enderror" required>
+                                @error('principal_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
@@ -267,12 +303,18 @@
 
                             <div class="col-md-6 mb-3">
                                 <label>Email</label>
-                                <input type="email" name="email" id="edit_email" class="form-control">
+                                <input type="email" name="email" id="edit_email" class="form-control @error('email') is-invalid @enderror" required>
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label>Contact</label>
-                                <input type="text" name="contact_no" id="edit_contact_no" class="form-control">
+                                <input type="tel" name="contact_no" id="edit_contact_no" class="form-control @error('contact_no') is-invalid @enderror" required pattern="[0-9]{7,12}" maxlength="12" inputmode="numeric" title="Enter digits only (7-12 characters)">
+                                @error('contact_no')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
@@ -281,12 +323,18 @@
 
                             <div class="col-md-6 mb-3">
                                 <label>Website</label>
-                                <input type="text" name="website" id="edit_website" class="form-control">
+                                <input type="text" name="website" id="edit_website" class="form-control @error('website') is-invalid @enderror">
+                                @error('website')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label>City</label>
-                                <input type="text" name="city" id="edit_city" class="form-control">
+                                <input type="text" name="city" id="edit_city" class="form-control @error('city') is-invalid @enderror" required>
+                                @error('city')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
@@ -295,19 +343,28 @@
 
                             <div class="col-md-6 mb-3">
                                 <label>State</label>
-                                <input type="text" name="state" id="edit_state" class="form-control">
+                                <input type="text" name="state" id="edit_state" class="form-control @error('state') is-invalid @enderror" required>
+                                @error('state')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label>Pincode</label>
-                                <input type="text" name="pincode" id="edit_pincode" class="form-control">
+                                <input type="text" name="pincode" id="edit_pincode" class="form-control @error('pincode') is-invalid @enderror" required>
+                                @error('pincode')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
 
                         <div class="mb-3">
                             <label>Address</label>
-                            <textarea name="address" id="edit_address" class="form-control"></textarea>
+                            <textarea name="address" id="edit_address" class="form-control @error('address') is-invalid @enderror" required></textarea>
+                            @error('address')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                     </div>
@@ -345,6 +402,14 @@
                 });
 
             });
+
+            // Show create modal if there are validation errors
+            @if ($errors->any())
+                document.addEventListener('DOMContentLoaded', function() {
+                    var createModal = new bootstrap.Modal(document.getElementById('createCollegeModal'));
+                    createModal.show();
+                });
+            @endif
         </script>
     @endpush
 @endsection

@@ -504,7 +504,13 @@
         const careerDropdown  = document.getElementById('careerDropdown');
         const careerChevron   = document.getElementById('careerChevron');
 
-        let isMinimized = false;
+        let isMinimized = localStorage.getItem('sidebarMinimized') === 'true';
+
+        // Apply initial minimized state if on desktop
+        if (!isMobile() && isMinimized) {
+            sidebar.classList.add('minimized');
+            if (toggleIcon) toggleIcon.className = 'fa-solid fa-chevron-right';
+        }
 
         function isMobile() {
             return window.innerWidth <= 992;
@@ -532,6 +538,7 @@
             toggleIcon.className = isMinimized
                 ? 'fa-solid fa-chevron-right'
                 : 'fa-solid fa-chevron-left';
+            localStorage.setItem('sidebarMinimized', isMinimized);
         }
 
         /* ── Dropdown handlers (called via onclick) ── */
@@ -577,12 +584,16 @@
                 overlay.classList.remove('show');
                 sidebar.classList.remove('open');
                 document.body.style.overflow = '';
+                /* reapply minimized state if needed */
+                if (isMinimized) {
+                    sidebar.classList.add('minimized');
+                    if (toggleIcon) toggleIcon.className = 'fa-solid fa-chevron-right';
+                }
             } else {
                 /* switched to mobile — reset any minimized state */
                 if (isMinimized) {
                     sidebar.classList.remove('minimized');
                     if (toggleIcon) toggleIcon.className = 'fa-solid fa-chevron-left';
-                    isMinimized = false;
                 }
             }
         });

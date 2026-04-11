@@ -10,12 +10,32 @@ use Illuminate\Validation\Rule;
 
 class CareerLinkController 
 {
-   public function index()
-   {
-        $careerLinks = CareerLink::with(['parent', 'child'])->paginate(20);
-        $careerNodes = CareerNode::orderBy('title')->get();
-        return view('admin.career_path_link', compact('careerLinks', 'careerNodes'));
-   }
+//    public function index()
+//    {
+//         $careerLinks = CareerLink::with(['parent', 'child'])->paginate(20);
+//         $careerNodes = CareerNode::orderBy('title')->get();
+//         return view('admin.career_path_link', compact('careerLinks', 'careerNodes'));
+//    }
+
+public function index(Request $request)
+{
+    $search = $request->input('search');
+
+    $query = CareerLink::with(['parent', 'child']);
+
+    if ($search) {
+        $query->whereHas('parent', function ($q) use ($search) {
+            $q->where('title', 'like', '%' . $search . '%');
+        })->orWhereHas('child', function ($q) use ($search) {
+            $q->where('title', 'like', '%' . $search . '%');
+        });
+    }
+
+    $careerLinks = $query->paginate(20)->withQueryString();
+    $careerNodes = CareerNode::orderBy('title')->get();
+
+    return view('admin.career_path_link', compact('careerLinks', 'careerNodes', 'search'));
+}
    public function create()
    {
      //

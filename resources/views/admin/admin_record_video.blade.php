@@ -157,7 +157,8 @@
                         <!-- Duration -->
                         <div class="mb-3">
                             <label class="form-label">Duration (Example: 10:35)</label>
-                            <input type="text" name="duration" class="form-control" required>
+                            <input type="text" name="duration" class="form-control" id="create_duration" required
+                                   pattern="^\d{1,2}:\d{2}$" title="Duration must be in format MM:SS (e.g., 10:35)">
                         </div>
 
                         <!-- Creator -->
@@ -221,7 +222,8 @@
                     <div class="mb-3">
                         <label class="form-label">Duration</label>
                         <input type="text" name="duration" id="edit_duration"
-                            class="form-control" required>
+                            class="form-control" required pattern="^\d{1,2}:\d{2}$"
+                            title="Duration must be in format MM:SS (e.g., 10:35)">
                     </div>
 
                     <!-- Creator -->
@@ -313,5 +315,50 @@ document.querySelectorAll('.editBtn').forEach(function(button) {
     });
 
 });
+
+        // Duration field validation - only allow numbers and colon
+        function setupDurationValidation() {
+            const durationInputs = ['create_duration', 'edit_duration'];
+
+            durationInputs.forEach(inputId => {
+                const input = document.getElementById(inputId);
+                if (input) {
+                    input.addEventListener('input', function(e) {
+                        // Remove any characters that are not numbers or colon
+                        this.value = this.value.replace(/[^0-9:]/g, '');
+
+                        // Ensure only one colon is allowed
+                        const parts = this.value.split(':');
+                        if (parts.length > 2) {
+                            this.value = parts[0] + ':' + parts.slice(1).join('');
+                        }
+
+                        // Limit minutes to 2 digits and seconds to 2 digits
+                        if (parts.length === 2) {
+                            parts[0] = parts[0].substring(0, 2); // Max 2 digits for minutes
+                            parts[1] = parts[1].substring(0, 2); // Max 2 digits for seconds
+                            this.value = parts[0] + ':' + parts[1];
+                        }
+                    });
+
+                    input.addEventListener('blur', function() {
+                        // Auto-format on blur if it looks like a duration
+                        const value = this.value;
+                        if (value && !value.includes(':')) {
+                            // If just numbers, assume it's minutes and add :00
+                            if (/^\d+$/.test(value)) {
+                                this.value = value + ':00';
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        // Initialize duration validation when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            setupDurationValidation();
+        });
+
     </script>
 @endpush
