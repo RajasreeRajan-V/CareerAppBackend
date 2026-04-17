@@ -132,6 +132,12 @@
             <i class="fa-solid fa-location-dot nav-icon"></i>
             <span class="sidebar-text">Create Location</span>
         </a>
+          <!-- Create Location -->
+        <a href="{{ route('admin.userManagement.index') }}"
+            class="nav-link {{ request()->routeIs('admin.userManagement.*') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-users nav-icon"></i>
+            <span class="sidebar-text">Manage Users</span>
+        </a>
     </nav>
 
     <!-- Logout -->

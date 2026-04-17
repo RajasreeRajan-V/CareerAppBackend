@@ -40,7 +40,8 @@
             display: flex;
             min-height: 100vh;
             gap: 0;
-            align-items: flex-start; /* allows sticky to work */
+            align-items: flex-start;
+            /* allows sticky to work */
         }
 
         /* Main content area */
@@ -49,7 +50,8 @@
             display: flex;
             flex-direction: column;
             min-width: 0;
-            margin: 0;      /* no gap from sidebar */
+            margin: 0;
+            /* no gap from sidebar */
         }
 
         /* Top bar */
@@ -307,10 +309,33 @@
                     </div>
                 </div>
             </header>
-
             <!-- PAGE CONTENT -->
             <main class="page-content">
                 <div class="page-content-inner">
+                    {{-- Flash Messages --}}
+                    @if (session('success'))
+                        <div class="alert d-flex align-items-center gap-2 border-0 shadow-sm mb-4"
+                            style="background:#EAF3DE; color:#27500A; border-radius:10px; font-size:14px; padding:12px 16px;"
+                            role="alert">
+                            <i class="fa-solid fa-circle-check"
+                                style="font-size:16px; color:#3B6D11; flex-shrink:0;"></i>
+                            <span>{{ session('success') }}</span>
+                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"
+                                style="filter: brightness(0.4);"></button>
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert d-flex align-items-center gap-2 border-0 shadow-sm mb-4"
+                            style="background:#FEF2F2; color:#7F1D1D; border-radius:10px; font-size:14px; padding:12px 16px;"
+                            role="alert">
+                            <i class="fa-solid fa-circle-xmark"
+                                style="font-size:16px; color:#DC2626; flex-shrink:0;"></i>
+                            <span>{{ session('error') }}</span>
+                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"
+                                style="filter: brightness(0.4);"></button>
+                        </div>
+                    @endif
                     @yield('content')
                 </div>
             </main>
@@ -338,4 +363,5 @@
 
     @stack('scripts')
 </body>
+
 </html>

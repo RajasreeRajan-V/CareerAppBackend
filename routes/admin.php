@@ -42,6 +42,7 @@ Route::name('admin.')->group(function () {
 
         Route::resource('createLocation', LocationController::class);
 
+        Route::resource('userManagement', UserManageController::class);
         
      });
 });
