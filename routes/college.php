@@ -6,6 +6,7 @@ use App\Http\Controllers\College\CollegeLoginController;
 use App\Http\Controllers\College\DashboardController;
 use App\Http\Controllers\College\CollegeManageController;
 use App\Http\Controllers\College\ChangePasswordController;
+use App\Http\Controllers\College\CollegeFacilityController;
 
 Route::name('college.')->group(function () {
     Route::post("/do-login", [CollegeLoginController::class,'doCollegeLogin'])->name('do.login');
@@ -36,6 +37,10 @@ Route::name('college.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('dashboard/viewers', [CollegeViewersController::class, 'index'])->name('dashboard.viewers');
+
+        Route::resource('facilities', CollegeFacilityController::class)->except(['show', 'create', 'edit']);
+        
+        Route::resource('images', CollegeImageController::class)->except(['create', 'edit', 'show']);
     });
 
 });

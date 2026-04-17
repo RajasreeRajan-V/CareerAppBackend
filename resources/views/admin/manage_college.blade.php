@@ -195,13 +195,19 @@
 
                             <div class="col-md-4">
                                 <label class="form-label">Phone</label>
-                                <input type="tel" name="phone" id="edit_phone" class="form-control">
+                                <input type="tel" name="phone" id="edit_phone" class="form-control @error('phone') is-invalid @enderror" pattern="[0-9]{10,12}" maxlength="12" inputmode="numeric" title="Enter digits only (10-12 characters)">
+                                @error('phone')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Row 3 -->
                             <div class="col-md-6">
                                 <label class="form-label">Email</label>
-                                <input type="email" name="email" id="edit_email" class="form-control">
+                                <input type="email" name="email" id="edit_email" class="form-control @error('email') is-invalid @enderror">
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-md-6">
@@ -461,11 +467,49 @@
                 }
 
                 /* Set Form Action */
-                const updateUrl = "{{ route('admin.college.update', ':id') }}".replace(':id', id);
-                document.getElementById('editCollegeForm').action = updateUrl;
+                const updateUrl = "{{ route('admin.college.update', ['college' => '__ID__']) }}";
+                document.getElementById('editCollegeForm').action = updateUrl.replace('__ID__', id);
 
             });
 
         });
+
+        // Show edit modal if there are validation errors
+        @if ($errors->any())
+            document.addEventListener('DOMContentLoaded', function() {
+                var editModal = new bootstrap.Modal(document.getElementById('editCollegeModal'));
+                editModal.show();
+
+                // Populate fields with old input
+                document.getElementById('edit_name').value = '{{ old('name') }}' || '';
+                document.getElementById('edit_street').value = '{{ old('street') }}' || '';
+                document.getElementById('edit_district').value = '{{ old('district') }}' || '';
+                document.getElementById('edit_state').value = '{{ old('state') }}' || '';
+                document.getElementById('edit_rating').value = '{{ old('rating') }}' || '';
+                document.getElementById('edit_phone').value = '{{ old('phone') }}' || '';
+                document.getElementById('edit_email').value = '{{ old('email') }}' || '';
+                document.getElementById('edit_website').value = '{{ old('website') }}' || '';
+                document.getElementById('edit_about').value = '{{ old('about') }}' || '';
+
+                // For dynamic fields, clear and add old ones
+                clearFacilities();
+                @if(old('facilities'))
+                    @foreach(old('facilities') as $facility)
+                        addFacility('{{ $facility }}');
+                    @endforeach
+                @else
+                    addFacility();
+                @endif
+
+                clearCourses();
+                @if(old('courses'))
+                    @foreach(old('courses') as $course)
+                        addCourse('{{ $course }}');
+                    @endforeach
+                @else
+                    addCourse();
+                @endif
+            });
+        @endif
     </script>
 @endpush

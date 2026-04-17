@@ -25,26 +25,13 @@
         gap: 1rem;
     }
     .stat-icon {
-        width: 46px;
-        height: 46px;
+        width: 46px; height: 46px;
         border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.1rem;
-        flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.1rem; flex-shrink: 0;
     }
-    .stat-value {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--text);
-        line-height: 1;
-    }
-    .stat-label {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        margin-top: 3px;
-    }
+    .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--text); line-height: 1; }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 3px; }
 
     .section-card {
         background: #fff;
@@ -56,116 +43,26 @@
     .section-card .card-head {
         padding: 1rem 1.25rem;
         border-bottom: 1px solid var(--border);
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--text);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        font-size: 0.9rem; font-weight: 600; color: var(--text);
+        display: flex; align-items: center; justify-content: space-between;
     }
-    .section-card .card-head a {
-        font-size: 0.78rem;
-        font-weight: 400;
-        color: var(--primary);
-        text-decoration: none;
-    }
+    .section-card .card-head a { font-size: 0.78rem; font-weight: 400; color: var(--primary); text-decoration: none; }
     .section-card .card-head a:hover { text-decoration: underline; }
 
-    .notice-item {
-        padding: 0.85rem 1.25rem;
-        border-bottom: 1px solid #f1f3f6;
-        border-left: 3px solid transparent;
-    }
-    .notice-item:last-child { border-bottom: none; }
-    .notice-item.urgent { border-left-color: #e8855a; }
-    .notice-item.info   { border-left-color: var(--primary); }
-    .notice-item .n-title { font-size: 0.84rem; font-weight: 500; color: var(--text); }
-    .notice-item .n-meta  { font-size: 0.74rem; color: var(--text-muted); margin-top: 2px; }
-    .badge-new {
-        font-size: 0.62rem;
-        background: #e8855a;
-        color: #fff;
-        padding: 1px 6px;
-        border-radius: 50px;
-        font-weight: 600;
-        margin-left: 5px;
-        vertical-align: middle;
-    }
-
-    .event-item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 0.85rem 1.25rem;
-        border-bottom: 1px solid #f1f3f6;
-    }
-    .event-item:last-child { border-bottom: none; }
-    .event-date {
-        min-width: 42px;
-        height: 42px;
-        background: var(--primary-light);
-        color: var(--primary);
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.62rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        line-height: 1.1;
-        flex-shrink: 0;
-    }
-    .event-date .day { font-size: 1rem; font-weight: 700; }
-    .event-title { font-size: 0.84rem; font-weight: 500; color: var(--text); }
-    .event-meta  { font-size: 0.74rem; color: var(--text-muted); margin-top: 2px; }
-    .chip {
-        font-size: 0.68rem;
-        font-weight: 600;
-        padding: 2px 8px;
-        border-radius: 50px;
-        margin-left: auto;
-        flex-shrink: 0;
-    }
-    .chip-exam    { background: #fdecea; color: #c62828; }
-    .chip-event   { background: #e3f2fd; color: #1565c0; }
-    .chip-holiday { background: #fff8e1; color: #9a6f00; }
-    .chip-meet    { background: #e8f5e9; color: #2e7d32; }
-
-    .prog-row { margin-bottom: 0.9rem; }
-    .prog-row:last-child { margin-bottom: 0; }
-    .prog-header { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px; }
-    .prog-header .name { color: var(--text); font-weight: 500; }
-    .prog-header .pct  { color: var(--primary); font-weight: 600; }
-    .prog-track { height: 6px; background: #eef1f4; border-radius: 50px; overflow: hidden; }
-    .prog-fill  { height: 100%; border-radius: 50px; }
-    .pf-good   { background: #43a047; }
-    .pf-warn   { background: #fb8c00; }
-    .pf-danger { background: #e53935; }
-
-    .dashboard-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.45rem;
-    }
+    .dashboard-actions { display: flex; flex-wrap: wrap; gap: 0.45rem; }
 
     .dashboard-actions .action-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        padding: 0.4rem 0.75rem;
-        border-radius: 8px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #fff !important;
-        text-decoration: none;
-        border: 0;
-        transition: background-color .2s ease;
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        padding: 0.4rem 0.75rem; border-radius: 8px;
+        font-size: 0.8rem; font-weight: 600;
+        color: #fff !important; text-decoration: none;
+        border: 0; transition: background-color .2s ease;
     }
+    .dashboard-actions .action-btn:hover { filter: brightness(0.95); }
 
-    .dashboard-actions .action-btn:hover {
-        filter: brightness(0.95);
-    }
+    /* Carousel cursor */
+    #collegeCarousel { cursor: grab; }
+    #collegeCarousel:active { cursor: grabbing; }
 </style>
 
 <div class="container-fluid px-0">
@@ -242,6 +139,67 @@
         </div>
     </div>
 
+    {{-- College Images Carousel --}}
+    @if(isset($images) && $images->isNotEmpty())
+    <div class="mb-4">
+        <div class="section-card">
+            <div class="card-head">
+                <span>
+                    <i class="fa-solid fa-images" style="color:var(--primary);margin-right:8px;"></i>
+                    College Gallery
+                </span>
+                <span style="font-size:0.78rem;color:var(--text-muted);">{{ $images->count() }} photo(s)</span>
+            </div>
+            <div style="padding:1rem;">
+
+                {{-- No data-bs-ride / data-bs-touch — handled via JS below --}}
+                <div id="collegeCarousel" class="carousel slide">
+
+                    {{-- Indicators --}}
+                    <div class="carousel-indicators">
+                        @foreach($images as $i => $img)
+                            <button
+                                type="button"
+                                data-bs-target="#collegeCarousel"
+                                data-bs-slide-to="{{ $i }}"
+                                class="{{ $i === 0 ? 'active' : '' }}"
+                                style="background-color:var(--primary);"
+                            ></button>
+                        @endforeach
+                    </div>
+
+                    {{-- Slides --}}
+                    <div class="carousel-inner" style="border-radius:10px; overflow:hidden;">
+                        @foreach($images as $i => $img)
+                            <div class="carousel-item {{ $i === 0 ? 'active' : '' }}">
+                                <img
+                                    src="{{ asset('storage/' . $img->image_url) }}"
+                                    class="d-block w-100"
+                                    alt="College Image"
+                                    style="height:320px; object-fit:cover; user-select:none;"
+                                    draggable="false"
+                                >
+                            </div>
+                        @endforeach
+                    </div>
+
+                    {{-- Prev --}}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#collegeCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+
+                    {{-- Next --}}
+                    <button class="carousel-control-next" type="button" data-bs-target="#collegeCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @endif
+
     {{-- Events + Notices --}}
     <div class="row g-3 mb-4">
         <div class="col-12">
@@ -253,8 +211,56 @@
     </div>
 
     {{-- Attendance + Recent Students --}}
-   
 
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const carouselEl = document.getElementById('collegeCarousel');
+        if (!carouselEl) return;
+
+        const bsCarousel = new bootstrap.Carousel(carouselEl, {
+            interval: 3000,
+            touch: true,
+            ride: 'carousel'
+        });
+
+        let startX = 0;
+        let isDragging = false;
+
+        // Touch swipe
+        carouselEl.addEventListener('touchstart', e => {
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        carouselEl.addEventListener('touchend', e => {
+            const diff = startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 40) {
+                diff > 0 ? bsCarousel.next() : bsCarousel.prev();
+            }
+        }, { passive: true });
+
+        // Mouse drag swipe
+        carouselEl.addEventListener('mousedown', e => {
+            startX = e.clientX;
+            isDragging = true;
+        });
+
+        carouselEl.addEventListener('mouseup', e => {
+            if (!isDragging) return;
+            isDragging = false;
+            const diff = startX - e.clientX;
+            if (Math.abs(diff) > 40) {
+                diff > 0 ? bsCarousel.next() : bsCarousel.prev();
+            }
+        });
+
+        carouselEl.addEventListener('mouseleave', () => {
+            isDragging = false;
+        });
+    });
+</script>
+@endpush

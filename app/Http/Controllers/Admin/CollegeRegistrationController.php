@@ -17,12 +17,12 @@ class CollegeRegistrationController extends Controller
     /**
      * Display a listing of the resource.
      */
-   public function index()
+public function index()
 {
     $registeredCollegeIds = CollegeRegistration::pluck('college_id');
 
     $colleges = College::whereNotIn('id', $registeredCollegeIds)
-        ->select('id', 'name')
+        ->select('id', 'name', 'location', 'phone', 'email', 'website')
         ->orderBy('name')
         ->get();
 
@@ -82,6 +82,18 @@ class CollegeRegistrationController extends Controller
 
 Mail::to($request->email)->send($mail);
 
+        // Sync related College record with registration data
+        $collegeModel = College::find($request->college_id);
+        if ($collegeModel) {
+            $collegeModel->update([
+                'name'     => $college->name,
+                'location' => $request->address . ', ' . $request->city . ', ' . $request->state,
+                'phone'    => $request->contact_no,
+                'email'    => $request->email,
+                'website'  => $request->website,
+            ]);
+        }
+
     return redirect()->route('admin.college_registration.index')->with('success', 'College registration successful.');
     }
 
@@ -130,6 +142,19 @@ Mail::to($request->email)->send($mail);
             'pincode'        => $request->pincode,
             'password_changed' => true,
         ]);
+
+        // Sync related College record with registration updates
+        $collegeModel = College::find($college->college_id);
+        if ($collegeModel) {
+            $collegeModel->update([
+                'name'     => $request->college_name,
+                'location' => $request->address . ', ' . $request->city . ', ' . $request->state,
+                'phone'    => $request->contact_no,
+                'email'    => $request->email,
+                'website'  => $request->website,
+            ]);
+        }
+
         return redirect()->route('admin.college_registration.index')->with('success', 'College registration updated successfully.');
     }
 

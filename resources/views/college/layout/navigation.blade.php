@@ -347,6 +347,22 @@
             Update College Details
         </a>
 
+        <!-- College Facilities -->
+        <a href="{{ route('college.facilities.index') }}"
+            class="sb-link {{ request()->routeIs('college.facilities.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-building sb-link-icon"></i>
+            College Facilities
+        </a>
+
+        <!-- College Images -->
+<a href="{{ route('college.images.index') }}"
+   class="sb-link {{ request()->routeIs('college.images.*') ? 'active' : '' }}">
+    
+    <i class="fa-solid fa-image sb-link-icon"></i>
+    College Images
+</a>
+
+
         <!-- College Registrations -->
         <a href="{{ route('college.collegeCourse.index') }}"
             class="sb-link {{ request()->routeIs('college.collegeCourse.*') ? 'active' : '' }}">

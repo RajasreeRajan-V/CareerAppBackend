@@ -5,10 +5,14 @@ namespace App\Http\Controllers\College;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\CollegeImage;
 class DashboardController extends Controller
 {
-    public function index()
+  public function index()
     {
-        return view('college.dashboard');
+        $college = auth()->guard('college')->user();
+        $images = CollegeImage::where('college_id', $college->college_id)->get();
+
+        return view('college.dashboard', compact('college', 'images'));
     }
 }

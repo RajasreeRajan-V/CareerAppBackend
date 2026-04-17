@@ -35,8 +35,8 @@ class CollegeController extends Controller
             'state'    => 'required|string|max:255',
 
             'rating'  => 'required|numeric|min:0|max:5',
-            'phone'   => 'required|string|max:12',
-            'email'   => 'required|email',
+            'phone'   => 'required|regex:/^[0-9]{10,12}$/|unique:colleges,phone',
+            'email'   => 'required|email|unique:colleges,email',
             'website' => 'nullable|url',
             'about'   => 'nullable|string',
 
@@ -100,7 +100,7 @@ class CollegeController extends Controller
             ->with('success', 'College added successfully');
     }
 
-   public function update(Request $request, $id)
+    public function update(Request $request, $id)
 {
     $college = College::findOrFail($id);
 
@@ -110,8 +110,8 @@ class CollegeController extends Controller
         'district'     => 'required|string|max:255',
         'state'        => 'required|string|max:255',
         'rating'       => 'nullable|numeric|min:0|max:5',
-        'phone'        => 'nullable|string|max:20',
-        'email'        => 'nullable|email',
+        'phone'        => 'nullable|regex:/^[0-9]{10,12}$/|unique:colleges,phone,' . $id,
+        'email'        => 'nullable|email|unique:colleges,email,' . $id,
         'website'      => 'nullable|url',
         'about'        => 'nullable|string',
         'images.*'     => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -130,7 +130,6 @@ class CollegeController extends Controller
         'website'  => $request->website,
         'about'    => $request->about,
     ]);
-
 
     $keepImages = $request->input('existing_images', []);
     $oldImages  = $college->images()->whereNotIn('image_url', $keepImages)->get();

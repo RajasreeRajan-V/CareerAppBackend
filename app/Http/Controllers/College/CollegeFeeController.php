@@ -43,8 +43,16 @@ public function store(Request $request, Course $course)
         'currency'              => 'required|string|max:10',
         'breakdowns'            => 'required|array|min:1',
         'breakdowns.*.label'    => 'required|string|max:255',
-        'breakdowns.*.amount'   => 'required|numeric|min:0',
+        'breakdowns.*.amount'   => [
+            'required',
+            'numeric',
+            $request->fee_type === 'government' ? 'min:0' : 'min:100',
+        ],
         'breakdowns.*.sequence' => 'required|integer|min:1',
+    ], [
+        'breakdowns.*.amount.min' => $request->fee_type === 'government'
+            ? 'Amount for Government quota must be at least ₹0.'
+            : 'Amount for ' . ucfirst($request->fee_type) . ' quota must be at least ₹100.',
     ]);
 
     // Each fee_type can only exist once per course
@@ -122,17 +130,24 @@ public function store(Request $request, Course $course)
 
   public function update(Request $request, Course $course, CollegeFeeStructure $feeStructure)
 {
-    $validated = $request->validate([
+     $validated = $request->validate([
         'fee_type'              => 'required|in:government,management,nri',
         'fee_mode'              => 'required|in:total,yearly,semester',
         'currency'              => 'required|string|max:10',
         'breakdowns'            => 'required|array|min:1',
         'breakdowns.*.label'    => 'required|string|max:255',
-        'breakdowns.*.amount'   => 'required|numeric|min:0',
+        'breakdowns.*.amount'   => [
+            'required',
+            'numeric',
+            $request->fee_type === 'government' ? 'min:0' : 'min:100',
+        ],
         'breakdowns.*.sequence' => 'required|integer|min:1',
+    ], [
+        'breakdowns.*.amount.min' => $request->fee_type === 'government'
+            ? 'Amount for Government quota must be at least ₹0.'
+            : 'Amount for ' . ucfirst($request->fee_type) . ' quota must be at least ₹100.',
     ]);
 
-    // Each fee_type can only exist once per course —
     // check if another structure (not this one) already owns that fee_type
     $conflict = CollegeFeeStructure::where('course_id', $course->id)
                                    ->where('fee_type', $validated['fee_type'])
@@ -140,7 +155,7 @@ public function store(Request $request, Course $course)
                                    ->exists();
 
     if ($conflict) {
-        return redirect()->back()
+        return redirect()->back()          
             ->withInput()
             ->with('error', "A fee structure for the {$validated['fee_type']} quota already exists for this course.");
     }

@@ -6,7 +6,7 @@ use App\Models\CareerGuidanceBanner;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+ 
 class CareerGuidanceBannerController 
 {
     /**
@@ -119,10 +119,10 @@ class CareerGuidanceBannerController
         'instructor_name'  => 'required|string|max:255',
         'description'      => 'required|string',
         'event_date'       => 'required|date|after_or_equal:today',
-        'start_time'       => 'required',
-        'end_time'         => 'required|after:start_time',
+        'start_time'       => 'required|date_format:H:i',
+        'end_time'         => 'required|date_format:H:i|after:start_time',
         'google_meet_link' => 'required',
-        'image'            => 'nullable|image|mimes:jpg,jpeg,png,webp|max:3072', // 3MB
+        'image'            => 'nullable|image|mimes:jpg,jpeg,png,webp|max:3072',
     ]);
     $banner->name            = $request->name;
     $banner->profession      = $request->profession;

@@ -263,6 +263,82 @@
         </div>
     </div>
 
+    <script>
+        const collegeRegisterData = @json($colleges->keyBy('id'));
+
+        function parseLocation(location) {
+            if (!location) {
+                return { address: '', city: '', state: '' };
+            }
+            const parts = location.split(',').map(part => part.trim());
+            if (parts.length >= 3) {
+                return {
+                    address: parts.slice(0, parts.length - 2).join(', '),
+                    city: parts[parts.length - 2] || '',
+                    state: parts[parts.length - 1] || '',
+                };
+            }
+            return {
+                address: parts[0] || '',
+                city: parts[1] || '',
+                state: parts[2] || '',
+            };
+        }
+
+        function setAutoFillReadonly(enabled) {
+            const fields = ['email', 'contact_no', 'website', 'city', 'state', 'address'];
+            fields.forEach(name => {
+                const el = document.querySelector(`[name="${name}"]`);
+                if (el) {
+                    el.readOnly = enabled;
+                    if (!enabled) {
+                        el.classList.remove('bg-light');
+                    } else {
+                        el.classList.add('bg-light');
+                    }
+                }
+            });
+        }
+
+        function fillCollegeRegistrationFields(collegeId) {
+            const data = collegeRegisterData[collegeId];
+            if (!data) {
+                ['email', 'contact_no', 'website', 'city', 'state', 'address'].forEach(name => {
+                    const el = document.querySelector(`[name="${name}"]`);
+                    if (el) {
+                        el.value = '';
+                    }
+                });
+                setAutoFillReadonly(false);
+                return;
+            }
+
+            const location = parseLocation(data.location);
+            document.querySelector('[name="email"]').value = data.email || '';
+            document.querySelector('[name="contact_no"]').value = data.phone || '';
+            document.querySelector('[name="website"]').value = data.website || '';
+            document.querySelector('[name="city"]').value = location.city;
+            document.querySelector('[name="state"]').value = location.state;
+            document.querySelector('[name="address"]').value = location.address;
+            setAutoFillReadonly(true);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const select = document.querySelector('[name="college_id"]');
+            if (!select) {
+                return;
+            }
+
+            select.addEventListener('change', function () {
+                fillCollegeRegistrationFields(this.value);
+            });
+
+            if (select.value) {
+                fillCollegeRegistrationFields(select.value);
+            }
+        });
+    </script>
+
     <div class="modal fade" id="editCollegeModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
 
@@ -386,8 +462,8 @@
 
                     let id = this.dataset.id;
 
-                    let updateUrl = "{{ route('admin.college_registration.update', ':id') }}";
-                    document.getElementById('editCollegeForm').action = updateUrl.replace(':id', id);
+                    let updateUrl = "{{ route('admin.college_registration.update', ['college_registration' => 0]) }}";
+                    document.getElementById('editCollegeForm').action = updateUrl.replace('/0', `/${id}`);
 
                     document.getElementById('edit_college_name').value = this.dataset.college_name;
                     document.getElementById('edit_principal_name').value = this.dataset.principal_name;
