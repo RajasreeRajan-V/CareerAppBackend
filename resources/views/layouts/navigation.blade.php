@@ -138,6 +138,11 @@
             <i class="fa-solid fa-users nav-icon"></i>
             <span class="sidebar-text">Manage Users</span>
         </a>
+          <a href="{{ route('admin.career_guidance_registration.index') }}"
+            class="nav-link {{ request()->routeIs('admin.career_guidance_registration.*') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-compass nav-icon"></i>
+            <span class="sidebar-text">Guidance Registrations</span>
+        </a>
     </nav>
 
     <!-- Logout -->
