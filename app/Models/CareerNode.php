@@ -9,6 +9,7 @@ class CareerNode extends Model
     protected $fillable = [
         'title',
         'slug',
+        'level',
         'subjects',
         'career_options',
         'newgen_course',

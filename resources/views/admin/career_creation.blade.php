@@ -28,6 +28,47 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                        <div class="mb-3">
+    <label for="level" class="form-label fw-semibold">
+        Academic Level <span class="text-danger">*</span>
+    </label>
+
+    <select name="level" id="level"
+        class="form-select @error('level') is-invalid @enderror" required>
+
+        <option value="" hidden {{ old('level', '') == '' ? 'selected' : '' }}>
+            -- Select Academic Level --
+        </option>
+
+        <option value="0" {{ old('level') == '0' ? 'selected' : '' }}>
+            School (10th)
+        </option>
+
+        <option value="1" {{ old('level') == '1' ? 'selected' : '' }}>
+            Higher Secondary (+2 / 12th)
+        </option>
+
+        <option value="2" {{ old('level') == '2' ? 'selected' : '' }}>
+            Undergraduate (B.Sc / B.Com / B.Tech)
+        </option>
+
+        <option value="3" {{ old('level') == '3' ? 'selected' : '' }}>
+            Postgraduate (M.Sc / MBA / M.Tech)
+        </option>
+
+        <option value="4" {{ old('level') == '4' ? 'selected' : '' }}>
+            Doctorate (PhD)
+        </option>
+    </select>
+
+    @error('level')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+
+    <small class="text-muted">
+        This defines where this career sits in the academic hierarchy.
+    </small>
+</div>
 
                             <div class="mb-3">
                                 <label class="form-label">Description *</label>

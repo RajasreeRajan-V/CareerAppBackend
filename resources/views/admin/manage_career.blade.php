@@ -93,6 +93,21 @@
                                         <input type="text" name="title" id="edit_title" class="form-control"
                                             required>
                                     </div>
+                                    <div class="mb-3">
+    <label for="edit_level" class="form-label fw-semibold">
+        Academic Level <span class="text-danger">*</span>
+    </label>
+
+    <select name="level" id="edit_level" class="form-select" required>
+        <option value="" hidden>-- Select Academic Level --</option>
+
+        <option value="0">School (10th)</option>
+        <option value="1">Higher Secondary (+2 / 12th)</option>
+        <option value="2">Undergraduate (B.Sc / B.Com / B.Tech)</option>
+        <option value="3">Postgraduate (M.Sc / MBA / M.Tech)</option>
+        <option value="4">Doctorate (PhD)</option>
+    </select>
+</div>
 
                                     <div class="mb-3">
                                         <label class="form-label">Description *</label>
@@ -211,7 +226,8 @@
                     "{{ $career->id }}": {
                         subjects: {!! json_encode(is_array($subjectsArr) ? array_map('trim', $subjectsArr) : []) !!},
                         options: {!! json_encode(is_array($optionsArr) ? array_map('trim', $optionsArr) : []) !!},
-                        newgenCourse: "{{ $career->newgen_course ? '1' : '0' }}"
+                        newgenCourse: "{{ $career->newgen_course ? '1' : '0' }}",
+                        level: "{{ $career->level }}"
                         {{-- ADD THIS --}}
                     },
             @endforeach

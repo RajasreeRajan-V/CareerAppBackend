@@ -385,6 +385,15 @@
 </style>
 @endpush
 @section('content')
+    @if(session('warnings'))
+    <div class="alert alert-warning">
+        <ul class="mb-0">
+            @foreach(session('warnings') as $warning)
+                <li>{{ $warning }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
     <div class="container py-5">
         <div class="row justify-content-center">
@@ -665,7 +674,7 @@
         </div>
     </div>
 
-    <!-- Edit Career Link Modal -->
+
    <!-- Edit Career Link Modal -->
 <div class="modal fade" id="editCareerLinkModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">

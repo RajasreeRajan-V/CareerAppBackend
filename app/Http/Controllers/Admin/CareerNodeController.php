@@ -69,6 +69,7 @@ public function store(Request $request)
     $request->validate([
         'title'          => 'required|unique:career_nodes,title',
         'description'    => 'required',
+        'level'  => 'required|integer|in:0,1,2,3,4', 
         'subjects'       => 'nullable|array',
         'subjects.*'     => 'nullable|string',
         'career_options' => 'required|array',
@@ -98,6 +99,7 @@ public function store(Request $request)
 
     $career = new CareerNode();
     $career->title          = $request->title;
+    $career->level          = $request->level;
     $career->description    = $request->description;
     $career->subjects       = json_encode(array_filter($request->subjects ?? []));
     $career->career_options = json_encode($request->career_options);
@@ -161,6 +163,7 @@ public function update(Request $request, string $id)
     $request->validate([
         'title'            => 'required|unique:career_nodes,title,' . $career->id,
         'description'      => 'required',
+        'level'            => 'required|integer|in:0,1,2,3,4',
         'subjects'         => 'nullable|array',
         'subjects.*'       => 'nullable|string',
         'career_options'   => 'required|array',
@@ -220,6 +223,7 @@ public function update(Request $request, string $id)
     }
 
     $career->title          = $request->title;
+    $career->level          = $request->level;
     $career->description    = $request->description;
     $career->subjects       = json_encode(array_filter($request->subjects ?? []));
     $career->career_options = json_encode($request->career_options);
