@@ -4,19 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class College extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class College extends Authenticatable
 {
     use HasFactory;
-    protected $fillable = [
-        'name',
-        'location',
-        'rating',
-        'phone',
-        'email',
-        'website',
-        'about',
-    ];
+   protected $fillable = [
+    'name',
+    'location',
+    'rating',
+    'phone',
+    'email',
+    'website',
+    'about',
+    'principal_name',
+    'state_id',
+    'district_id',
+    'pincode',
+    'is_verified',
+    'password',
+    'password_changed',
+];
     public function images()
     {
         return $this->hasMany(CollegeImage::class);
@@ -33,5 +40,13 @@ class College extends Model
     {
         return $this->hasMany(CollegeCourse::class);
     }
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
 
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
 }

@@ -18,10 +18,11 @@ class CollegeRegisteredMail extends Mailable
      */
     public function __construct(public string $collegeName,
         public string $email,
-        public string $plainPassword)
+        public string $plainPassword,
+        public string $loginUrl = 'https://careerss.in/collegelogin',)
     {
-        //
-    }
+    $this->loginUrl = $loginUrl ?: route('college.login'); 
+}
 
     /**
      * Get the message envelope.

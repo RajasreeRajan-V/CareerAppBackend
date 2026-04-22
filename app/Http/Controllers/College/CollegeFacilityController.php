@@ -14,7 +14,7 @@ class CollegeFacilityController extends Controller
      */
      public function index()
     {
-        $college = Auth::guard('college')->user()->college; // assuming relation exists
+       $college    = Auth::guard('college')->user();// assuming relation exists
         $facilities = $college->facilities;
 
         return view('college.college_facilities', compact('facilities'));
@@ -37,11 +37,11 @@ class CollegeFacilityController extends Controller
         'facility' => 'required|string|max:255'
     ]);
 
-    $college = Auth::guard('college')->user()->college;
+    $college = Auth::guard('college')->user();
 
     $college->facilities()->create([
-        'facility' => $request->facility,
-    ]);
+            'facility' => $request->facility,
+        ]);
 
     return redirect()->route('college.facilities.index')
         ->with('success', 'Facility added successfully.');
@@ -74,7 +74,7 @@ public function update(Request $request, $id)
         'facility' => 'required|string|max:255',
     ]);
 
-    $college = Auth::guard('college')->user()->college;
+    $college = Auth::guard('college')->user();
 
     $facility = CollegeFacility::where('id', $id)
         ->where('college_id', $college->id) 
@@ -94,7 +94,7 @@ public function update(Request $request, $id)
      */
    public function destroy($id)
 {
-    $college = Auth::guard('college')->user()->college;
+    $college = Auth::guard('college')->user();
 
     $facility = CollegeFacility::where('id', $id)
         ->where('college_id', $college->id) 

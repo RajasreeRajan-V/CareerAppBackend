@@ -4,7 +4,7 @@ namespace App\Http\Controllers\College;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\CollegeRegistration;
+use App\Models\College;
 
 class CollegeManageController extends Controller
 {
@@ -22,49 +22,44 @@ class CollegeManageController extends Controller
      */
     public function edit(string $id)
     {
-        $college = CollegeRegistration::findOrFail($id);
+        $college = College::findOrFail($id);
         return view('college.college_edit', compact('college'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
-    {
-        $collegeRegistration = auth()->guard('college')->user();
-        
-        $validated = $request->validate([
-            'college_name'   => 'required|string|max:255',
-            'principal_name' => 'nullable|string|max:255',
-            'email'          => 'required|email|max:255',
-            'contact_no'     => 'required|string|max:12',
-            'website'        => 'nullable|url|max:255',
-            'address'        => 'nullable|string',
-            'city'           => 'required|string|max:255',
-            'state'          => 'required|string|max:255',
-            'pincode'        => 'required|string|max:10',
-        ]);
+   public function update(Request $request, $id)
+{
+    $college = College::findOrFail($id);
 
-        
-        $collegeRegistration->update($validated);
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'principal_name' => 'nullable|string|max:255',
+        'email' => 'nullable|email|unique:colleges,email,' . $id,
+        'phone' => 'nullable|string|max:15',
+        'website' => 'nullable|url',
+        'location' => 'nullable|string|max:255',
+        'rating' => 'nullable|numeric|min:0|max:5',
+        'pincode' => 'nullable|string|max:6',
+        'about' => 'nullable|string',
+    ]);
 
-        
-        if ($collegeRegistration->college_id) {
-            $collegeModel = \App\Models\College::find($collegeRegistration->college_id);
+    $college->update($request->only([
+        'name',
+        'principal_name',
+        'email',
+        'phone',
+        'website',
+        'location',
+        'rating',
+        'pincode',
+        'about'
+    ]));
 
-            if ($collegeModel) {
-                $collegeModel->update([
-                    'name'     => $request->college_name,
-                    'phone'    => $request->contact_no,
-                    'email'    => $request->email,
-                    'website'  => $request->website,
-                    'location' => $request->city . ', ' . $request->state,
-                ]);
-            }
-        }
+    return back()->with('success', 'Profile updated successfully!');
+}
 
-        return redirect()->back()->with('success', 'Profile updated successfully');
-    }
 
     /**
      * Remove the specified resource from storage.

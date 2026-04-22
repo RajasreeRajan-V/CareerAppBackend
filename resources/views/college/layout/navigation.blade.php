@@ -6,6 +6,8 @@
         left: 0;
         width: 255px;
         height: 100vh;
+        max-height: 100vh;
+        overflow: hidden;
         background: linear-gradient(175deg, #2a5454 0%, #306060 55%, #3a7070 100%);
         display: flex;
         flex-direction: column;
@@ -278,8 +280,10 @@
 
     @media (max-width: 991.98px) {
         .sidebar {
-            transform: translateX(-100%);
-        }
+        transform: translateX(-100%);
+        height: 100dvh;       
+        max-height: 100dvh;
+    }
 
         .sidebar.sidebar-open {
             transform: translateX(0);
@@ -376,10 +380,6 @@
             <i class="fa-solid fa-indian-rupee-sign nav-icon"></i>
             Create Fee Structure
         </a>
-    </nav>
-
-    <!-- Logout -->
-    <div class="sb-footer">
 
         <a href="{{ route('college.dashboard.viewers') }}"
             class="sb-link {{ request()->routeIs('college.dashboard.viewers') ? 'active' : '' }}">
@@ -387,8 +387,10 @@
             <i class="fa-solid fa-eye nav-icon"></i>
             Profile Viewers
         </a>
+    </nav>
 
-
+    <!-- Logout -->
+    <div class="sb-footer">
         <form action="{{ route('college.logout') }}" method="POST" style="display: inline;">
             @csrf
             <button type="submit" class="sb-link">

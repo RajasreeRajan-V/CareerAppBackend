@@ -18,25 +18,28 @@ class CareerLinkController
 //         return view('admin.career_path_link', compact('careerLinks', 'careerNodes'));
 //    }
 
-    public function index(Request $request)
-    {
-        $search = $request->input('search');
+   public function index(Request $request)
+{
+    $search = $request->input('search');
 
-        $query = CareerLink::with(['parent', 'child']);
+    $query = CareerLink::with(['parent', 'child'])->latest(); 
 
-        if ($search) {
-            $query->whereHas('parent', function ($q) use ($search) {
-                $q->where('title', 'like', '%' . $search . '%');
-            })->orWhereHas('child', function ($q) use ($search) {
-                $q->where('title', 'like', '%' . $search . '%');
+    if ($search) {
+        $query->where(function ($q) use ($search) {
+            $q->whereHas('parent', function ($q2) use ($search) {
+                $q2->where('title', 'like', '%' . $search . '%');
+            })->orWhereHas('child', function ($q2) use ($search) {
+                $q2->where('title', 'like', '%' . $search . '%');
             });
-        }
-
-        $careerLinks = $query->paginate(20)->withQueryString();
-        $careerNodes = CareerNode::orderBy('title')->get();
-
-        return view('admin.career_path_link', compact('careerLinks', 'careerNodes', 'search'));
+        });
     }
+
+    $careerLinks = $query->paginate(20)->withQueryString();
+    $careerNodes = CareerNode::orderBy('title')->get();
+
+    return view('admin.career_path_link', compact('careerLinks', 'careerNodes', 'search'));
+}
+
 
     public function create()
     {

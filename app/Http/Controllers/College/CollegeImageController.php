@@ -15,7 +15,7 @@ class CollegeImageController extends Controller
      */
     public function index()
     {
-        $college = Auth::guard('college')->user()->college;
+        $college = Auth::guard('college')->user();
         $images = $college->images;
 
         return view('college.college_collegeimg', compact('images'));
@@ -30,7 +30,7 @@ class CollegeImageController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
 
-        $college = Auth::guard('college')->user()->college;
+        $college = Auth::guard('college')->user();
 
         // Store image
         $path = $request->file('image')->store('college_images', 'public');
@@ -52,13 +52,13 @@ class CollegeImageController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
 
-        $college = Auth::guard('college')->user()->college;
+        $college = Auth::guard('college')->user();
 
         $image = CollegeImage::where('id', $id)
             ->where('college_id', $college->id)
             ->firstOrFail();
 
-        // Delete old image (important 🔥)
+       
         if ($image->image_url && Storage::disk('public')->exists($image->image_url)) {
             Storage::disk('public')->delete($image->image_url);
         }
@@ -78,7 +78,7 @@ class CollegeImageController extends Controller
      */
     public function destroy(string $id)
     {
-        $college = Auth::guard('college')->user()->college;
+        $college = Auth::guard('college')->user();
 
         $image = CollegeImage::where('id', $id)
             ->where('college_id', $college->id)

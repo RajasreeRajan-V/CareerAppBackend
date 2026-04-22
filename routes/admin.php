@@ -44,7 +44,10 @@ Route::name('admin.')->group(function () {
 
         Route::resource('userManagement', UserManageController::class);
         
-         Route::resource('career_guidance_registration', UserGuidenceRegistrationController::class);
+        Route::resource('career_guidance_registration', UserGuidenceRegistrationController::class);
+        
+        Route::put('/college/{id}/approve', [CollegeRegistrationController::class, 'approve']) ->name('college.approve');
+
         
      });
 });

@@ -121,11 +121,11 @@
         </a>
 
         <!-- College Registrations -->
-        <a href="{{ route('admin.college_registration.index') }}"
+        {{-- <a href="{{ route('admin.college_registration.index') }}"
             class="nav-link {{ request()->routeIs('admin.college_registration.*') ? 'nav-link-active' : '' }}">
             <i class="fa-solid fa-file-signature nav-icon"></i>
             <span class="sidebar-text">College Registrations</span>
-        </a>
+        </a> --}}
          <!-- Create Location -->
         <a href="{{ route('admin.createLocation.index') }}"
             class="nav-link {{ request()->routeIs('admin.createLocation.*') ? 'nav-link-active' : '' }}">

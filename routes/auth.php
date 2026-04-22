@@ -16,7 +16,7 @@ use App\Http\Controllers\College\CollegeLoginController;
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post("/logout", [LoginController::class,'logout'])->name('logout');
 
-Route::get('/collegelogin',[CollegeLoginController::class,'collegeLogin']);
+Route::get('/collegelogin',[CollegeLoginController::class,'collegeLogin'])->name('college.login');
 
 Route::post('/college/logout', [CollegeLoginController::class, 'logout'])->name('college.logout');
 

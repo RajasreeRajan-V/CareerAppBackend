@@ -46,7 +46,7 @@ return [
     ],
     'college' => [
         'driver' => 'session',
-        'provider' => 'college_registrations',
+        'provider' => 'colleges',
     ],
     ],
 
@@ -78,9 +78,9 @@ return [
             'model' => App\Models\Admin::class,
         ],
 
-        'college_registrations' => [
+        'colleges' => [
             'driver' => 'eloquent',
-            'model' => App\Models\CollegeRegistration::class,
+            'model' => App\Models\College::class,
         ],
     ],
 

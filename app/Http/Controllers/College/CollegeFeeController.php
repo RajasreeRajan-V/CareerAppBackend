@@ -8,23 +8,24 @@ use App\Models\CollegeFeeStructure;
 use App\Models\CollegeFeeBreakdown;
 use App\Models\Course;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CollegeFeeController extends Controller
 {
     public function index()
     {
-        $college = auth()->guard('college')->user();
+        $college = Auth::guard('college')->user();
 
-        $courses = Course::where('college_id', $college->college_id)
-                         ->with('feeStructures.breakdowns')
-                         ->get();
+        $courses = Course::where('college_id', $college->id) 
+                     ->with('feeStructures.breakdowns')
+                     ->get();
 
         return view('college.fee_structure_list', compact('college', 'courses'));
     }
 
 public function create(Course $course)
 {
-    $course->load('college');
+    $college = auth()->guard('college')->user();
 
     $currencies = ['INR' => '₹ INR'];
 
@@ -104,12 +105,12 @@ public function store(Request $request, Course $course)
 
     public function show(string $id)
     {
-        $college = auth()->guard('college')->user();
+         $college = auth()->guard('college')->user();
 
         $course = Course::where('id', $id)
-                        ->where('college_id', $college->college_id)
-                        ->with('feeStructures.breakdowns')
-                        ->firstOrFail();
+                    ->where('college_id', $college->id) 
+                    ->with('feeStructures.breakdowns')
+                    ->firstOrFail();
 
         return view('college.fee_structure_show', compact('course', 'college'));
     }
@@ -118,10 +119,10 @@ public function store(Request $request, Course $course)
     {
         $college = auth()->guard('college')->user();
 
-        $course = Course::where('id', $id)
-                        ->where('college_id', $college->college_id)
-                        ->with('feeStructures.breakdowns')
-                        ->firstOrFail();
+            $course = Course::where('id', $id)
+                    ->where('college_id', $college->id) 
+                    ->with('feeStructures.breakdowns')
+                    ->firstOrFail();
 
         $currencies = ['INR' => '₹ INR'];
 

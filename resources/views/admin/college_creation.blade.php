@@ -5,7 +5,6 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-9">
-
             <div class="card shadow-sm">
                 <div class="card-header text-white text-center" style="background-color: #306060;">
                     <h4 class="mb-0">Create New College</h4>
@@ -14,53 +13,76 @@
                     <form action="{{ route('admin.college.store') }}" method="POST" enctype="multipart/form-data" id="collegeForm">
                         @csrf
 
-                        {{-- BASIC DETAILS --}}
                         <h5 class="mb-3">Basic College Information</h5>
 
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">College Name *</label>
-                                <input type="text" name="name" class="form-control" required>
+                                <input type="text" name="name" class="form-control"
+                                       value="{{ old('name') }}" required>
+                                @error('name') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
 
-                            <div class="col-md-4">
-                                    <label class="form-label">Street *</label>
-                                    <input type="text" name="street" class="form-control" required>
-                                </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Street *</label>
+                                <input type="text" name="street" class="form-control"
+                                       value="{{ old('street') }}" required>
+                                @error('street') <small class="text-danger">{{ $message }}</small> @enderror
+                            </div>
 
-                                <div class="col-md-4">
-                                    <label class="form-label">District *</label>
-                                    <input type="text" name="district" class="form-control" required>
-                                </div>
+                            {{-- State Dropdown --}}
+                            <div class="col-md-6">
+                                <label class="form-label">State *</label>
+                                <select name="state_id" id="state_id" class="form-select" required>
+                                    <option value="">-- Select State --</option>
+                                    @foreach($states as $state)
+                                        <option value="{{ $state->id }}"
+                                            {{ old('state_id') == $state->id ? 'selected' : '' }}>
+                                            {{ $state->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('state_id') <small class="text-danger">{{ $message }}</small> @enderror
+                            </div>
 
-                                <div class="col-md-4">
-                                    <label class="form-label">State *</label>
-                                    <input type="text" name="state" class="form-control" required>
-                                </div>
+                            {{-- District Dropdown (populated by JS) --}}
+                            <div class="col-md-6">
+                                <label class="form-label">District *</label>
+                                <select name="district_id" id="district_id" class="form-select" required>
+                                    <option value="">-- Select District --</option>
+                                </select>
+                                @error('district_id') <small class="text-danger">{{ $message }}</small> @enderror
+                            </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Rating</label>
-                                <input type="number" step="0.1" min="0" max="5" name="rating" class="form-control">
+                                <input type="number" step="0.1" min="0" max="5" name="rating"
+                                       class="form-control" value="{{ old('rating') }}">
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Phone</label>
-                                <input type="tel" name="phone" class="form-control">
+                                <input type="tel" name="phone" class="form-control"
+                                       value="{{ old('phone') }}">
+                                @error('phone') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control">
+                                <input type="email" name="email" class="form-control"
+                                       value="{{ old('email') }}">
+                                @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Website</label>
-                                <input type="url" name="website" class="form-control">
+                                <input type="url" name="website" class="form-control"
+                                       value="{{ old('website') }}">
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label">About College</label>
-                                <textarea name="about" rows="4" class="form-control"></textarea>
+                                <textarea name="about" rows="4" class="form-control">{{ old('about') }}</textarea>
                             </div>
                         </div>
 
@@ -68,26 +90,17 @@
 
                         {{-- IMAGES --}}
                         <h5 class="mb-3">College Images</h5>
-
                         <div class="mb-3">
-                            <input
-                                type="file"
-                                id="imageInput"
-                                class="form-control"
-                                accept="image/*"
-                                multiple>
+                            <input type="file" id="imageInput" class="form-control" accept="image/*" multiple>
                             <small class="text-muted">Select multiple images</small>
                         </div>
-
                         <div id="imagePreview" class="row g-3"></div>
 
                         <hr class="my-4">
 
                         {{-- FACILITIES --}}
                         <h5 class="mb-3">Facilities</h5>
-
                         <div id="facility-wrapper"></div>
-
                         <button type="button" class="btn btn-outline-primary mb-3" onclick="addFacility()">
                             Add Facility
                         </button>
@@ -96,35 +109,75 @@
 
                         {{-- COURSES --}}
                         <h5 class="mb-3">Courses</h5>
-
                         <div id="course-wrapper"></div>
-
                         <button type="button" class="btn btn-outline-primary mb-4" onclick="addCourse()">
                             Add Course
                         </button>
 
-                        {{-- ACTION BUTTONS --}}
                         <div class="d-flex justify-content-end gap-2">
                             <button type="submit" class="btn btn-success">Save</button>
                             <a href="{{ route('admin.college.index') }}" class="btn btn-secondary">Cancel</a>
                         </div>
-
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
-{{-- JS --}}
 <script>
-    let selectedFiles = [];
+    // ── District loader ──────────────────────────────────────────────
+    const oldDistrictId = "{{ old('district_id') }}";
 
+    document.getElementById('state_id').addEventListener('change', function () {
+        loadDistricts(this.value, null);
+    });
+
+function loadDistricts(stateId, selectedDistrictId) {
+    const districtSelect = document.getElementById('district_id');
+    districtSelect.innerHTML = '<option value="">Loading...</option>';
+
+    if (!stateId) {
+        districtSelect.innerHTML = '<option value="">-- Select District --</option>';
+        return;
+    }
+
+    fetch(`{{ route('get.districts') }}?state_id=${stateId}`)
+        .then(res => res.json())
+        .then(data => {
+            districtSelect.innerHTML = '<option value="">-- Select District --</option>';
+
+            if (!data.length) {
+                districtSelect.innerHTML += `<option value="">No districts found</option>`;
+                return;
+            }
+
+            data.forEach(d => {
+                const selected = selectedDistrictId && d.id == selectedDistrictId ? 'selected' : '';
+                districtSelect.innerHTML += `<option value="${d.id}" ${selected}>${d.name}</option>`;
+            });
+        })
+        .catch(err => {
+            console.error('Error:', err);
+            districtSelect.innerHTML = '<option value="">Error loading districts</option>';
+        });
+}
+
+
+    // Re-populate on validation error (old values)
+    document.addEventListener('DOMContentLoaded', () => {
+        const stateId = document.getElementById('state_id').value;
+        if (stateId) loadDistricts(stateId, oldDistrictId);
+
+        addFacility();
+        addCourse();
+    });
+
+    // ── Facilities & Courses ─────────────────────────────────────────
     function addFacility() {
         document.getElementById('facility-wrapper').insertAdjacentHTML('beforeend', `
             <div class="input-group mb-2">
-                <input type="text" name="facilities[]" class="form-control" placeholder="Facility" required>
+                <input type="text" name="facilities[]" class="form-control" placeholder="Facility">
                 <button class="btn btn-outline-danger" type="button"
                         onclick="this.parentElement.remove()">Remove</button>
             </div>
@@ -134,12 +187,15 @@
     function addCourse() {
         document.getElementById('course-wrapper').insertAdjacentHTML('beforeend', `
             <div class="input-group mb-2">
-                <input type="text" name="courses[]" class="form-control" placeholder="Course" required>
+                <input type="text" name="courses[]" class="form-control" placeholder="Course">
                 <button class="btn btn-outline-danger" type="button"
                         onclick="this.parentElement.remove()">Remove</button>
             </div>
         `);
     }
+
+    // ── Image preview ────────────────────────────────────────────────
+    let selectedFiles = [];
 
     function removeImage(index) {
         selectedFiles.splice(index, 1);
@@ -149,7 +205,6 @@
     function renderImages() {
         const preview = document.getElementById('imagePreview');
         preview.innerHTML = '';
-
         selectedFiles.forEach((file, index) => {
             const reader = new FileReader();
             reader.onload = e => {
@@ -176,20 +231,13 @@
     document.getElementById('collegeForm').addEventListener('submit', function () {
         const dt = new DataTransfer();
         selectedFiles.forEach(file => dt.items.add(file));
-
         const input = document.createElement('input');
         input.type = 'file';
         input.name = 'images[]';
         input.files = dt.files;
         input.multiple = true;
         input.hidden = true;
-
         this.appendChild(input);
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-        addFacility();
-        addCourse();
     });
 </script>
 

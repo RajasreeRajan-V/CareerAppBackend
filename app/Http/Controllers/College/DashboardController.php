@@ -11,8 +11,7 @@ class DashboardController extends Controller
   public function index()
     {
         $college = auth()->guard('college')->user();
-        $images = CollegeImage::where('college_id', $college->college_id)->get();
-
+        $images = $college->images;
         return view('college.dashboard', compact('college', 'images'));
     }
 }
