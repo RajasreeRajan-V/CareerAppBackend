@@ -6,8 +6,8 @@ use App\Models\CareerGuidanceBanner;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
- 
-class CareerGuidanceBannerController 
+
+class CareerGuidanceBannerController
 {
     /**
      * Display a listing of the resource.
@@ -29,68 +29,67 @@ class CareerGuidanceBannerController
     /**
      * Store a newly created resource in storage.
      */
-   public function store(Request $request)
-{
-    $request->validate([
-        'name'             => 'required|string|max:255',
-        'profession'       => 'nullable|string|max:255',
-        'instructor_name'  => 'required|string|max:255',
-        'description'      => 'required|string',
-        'event_date'       => 'required|date|after_or_equal:today',
-        'start_time'       => 'required|date_format:H:i',
-        'end_time'         => 'required|date_format:H:i|after:start_time',
-        'google_meet_link' => 'required|url',
-        'image'            => 'required|image|mimes:jpg,jpeg,png,webp|max:3072',
-    ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name'             => 'required|string|max:255',
+            'profession'       => 'nullable|string|max:255',
+            'instructor_name'  => 'required|string|max:255',
+            'description'      => 'required|string',
+            'event_date'       => 'required|date|after_or_equal:today',
+            'start_time'       => 'required|date_format:H:i',
+            'end_time'         => 'required|date_format:H:i|after:start_time',
+            'google_meet_link' => [
+                'required',
+                'regex:/^(https:\/\/meet\.google\.com\/)?[a-z]{3}-[a-z]{4}-[a-z]{3}$/'
+            ],
+            'image'            => 'required|image|mimes:jpg,jpeg,png,webp|max:3072',
+        ]);
 
-    $imagePath = null;
+        $imagePath = null;
 
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')
-            ->store('career_guidance_banners', 'public');
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')
+                ->store('career_guidance_banners', 'public');
+        }
+
+        $meetCode = $this->extractMeetCode($request->google_meet_link);
+
+        if (!$meetCode) {
+            return back()
+                ->withErrors(['google_meet_link' => 'Invalid Google Meet link'])
+                ->withInput();
+        }
+
+        CareerGuidanceBanner::create([
+            'name'             => $request->name,
+            'profession'       => $request->profession,
+            'instructor_name'  => $request->instructor_name,
+            'description'      => $request->description,
+            'event_date'       => $request->event_date,
+            'start_time'       => $request->start_time,
+            'end_time'         => $request->end_time,
+            'google_meet_link' => $meetCode,
+            'image'            => $imagePath,
+        ]);
+
+        return redirect()
+            ->route('admin.guidance_banners.index')
+            ->with('success', 'Career Guidance Banner added successfully!');
     }
 
-    $meetCode = $this->extractMeetCode($request->google_meet_link);
+    private function extractMeetCode($value)
+    {
+        // Remove spaces
+        $value = trim($value);
 
-    if (!$meetCode) {
-        return back()
-            ->withErrors(['google_meet_link' => 'Invalid Google Meet link'])
-            ->withInput();
+        // If user entered only code
+        if (!str_contains($value, 'https://meet.google.com/')) {
+            $value = 'https://meet.google.com/' . $value;
+        }
+
+        return $value;
     }
-
-    CareerGuidanceBanner::create([
-        'name'             => $request->name,
-        'profession'       => $request->profession,
-        'instructor_name'  => $request->instructor_name,
-        'description'      => $request->description,
-        'event_date'       => $request->event_date,
-        'start_time'       => $request->start_time,
-        'end_time'         => $request->end_time,
-        'google_meet_link' => $meetCode, 
-        'image'            => $imagePath,
-    ]);
-
-    return redirect()
-        ->route('admin.guidance_banners.index')
-        ->with('success', 'Career Guidance Banner added successfully!');
-}
-
-    private function extractMeetCode($url)
-{
-    $parsedUrl = parse_url($url);
-
-    // Ensure host is meet.google.com
-    if (!isset($parsedUrl['host']) || $parsedUrl['host'] !== 'meet.google.com') {
-        return null;
-    }
-
-    // Extract path (e.g. /abc-defg-hij)
-    if (isset($parsedUrl['path'])) {
-        return ltrim($parsedUrl['path'], '/');
-    }
-
-    return null;
-}
     /**
      * Display the specified resource.
      */
@@ -110,10 +109,12 @@ class CareerGuidanceBannerController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,string $id)
-    {
-       $banner = CareerGuidanceBanner::findOrFail($id);
-       $request->validate([
+public function update(Request $request, CareerGuidanceBanner $guidanceBanner)
+{
+   
+    session()->flash('edit_banner_id', $guidanceBanner->id);
+
+    $request->validate([
         'name'             => 'required|string|max:255',
         'profession'       => 'nullable|string|max:255',
         'instructor_name'  => 'required|string|max:255',
@@ -121,34 +122,50 @@ class CareerGuidanceBannerController
         'event_date'       => 'required|date|after_or_equal:today',
         'start_time'       => 'required|date_format:H:i',
         'end_time'         => 'required|date_format:H:i|after:start_time',
-        'google_meet_link' => 'required',
-        'image'            => 'nullable|image|mimes:jpg,jpeg,png,webp|max:3072',
+        'google_meet_link' => [
+            'required',
+            'regex:/^(https:\/\/meet\.google\.com\/)?[a-z]{3}-[a-z]{4}-[a-z]{3}$/'
+        ],
+        'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:3072',
     ]);
-    $banner->name            = $request->name;
-    $banner->profession      = $request->profession;
-    $banner->instructor_name = $request->instructor_name;
-    $banner->description     = $request->description;
-    $banner->event_date      = $request->event_date;
-    $banner->start_time      = $request->start_time;
-    $banner->end_time        = $request->end_time;
-    $banner->google_meet_link= $request->google_meet_link;
-    if ($request->hasFile('image')) {
 
-        // Delete old image if exists
-        if ($banner->image && Storage::disk('public')->exists($banner->image)) {
-            Storage::disk('public')->delete($banner->image);
+    $meetCode = $this->extractMeetCode($request->google_meet_link);
+
+    if (!$meetCode) {
+        return back()
+            ->withErrors(['google_meet_link' => 'Invalid Google Meet link'])
+            ->withInput();
+    }
+
+    // Only replace image if a new one was uploaded
+    $imagePath = $guidanceBanner->image;
+
+    if ($request->hasFile('image')) {
+        // Delete old image from storage
+        if ($guidanceBanner->image) {
+            Storage::disk('public')->delete($guidanceBanner->image);
         }
 
-        // Store new image
-        $imagePath = $request->file('image')->store('career_guidance_banners', 'public');
-        $banner->image = $imagePath;
+        $imagePath = $request->file('image')
+            ->store('career_guidance_banners', 'public');
     }
-    $banner->save();
+
+    $guidanceBanner->update([
+        'name'             => $request->name,
+        'profession'       => $request->profession,
+        'instructor_name'  => $request->instructor_name,
+        'description'      => $request->description,
+        'event_date'       => $request->event_date,
+        'start_time'       => $request->start_time,
+        'end_time'         => $request->end_time,
+        'google_meet_link' => $meetCode,
+        'image'            => $imagePath,
+    ]);
 
     return redirect()
         ->route('admin.guidance_banners.index')
-        ->with('success', 'Career Guidance Banner updated successfully.');
-    }
+        ->with('success', 'Career Guidance Banner updated successfully!');
+}
 
     /**
      * Remove the specified resource from storage.
@@ -167,6 +184,5 @@ class CareerGuidanceBannerController
         return redirect()
             ->route('admin.guidance_banners.index')
             ->with('success', 'Career Guidance Banner deleted successfully.');
-  
     }
 }

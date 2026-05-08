@@ -48,15 +48,25 @@ public function store(Request $request)
         'about'        => 'nullable|string',
         'images'       => 'nullable|array',
         'images.*'     => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'facilities.*' => 'nullable|string',
-        'courses.*'    => 'nullable|string',
+        'facilities'   => 'nullable|array',
+        'facilities.*' => 'nullable|string|max:255',
+        'courses'      => 'nullable|array',
+        'courses.*'    => 'nullable|string|max:255',
     ]);
+
+    // ✅ Duplicate checks using helper
+    if ($error = $this->checkDuplicates($request->input('facilities', []), 'facility')) {
+        return back()->withErrors(['facilities' => $error])->withInput();
+    }
+
+    if ($error = $this->checkDuplicates($request->input('courses', []), 'course')) {
+        return back()->withErrors(['courses' => $error])->withInput();
+    }
 
     $state    = State::findOrFail($request->state_id);
     $district = District::findOrFail($request->district_id);
     $location = $request->street . ', ' . $district->name . ', ' . $state->name;
 
-    // Generate plain password before hashing
     $plainPassword = Str::random(8);
 
     $college = College::create([
@@ -70,7 +80,6 @@ public function store(Request $request)
         'website'          => $request->website,
         'about'            => $request->about,
         'password'         => Hash::make($plainPassword),
-        // 'is_verified'      => false,
         'password_changed' => false,
     ]);
 
@@ -82,32 +91,41 @@ public function store(Request $request)
         }
     }
 
-    // Facilities
+    // ✅ Facilities — with $seen guard as final DB-level protection
+    $seenFacilities = [];
     if ($request->filled('facilities')) {
         foreach ($request->facilities as $facility) {
-            if (!empty($facility)) {
-                CollegeFacility::create(['college_id' => $college->id, 'facility' => $facility]);
+            $trimmed = trim($facility);
+            $key     = strtolower($trimmed);
+            if (!empty($trimmed) && !in_array($key, $seenFacilities)) {
+                $seenFacilities[] = $key;
+                CollegeFacility::create(['college_id' => $college->id, 'facility' => $trimmed]);
             }
         }
     }
 
-    // Courses
+    // ✅ Courses — with $seen guard as final DB-level protection
+    $seenCourses = [];
     if ($request->filled('courses')) {
         foreach ($request->courses as $course) {
-            if (!empty($course)) {
-                Course::create(['college_id' => $college->id, 'name' => $course]);
+            $trimmed = trim($course);
+            $key     = strtolower($trimmed);
+            if (!empty($trimmed) && !in_array($key, $seenCourses)) {
+                $seenCourses[] = $key;
+                Course::create(['college_id' => $college->id, 'name' => $trimmed]);
             }
         }
     }
 
-    // Send credentials to college email
     Mail::to($college->email)->send(new CollegeRegisteredMail(
         $college->name,
         $college->email,
         $plainPassword
     ));
 
-    return redirect()->route('admin.college.index')->with('success', 'College added and credentials sent to ' . $college->email);
+    return redirect()
+        ->route('admin.college.index')
+        ->with('success', 'College added and credentials sent to ' . $college->email);
 }
 
 
@@ -127,9 +145,20 @@ public function update(Request $request, $id)
         'about'        => 'nullable|string',
         'images'       => 'nullable|array',
         'images.*'     => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'facilities.*' => 'nullable|string',
-        'courses.*'    => 'nullable|string',
+        'facilities'   => 'nullable|array',
+        'facilities.*' => 'nullable|string|max:255',
+        'courses'      => 'nullable|array',
+        'courses.*'    => 'nullable|string|max:255',
     ]);
+
+    // ✅ Duplicate checks using helper
+    if ($error = $this->checkDuplicates($request->input('facilities', []), 'facility')) {
+        return back()->withErrors(['facilities' => $error])->withInput();
+    }
+
+    if ($error = $this->checkDuplicates($request->input('courses', []), 'course')) {
+        return back()->withErrors(['courses' => $error])->withInput();
+    }
 
     $state    = State::findOrFail($request->state_id);
     $district = District::findOrFail($request->district_id);
@@ -163,22 +192,30 @@ public function update(Request $request, $id)
         }
     }
 
-    // Facilities
+    // ✅ Facilities — delete old, re-insert with $seen guard
     $college->facilities()->delete();
+    $seenFacilities = [];
     if ($request->filled('facilities')) {
         foreach ($request->facilities as $facility) {
-            if (!empty($facility)) {
-                CollegeFacility::create(['college_id' => $college->id, 'facility' => $facility]);
+            $trimmed = trim($facility);
+            $key     = strtolower($trimmed);
+            if (!empty($trimmed) && !in_array($key, $seenFacilities)) {
+                $seenFacilities[] = $key;
+                CollegeFacility::create(['college_id' => $college->id, 'facility' => $trimmed]);
             }
         }
     }
 
-    // Courses
+    // ✅ Courses — delete old, re-insert with $seen guard
     $college->courses()->delete();
+    $seenCourses = [];
     if ($request->filled('courses')) {
         foreach ($request->courses as $course) {
-            if (!empty($course)) {
-                Course::create(['college_id' => $college->id, 'name' => $course]);
+            $trimmed = trim($course);
+            $key     = strtolower($trimmed);
+            if (!empty($trimmed) && !in_array($key, $seenCourses)) {
+                $seenCourses[] = $key;
+                Course::create(['college_id' => $college->id, 'name' => $trimmed]);
             }
         }
     }
@@ -187,6 +224,7 @@ public function update(Request $request, $id)
         ->route('admin.college.index')
         ->with('success', 'College updated successfully!');
 }
+
     public function destroy($id)
     {
         $college = College::findOrFail($id);
@@ -204,5 +242,16 @@ public function update(Request $request, $id)
         'facilities' => $college->facilities,
         'courses' => $college->courses,
     ]);
+}
+
+private function checkDuplicates(array $items, string $field): ?string
+{
+    $cleaned = array_filter(array_map('trim', $items), fn($v) => $v !== '');
+    $lowered = array_map('strtolower', array_values($cleaned));
+    
+    if (count($lowered) !== count(array_unique($lowered))) {
+        return "Duplicate {$field} names are not allowed.";
+    }
+    return null;
 }
 }

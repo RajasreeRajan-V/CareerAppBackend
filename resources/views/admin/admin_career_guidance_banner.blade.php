@@ -60,7 +60,7 @@
 
                                     <!-- Meet Link -->
                                     <td>
-                                        <a href="{{ 'https://meet.google.com/' . $banner->google_meet_link }}"
+                                       <a href="{{ $banner->google_meet_link }}"
                                             target="_blank" rel="noopener noreferrer"
                                             class="btn btn-sm btn-outline-success">
                                             Join
@@ -123,8 +123,8 @@
 
 
     <!-- ===========================
-                                    CREATE MODAL (With Validation)
-                                =========================== -->
+                                            CREATE MODAL (With Validation)
+                                        =========================== -->
     <div class="modal fade" id="createBannerModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <form method="POST" action="{{ route('admin.guidance_banners.store') }}" enctype="multipart/form-data">
@@ -145,7 +145,7 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Event Name</label>
                                 <input type="text" name="name" value="{{ old('name') }}"
-                                    class="form-control @error('name') is-invalid @enderror">
+                                    class="form-control @error('name') is-invalid @enderror" required>
 
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -154,7 +154,7 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Profession</label>
                                 <input type="text" name="profession" value="{{ old('profession') }}"
-                                    class="form-control @error('profession') is-invalid @enderror">
+                                    class="form-control @error('profession') is-invalid @enderror" required>
 
                                 @error('profession')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -168,7 +168,7 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Instructor Name</label>
                                 <input type="text" name="instructor_name" value="{{ old('instructor_name') }}"
-                                    class="form-control @error('instructor_name') is-invalid @enderror">
+                                    class="form-control @error('instructor_name') is-invalid @enderror" required>
 
                                 @error('instructor_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -178,7 +178,7 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Event Date</label>
                                 <input type="date" name="event_date" value="{{ old('event_date') }}"
-                                    class="form-control @error('event_date') is-invalid @enderror"
+                                    class="form-control @error('event_date') is-invalid @enderror" required
                                     min="{{ date('Y-m-d') }}">
 
                                 @error('event_date')
@@ -192,7 +192,7 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Start Time</label>
                                 <input type="time" name="start_time" value="{{ old('start_time') }}"
-                                    class="form-control @error('start_time') is-invalid @enderror">
+                                    class="form-control @error('start_time') is-invalid @enderror" required>
 
                                 @error('start_time')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -202,7 +202,7 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">End Time</label>
                                 <input type="time" name="end_time" value="{{ old('end_time') }}"
-                                    class="form-control @error('end_time') is-invalid @enderror">
+                                    class="form-control @error('end_time') is-invalid @enderror" required>
 
                                 @error('end_time')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -214,8 +214,8 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Google Meet Link</label>
-                                <input type="url" name="google_meet_link" value="{{ old('google_meet_link') }}"
-                                    class="form-control @error('google_meet_link') is-invalid @enderror">
+                                <input type="text" name="google_meet_link" value="{{ old('google_meet_link') }}"
+                                    class="form-control @error('google_meet_link') is-invalid @enderror" required>
 
                                 @error('google_meet_link')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -225,7 +225,7 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Banner Image</label>
                                 <input type="file" name="image"
-                                    class="form-control @error('image') is-invalid @enderror" accept="image/*">
+                                    class="form-control @error('image') is-invalid @enderror" accept="image/*" required>
 
                                 @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -262,93 +262,150 @@
     </div>
 
     <!-- ===========================
-                                    EDIT MODAL
-                                =========================== -->
-    <div class="modal fade" id="editModal" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <form method="POST" id="editForm" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
+                                            EDIT MODAL
+                                        =========================== -->
+   <!-- EDIT MODAL -->
+<div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <form method="POST" id="editForm" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-                <div class="modal-content">
+            <div class="modal-content">
 
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title">Edit Career Guidance Banner</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Edit Career Guidance Banner</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <!-- Row 1 -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Event Name</label>
+                            <input type="text" name="name" id="edit_name"
+                                value="{{ old('name') }}"
+                                class="form-control @error('name') is-invalid @enderror" required>
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Profession</label>
+                            <input type="text" name="profession" id="edit_profession"
+                                value="{{ old('profession') }}"
+                                class="form-control @error('profession') is-invalid @enderror">
+                            @error('profession')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
 
-                    <div class="modal-body">
-
-                        <div class="mb-3">
-                            <label>Event Name</label>
-                            <input type="text" name="name" id="edit_name" class="form-control" required>
+                    <!-- Row 2 -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Instructor Name</label>
+                            <input type="text" name="instructor_name" id="edit_instructor_name"
+                                value="{{ old('instructor_name') }}"
+                                class="form-control @error('instructor_name') is-invalid @enderror" required>
+                            @error('instructor_name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label>Profession</label>
-                            <input type="text" name="profession" id="edit_profession" class="form-control">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Event Date</label>
+                            <input type="date" name="event_date" id="edit_event_date"
+                                value="{{ old('event_date') }}"
+                                class="form-control @error('event_date') is-invalid @enderror"
+                                required min="{{ date('Y-m-d') }}">
+                            @error('event_date')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
-                        <div class="mb-3">
-                            <label>Instructor Name</label>
-                            <input type="text" name="instructor_name" id="edit_instructor_name" class="form-control"
-                                required>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Start Time</label>
+                            <input type="time" name="start_time" id="edit_start_time"
+                                value="{{ old('start_time') }}"
+                                class="form-control @error('start_time') is-invalid @enderror" required>
+                            @error('start_time')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label>Description</label>
-                            <textarea name="description" id="edit_description" class="form-control" rows="3" required></textarea>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">End Time</label>
+                            <input type="time" name="end_time" id="edit_end_time"
+                                value="{{ old('end_time') }}"
+                                class="form-control @error('end_time') is-invalid @enderror" required>
+                            @error('end_time')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label>Event Date</label>
-                            <input type="date" name="event_date" id="edit_event_date" class="form-control" required
-                                   min="{{ date('Y-m-d') }}">
-                        </div>
-
-                        <div class="mb-3">
-                            <label>Start Time</label>
-                            <input type="time" name="start_time" id="edit_start_time" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label>End Time</label>
-                            <input type="time" name="end_time" id="edit_end_time" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label>Google Meet Link</label>
+                    <!-- Row 4 -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Google Meet Link</label>
                             <input type="text" name="google_meet_link" id="edit_google_meet_link"
-                                class="form-control" required>
+                                value="{{ old('google_meet_link') }}"
+                                class="form-control @error('google_meet_link') is-invalid @enderror" required>
+                            @error('google_meet_link')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label>Current Banner Image</label>
-                            <div>
-                                <img id="edit_image_preview" src="" width="120"
-                                    style="border-radius:6px; display:none; object-fit:cover;">
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label>Change Banner Image</label>
-                            <input type="file" name="image" class="form-control" accept="image/*">
-                            <small class="text-muted">Leave empty if you don't want to change image</small>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Change Banner Image</label>
+                            <input type="file" name="image"
+                                class="form-control @error('image') is-invalid @enderror" accept="image/*">
+                            <small class="text-muted">Leave empty to keep existing image</small>
+                            @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">
-                            Update Banner
-                        </button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Cancel
-                        </button>
+                    <!-- Row 5 -->
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea name="description" id="edit_description"
+                                class="form-control @error('description') is-invalid @enderror"
+                                rows="3" required>{{ old('description') }}</textarea>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Current image preview -->
+                    <div class="mb-3">
+                        <label class="form-label">Current Image</label>
+                        <div>
+                            <img id="edit_image_preview" src="" width="120"
+                                style="border-radius:6px; display:none; object-fit:cover;">
+                        </div>
                     </div>
 
                 </div>
-            </form>
-        </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Update Banner</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </div>
+        </form>
     </div>
+</div>
 @endsection
 
 @push('scripts')
@@ -391,16 +448,24 @@
 
         });
 
-        @if ($errors->any())
-            var createModal = new bootstrap.Modal(document.getElementById('createBannerModal'));
-            createModal.show();
-        @endif
-
-        @if ($errors->any())
-            document.addEventListener('DOMContentLoaded', function() {
-                var editModal = new bootstrap.Modal(document.getElementById('editModal'));
+     @if ($errors->any())
+        window.addEventListener('load', function () {
+            @if (old('_method') == 'PUT')
+                let editModal = new bootstrap.Modal(document.getElementById('editModal'));
                 editModal.show();
-            });
-        @endif
+            @else
+                let createModal = new bootstrap.Modal(document.getElementById('createBannerModal'));
+                createModal.show();
+            @endif
+        });
+    @endif
     </script>
+    @if (session('edit_banner_id'))
+    <script>
+        document.getElementById('editForm').action =
+            "{{ route('admin.guidance_banners.update', session('edit_banner_id')) }}";
+    </script>
+@endif
+
 @endpush
+

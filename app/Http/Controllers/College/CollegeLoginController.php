@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CollegeLoginController extends Controller
 {
-   public function CollegeLogin()
+    public function CollegeLogin()
     {
         return view('college.login');
     }
@@ -24,25 +24,38 @@ class CollegeLoginController extends Controller
 
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return redirect()->back()
+                ->with('error', 'Invalid email or password')
+                ->with('login_type', 'college')
+                ->withInput();
         }
 
         $credentials = $request->only('email', 'password');
 
         if (auth()->guard('college')->attempt($credentials)) {
-        return redirect()->route('college.dashboard'); 
+            return redirect()->route('college.dashboard');
+        }
+
+        return redirect()->back()->with('error', 'Invalid email or password') ->with('login_type', 'college') // ✅ THIS WAS MISSING
+    ->withInput();
     }
 
-        return redirect()->back()->with('error', 'Invalid email or password');
-    }
+    //     public function logout(Request $request)
+    // {
+    //     Auth::guard('college')->logout(); 
 
+    //     $request->session()->invalidate();
+    //     $request->session()->regenerateToken();
+
+    //     return redirect('/collegelogin')->with('success', 'Logged out successfully');
+    // }
     public function logout(Request $request)
-{
-    Auth::guard('college')->logout(); 
+    {
+        Auth::guard('college')->logout();
 
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-    return redirect('/collegelogin')->with('success', 'Logged out successfully');
-}
+        return redirect()->route('login')->with('success', 'Logged out successfully');
+    }
 }

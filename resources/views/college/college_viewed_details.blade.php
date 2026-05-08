@@ -441,6 +441,17 @@
                 oninput="filterTable(this.value)">
         </div>
         <span class="pv-count" id="visibleCount">{{ $viewers->total() }} students</span>
+
+{{-- ADD THIS BUTTON --}}
+<button onclick="downloadPDF()" class="btn-download-pdf">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:5px;">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    Download PDF
+</button>
+        
     </div>
 
     {{-- Table --}}
@@ -453,7 +464,7 @@
                         <th>Student</th>
                         <th>Contact</th>
                         <th>Phone</th>
-                        <th>Child</th>
+                        
                         <th>Viewed At</th>
                     </tr>
                 </thead>
@@ -552,6 +563,106 @@
 
             document.getElementById('visibleCount').textContent =
                 visible + ' student' + (visible !== 1 ? 's' : '');
+        }
+    </script>
+@endpush
+@push('scripts')
+    {{-- jsPDF + AutoTable for PDF export --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+    <script>
+        function filterTable(query) {
+            const rows = document.querySelectorAll('#viewersTable tbody tr');
+            const q = query.toLowerCase().trim();
+            let visible = 0;
+
+            rows.forEach(row => {
+                const show = !q || row.innerText.toLowerCase().includes(q);
+                row.style.display = show ? '' : 'none';
+                if (show) visible++;
+            });
+
+            document.getElementById('visibleCount').textContent =
+                visible + ' student' + (visible !== 1 ? 's' : '');
+        }
+
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a4' });
+
+            // Title
+            doc.setFontSize(16);
+            doc.setTextColor(30, 45, 61); // #1e2d3d
+            doc.text('Profile Viewers', 40, 40);
+
+            // Subtitle / date range
+            doc.setFontSize(9);
+            doc.setTextColor(150);
+            const from = document.querySelector('input[name="from_date"]')?.value;
+            const to   = document.querySelector('input[name="to_date"]')?.value;
+            let sub = 'Students who visited your college page';
+            if (from || to) sub += '  |  ' + (from || '…') + ' → ' + (to || '…');
+            doc.text(sub, 40, 56);
+
+            // Collect visible rows only
+            const rows = [];
+            document.querySelectorAll('#viewersTable tbody tr').forEach(tr => {
+                if (tr.style.display === 'none') return;
+                const cells = tr.querySelectorAll('td');
+                rows.push([
+                    cells[0]?.innerText.trim() || '',        // #
+                    cells[1]?.innerText.trim() || '',        // Student
+                    cells[2]?.innerText.trim() || '',        // Email
+                    cells[3]?.innerText.trim() || '',        // Phone
+                    cells[4]?.innerText.trim() || '',        // Child
+                    cells[5]?.innerText.trim() || '',        // Viewed At
+                ]);
+            });
+
+            doc.autoTable({
+                startY: 68,
+                head: [['#', 'Student', 'Email', 'Phone', 'Child', 'Viewed At']],
+                body: rows,
+                headStyles: {
+                    fillColor: [30, 45, 61],
+                    textColor: 255,
+                    fontSize: 9,
+                    fontStyle: 'bold',
+                },
+                bodyStyles: {
+                    fontSize: 9,
+                    textColor: [30, 45, 61],
+                },
+                alternateRowStyles: {
+                    fillColor: [248, 249, 251],
+                },
+                columnStyles: {
+                    0: { cellWidth: 30 },
+                    2: { cellWidth: 160 },
+                    5: { cellWidth: 80 },
+                },
+                margin: { left: 40, right: 40 },
+                styles: { overflow: 'linebreak', cellPadding: 5 },
+            });
+
+            // Footer with page numbers
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(8);
+                doc.setTextColor(170);
+                doc.text(
+                    'Page ' + i + ' of ' + pageCount,
+                    doc.internal.pageSize.getWidth() - 40,
+                    doc.internal.pageSize.getHeight() - 20,
+                    { align: 'right' }
+                );
+            }
+
+            // Filename includes date range if set
+            const dateTag = from && to ? `_${from}_to_${to}` : '';
+            doc.save(`profile_viewers${dateTag}.pdf`);
         }
     </script>
 @endpush

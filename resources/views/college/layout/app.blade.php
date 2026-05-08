@@ -215,7 +215,22 @@
             font-size: .78rem;
             color: #8a97a6;
         }
+.btn-download-pdf {
+    background: #306060;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+}
 
+.btn-download-pdf:hover {
+    background: #234848;
+}
         #appFooter a { color: #8a97a6; text-decoration: none; transition: color .15s; }
         #appFooter a:hover { color: var(--brand); }
 

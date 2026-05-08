@@ -18,22 +18,26 @@ class LoginController extends Controller
     public function doLogin(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
 
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return redirect()->back()
+                ->with('error', 'Invalid email or password')
+                ->with('login_type', 'admin')
+                ->withInput();
         }
 
         $credentials = $request->only('email', 'password');
 
         if (auth()->guard('admin')->attempt($credentials)) {
-        return redirect()->route('admin.dashboard'); 
-    }
+            return redirect()->route('admin.dashboard');
+        }
 
-        return redirect()->back()->with('error', 'Invalid email or password');
+        return redirect()->back()->with('error', 'Invalid email or password') ->with('login_type', 'admin')
+    ->withInput();
     }
 
     public function logout()

@@ -92,52 +92,62 @@
     </div>
 
     {{-- Stat Cards --}}
-    <div class="row g-3 mb-4">
-        <div class="col-6 col-md-3">
-            <div class="stat-card">
-                <div class="stat-icon" style="background:#e8f0f0;color:var(--primary);">
-                    <i class="fa-solid fa-users"></i>
-                </div>
-                <div>
-                    <div class="stat-value">{{ number_format($totalStudents ?? 2480) }}</div>
-                    <div class="stat-label">Students</div>
-                </div>
+   {{-- Stat Cards --}}
+<div class="row g-3 mb-4">
+
+    {{-- Courses --}}
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-icon" style="background:#e8f0f0;color:var(--primary);">
+                <i class="fa-solid fa-book-open"></i>
             </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="stat-card">
-                <div class="stat-icon" style="background:#fdf0ea;color:#e8855a;">
-                    <i class="fa-solid fa-chalkboard-user"></i>
-                </div>
-                <div>
-                    <div class="stat-value">{{ $totalFaculty ?? 148 }}</div>
-                    <div class="stat-label">Faculty</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="stat-card">
-                <div class="stat-icon" style="background:#e8f5e9;color:#2e7d32;">
-                    <i class="fa-solid fa-book-open"></i>
-                </div>
-                <div>
-                    <div class="stat-value">{{ $totalCourses ?? 86 }}</div>
-                    <div class="stat-label">Courses</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="stat-card">
-                <div class="stat-icon" style="background:#fff8e1;color:#c9a84c;">
-                    <i class="fa-solid fa-trophy"></i>
-                </div>
-                <div>
-                    <div class="stat-value">{{ $placements ?? 312 }}</div>
-                    <div class="stat-label">Placements</div>
-                </div>
+            <div>
+                <div class="stat-value">{{ $totalCourses }}</div>
+                <div class="stat-label">Courses Listed</div>
             </div>
         </div>
     </div>
+
+    {{-- Fee Structures --}}
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-icon" style="background:#fdf0ea;color:#e8855a;">
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+            </div>
+            <div>
+                <div class="stat-value">{{ $totalFeeStructures }}</div>
+                <div class="stat-label">Fee Structures</div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Gallery Images --}}
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-icon" style="background:#e8f5e9;color:#2e7d32;">
+                <i class="fa-solid fa-images"></i>
+            </div>
+            <div>
+                <div class="stat-value">{{ $totalImages }}</div>
+                <div class="stat-label">Gallery Photos</div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Profile Views --}}
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-icon" style="background:#fff8e1;color:#c9a84c;">
+                <i class="fa-solid fa-eye"></i>
+            </div>
+            <div>
+                <div class="stat-value">{{ $totalViews }}</div>
+                <div class="stat-label">Profile Views</div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
     {{-- College Images Carousel --}}
     @if(isset($images) && $images->isNotEmpty())

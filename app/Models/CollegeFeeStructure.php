@@ -23,7 +23,7 @@ class CollegeFeeStructure extends Model
 
     public function collegeCourse()
     {
-        return $this->belongsTo(CollegeCourse::class);
+       return $this->belongsTo(CollegeCourse::class, 'course_id');
     }
     public function feeStructures()
     {

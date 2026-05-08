@@ -98,21 +98,27 @@
 
                         <hr class="my-4">
 
-                        {{-- FACILITIES --}}
-                        <h5 class="mb-3">Facilities</h5>
-                        <div id="facility-wrapper"></div>
-                        <button type="button" class="btn btn-outline-primary mb-3" onclick="addFacility()">
-                            Add Facility
-                        </button>
+                       {{-- FACILITIES --}}
+                            <h5 class="mb-3">Facilities</h5>
+                            @error('facilities')
+                                <div class="alert alert-danger py-2">{{ $message }}</div>
+                            @enderror
+                            <div id="facility-wrapper"></div>
+                            <button type="button" class="btn btn-outline-primary mb-3" onclick="addFacility()">
+                                Add Facility
+                            </button>
 
-                        <hr class="my-4">
+                            <hr class="my-4">
 
-                        {{-- COURSES --}}
-                        <h5 class="mb-3">Courses</h5>
-                        <div id="course-wrapper"></div>
-                        <button type="button" class="btn btn-outline-primary mb-4" onclick="addCourse()">
-                            Add Course
-                        </button>
+                            {{-- COURSES --}}
+                            <h5 class="mb-3">Courses</h5>
+                            @error('courses')
+                                <div class="alert alert-danger py-2">{{ $message }}</div>
+                            @enderror
+                            <div id="course-wrapper"></div>
+                            <button type="button" class="btn btn-outline-primary mb-4" onclick="addCourse()">
+                                Add Course
+                            </button>
 
                         <div class="d-flex justify-content-end gap-2">
                             <button type="submit" class="btn btn-success">Save</button>
@@ -173,26 +179,96 @@ function loadDistricts(stateId, selectedDistrictId) {
         addCourse();
     });
 
-    // ── Facilities & Courses ─────────────────────────────────────────
-    function addFacility() {
-        document.getElementById('facility-wrapper').insertAdjacentHTML('beforeend', `
-            <div class="input-group mb-2">
-                <input type="text" name="facilities[]" class="form-control" placeholder="Facility">
-                <button class="btn btn-outline-danger" type="button"
-                        onclick="this.parentElement.remove()">Remove</button>
-            </div>
-        `);
+  // ── Facilities & Courses ─────────────────────────────────────────
+
+function getValues(wrapperId) {
+    return Array.from(
+        document.querySelectorAll(`#${wrapperId} input[type="text"]`)
+    ).map(input => input.value.trim().toLowerCase()).filter(v => v !== '');
+}
+
+function addFacility() {
+    const wrapper = document.getElementById('facility-wrapper');
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2';
+    div.innerHTML = `
+        <input type="text" name="facilities[]" class="form-control" placeholder="Facility">
+        <button class="btn btn-outline-danger" type="button"
+                onclick="this.parentElement.remove()">Remove</button>
+    `;
+
+    // ✅ Real-time duplicate check on input
+    div.querySelector('input').addEventListener('input', function () {
+        const current = this.value.trim().toLowerCase();
+        const existing = getValues('facility-wrapper').filter(v => v === current);
+
+        if (existing.length > 1) {
+            this.classList.add('is-invalid');
+            if (!this.nextElementSibling?.classList.contains('duplicate-error')) {
+                this.insertAdjacentHTML('afterend',
+                    '<div class="invalid-feedback duplicate-error">Duplicate facility name.</div>');
+            }
+        } else {
+            this.classList.remove('is-invalid');
+            const err = div.querySelector('.duplicate-error');
+            if (err) err.remove();
+        }
+    });
+
+    wrapper.appendChild(div);
+}
+
+function addCourse() {
+    const wrapper = document.getElementById('course-wrapper');
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2';
+    div.innerHTML = `
+        <input type="text" name="courses[]" class="form-control" placeholder="Course">
+        <button class="btn btn-outline-danger" type="button"
+                onclick="this.parentElement.remove()">Remove</button>
+    `;
+
+    // ✅ Real-time duplicate check on input
+    div.querySelector('input').addEventListener('input', function () {
+        const current = this.value.trim().toLowerCase();
+        const existing = getValues('course-wrapper').filter(v => v === current);
+
+        if (existing.length > 1) {
+            this.classList.add('is-invalid');
+            if (!this.nextElementSibling?.classList.contains('duplicate-error')) {
+                this.insertAdjacentHTML('afterend',
+                    '<div class="invalid-feedback duplicate-error">Duplicate course name.</div>');
+            }
+        } else {
+            this.classList.remove('is-invalid');
+            const err = div.querySelector('.duplicate-error');
+            if (err) err.remove();
+        }
+    });
+
+    wrapper.appendChild(div);
+}
+
+// ✅ Block form submit if any duplicates exist on the page
+document.getElementById('collegeForm').addEventListener('submit', function (e) {
+    const hasDuplicates = document.querySelectorAll('.duplicate-error').length > 0;
+    if (hasDuplicates) {
+        e.preventDefault();
+        alert('Please remove duplicate facility or course names before submitting.');
+        return;
     }
 
-    function addCourse() {
-        document.getElementById('course-wrapper').insertAdjacentHTML('beforeend', `
-            <div class="input-group mb-2">
-                <input type="text" name="courses[]" class="form-control" placeholder="Course">
-                <button class="btn btn-outline-danger" type="button"
-                        onclick="this.parentElement.remove()">Remove</button>
-            </div>
-        `);
-    }
+    // your existing image-attach logic below...
+    const dt = new DataTransfer();
+    selectedFiles.forEach(file => dt.items.add(file));
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.name = 'images[]';
+    input.files = dt.files;
+    input.multiple = true;
+    input.hidden = true;
+    this.appendChild(input);
+});
 
     // ── Image preview ────────────────────────────────────────────────
     let selectedFiles = [];
