@@ -266,7 +266,6 @@ public function update(Request $request, string $id)
     return redirect()->route('admin.career_nodes.index')
         ->with('success', 'Career updated successfully.');
 }
-
     /**
      * Remove the specified resource from storage.
      */

@@ -387,6 +387,42 @@
         </div>
 
     </div>
+   
+    <script>
+        function switchTo(type) {
+            const pill = document.getElementById('pill');
+            const btnAdmin = document.getElementById('btn-admin');
+            const btnCollege = document.getElementById('btn-college');
+            const panelAdmin = document.getElementById('panel-admin');
+            const panelCollege = document.getElementById('panel-college');
+            const logoImg = document.getElementById('logo-img');
+            const logoFa = document.getElementById('logo-fa');
+            const title = document.getElementById('main-title');
+            const subtitle = document.getElementById('main-subtitle');
+
+            if (type === 'college') {
+                pill.classList.add('college');
+                btnAdmin.classList.remove('active');
+                btnCollege.classList.add('active');
+                panelAdmin.classList.remove('active');
+                panelCollege.classList.add('active');
+                logoImg.style.display = 'none';
+                logoFa.style.display = 'block';
+                title.textContent = 'College Login';
+                subtitle.textContent = 'Access your college dashboard';
+            } else {
+                pill.classList.remove('college');
+                btnAdmin.classList.add('active');
+                btnCollege.classList.remove('active');
+                panelCollege.classList.remove('active');
+                panelAdmin.classList.add('active');
+                logoImg.style.display = 'block';
+                logoFa.style.display = 'none';
+                title.textContent = 'Sign in to Careers';
+                subtitle.textContent = 'Access your admin dashboard securely';
+            }
+        }
+    </script>
 
     <script>
         function switchTo(type) {

@@ -29,6 +29,7 @@ Route::post('districts', [SearchCollegeController::class, 'getDistricts']);
 
     Route::post('profile', [ProfileController::class, 'getProfile']);
     Route::post('search-colleges', [SearchCollegeController::class, 'searchColleges']);
+    
     Route::post('college-details', [SearchCollegeController::class, 'collegeDetails']);
     Route::post('save-college', [SearchCollegeController::class, 'saveCollege']);
     Route::delete('remove-saved-college', [SearchCollegeController::class, 'removeSavedCollege']);

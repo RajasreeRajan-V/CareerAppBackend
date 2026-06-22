@@ -508,6 +508,177 @@
                 });
             }
         });
+
+        function editAddSubject(value = '') {
+            document.getElementById('edit-subject-wrapper').insertAdjacentHTML('beforeend', `
+        <div class="input-group mb-2">
+            <input type="text" name="subjects[]" class="form-control"
+                   value="${escapeHtml(value)}" placeholder="Enter Subject">
+            <button type="button" class="btn btn-outline-danger"
+                    onclick="this.parentElement.remove()">Remove</button>
+        </div>
+    `);
+        }
+
+        function editAddCareerOption(value = '') {
+            document.getElementById('edit-career-wrapper').insertAdjacentHTML('beforeend', `
+        <div class="input-group mb-2">
+            <input type="text" name="career_options[]" class="form-control"
+                   value="${escapeHtml(value)}" placeholder="Enter Career Option">
+            <button type="button" class="btn btn-outline-danger"
+                    onclick="this.parentElement.remove()">Remove</button>
+        </div>
+    `);
+        }
+
+        function escapeHtml(str) {
+            const d = document.createElement('div');
+            d.appendChild(document.createTextNode(String(str)));
+            return d.innerHTML;
+        }
+
+        // Dynamic Search Functionality
+        const searchInput = document.querySelector('input[name="search"]');
+        const clearBtn = document.querySelector('a[href="{{ route("admin.career_nodes.index") }}"]');
+        let searchTimeout;
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                const query = this.value.trim();
+                
+                searchTimeout = setTimeout(() => {
+                    if (query.length === 0) {
+                        location.href = "{{ route('admin.career_nodes.index') }}";
+                        return;
+                    }
+                    
+                    performDynamicSearch(query);
+                }, 300); // Debounce for 300ms
+            });
+        }
+
+        function performDynamicSearch(query) {
+            const url = new URL("{{ route('admin.career_nodes.index') }}", window.location.origin);
+            url.searchParams.set('search', query);
+
+            fetch(url.toString(), {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'text/html'
+                }
+            })
+            .then(response => response.text())
+            .then(html => {
+                // Parse the HTML response
+                const parser = new DOMParser();
+                const newDoc = parser.parseFromString(html, 'text/html');
+                
+                // Get the new table body (from the full page)
+                const newTableBody = newDoc.querySelector('tbody');
+                const currentTableBody = document.querySelector('tbody');
+                
+                if (newTableBody && currentTableBody) {
+                    // Replace entire tbody content
+                    currentTableBody.innerHTML = newTableBody.innerHTML;
+                    
+                    // Re-attach event listeners to newly added elements
+                    reattachVideoListeners();
+                    reattachEditListeners();
+                }
+            })
+            .catch(error => console.error('Search error:', error));
+        }
+
+        function reattachVideoListeners() {
+            const videoModalEl = document.getElementById('videoModal');
+            const youtubeFrame = document.getElementById('youtubeFrame');
+            const modalTitle = document.getElementById('videoModalLabel');
+            const videoModal = new bootstrap.Modal(videoModalEl);
+
+            document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
+                thumbnail.removeEventListener('click', handleVideoClick);
+                thumbnail.addEventListener('click', handleVideoClick);
+            });
+
+            function handleVideoClick() {
+                const videoId = this.dataset.videoId;
+                const videoTitle = this.dataset.videoTitle;
+                if (!videoId) return;
+                youtubeFrame.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
+                modalTitle.textContent = videoTitle || 'Career Video';
+                videoModal.show();
+            }
+        }
+
+        function reattachEditListeners() {
+            document.querySelectorAll('.editCareerBtn').forEach(button => {
+                button.removeEventListener('click', handleEditClick);
+                button.addEventListener('click', handleEditClick);
+            });
+
+            function handleEditClick() {
+                const id = this.dataset.id;
+                const title = this.dataset.title;
+                const description = this.dataset.description;
+                const specialization = this.dataset.specialization || '';
+                const thumbnail = this.dataset.thumbnail || '';
+
+                const videoThumb = this.closest('tr').querySelector('.video-thumbnail');
+                const videoId = videoThumb ? videoThumb.dataset.videoId : '';
+
+                const careerEntry = (typeof careerData !== 'undefined' && careerData[id]) ? careerData[id] : {};
+                const subjects = careerEntry.subjects || [];
+                const options = careerEntry.options || [];
+
+                const newgenCourse = careerEntry.newgenCourse ?? '1';
+                const editForm = document.getElementById('editCareerForm');
+                const urlTemplate = "{{ route('admin.career_nodes.update', ':id') }}";
+                editForm.action = urlTemplate.replace(':id', id);
+
+                document.getElementById('edit_title').value = title;
+                document.getElementById('edit_description').value = description;
+                document.getElementById('edit_specialization').value = specialization;
+                document.getElementById('edit_newgen_course').value = newgenCourse;
+
+                const editVideoEl = document.getElementById('edit_video');
+                const preview = document.getElementById('thumbnailPreview');
+                const previewWrapper = document.getElementById('thumbnailPreviewWrapper');
+                const removeFlag = document.getElementById('remove_thumbnail');
+                const thumbInput = document.getElementById('thumbnailInput');
+
+                removeFlag.value = '0';
+                thumbInput.value = '';
+                thumbInput.disabled = false;
+                editVideoEl.disabled = false;
+
+                if (videoId) {
+                    editVideoEl.value = 'https://www.youtube.com/watch?v=' + videoId;
+                    preview.src = '';
+                    previewWrapper.style.display = 'none';
+                    thumbInput.disabled = true;
+                } else if (thumbnail) {
+                    editVideoEl.value = '';
+                    preview.src = thumbnail;
+                    previewWrapper.style.display = 'block';
+                    editVideoEl.disabled = true;
+                } else {
+                    editVideoEl.value = '';
+                    preview.src = '';
+                    previewWrapper.style.display = 'none';
+                }
+
+                const subjectWrapper = document.getElementById('edit-subject-wrapper');
+                subjectWrapper.innerHTML = '';
+                (subjects.length ? subjects : ['']).forEach(s => editAddSubject(s));
+
+                const careerWrapper = document.getElementById('edit-career-wrapper');
+                careerWrapper.innerHTML = '';
+                (options.length ? options : ['']).forEach(o => editAddCareerOption(o));
+
+                document.getElementById('editMediaError').style.display = 'none';
+            }
+        }
     </script>
 
     <style>

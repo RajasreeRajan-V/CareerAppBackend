@@ -9,9 +9,9 @@
 // use App\Http\Controllers\Auth\PasswordResetLinkController;
 // use App\Http\Controllers\Auth\RegisteredUserController;
 // use App\Http\Controllers\Auth\VerifyEmailController;
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\College\CollegeLoginController;
 
 use App\Http\Controllers\College\CollegeLoginController;
 
@@ -29,4 +29,5 @@ Route::get("/renew/{college}", [LoginController::class, 'renew'])->name('renew')
 Route::post("/renew/{college}", [LoginController::class, 'renewSubmit'])->name('college.subscription.renew.submit');
 
 
+Route::get("/privacy-policy", [LoginController::class,'privacyPolicy'])->name('privacy-policy');
 

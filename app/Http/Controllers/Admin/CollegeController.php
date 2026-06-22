@@ -202,8 +202,10 @@ public function update(Request $request, $id)
         'about'        => 'nullable|string',
         'images'       => 'nullable|array',
         'images.*'     => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'facilities.*' => 'nullable|string',
-        'courses.*'    => 'nullable|string',
+        'facilities'   => 'nullable|array',
+        'facilities.*' => 'nullable|string|max:255',
+        'courses'      => 'nullable|array',
+        'courses.*'    => 'nullable|string|max:255',
     ]);
 
     $state    = State::findOrFail($request->state_id);
@@ -283,5 +285,16 @@ public function update(Request $request, $id)
         'facilities' => $college->facilities,
         'courses' => $college->courses,
     ]);
+}
+
+private function checkDuplicates(array $items, string $field): ?string
+{
+    $cleaned = array_filter(array_map('trim', $items), fn($v) => $v !== '');
+    $lowered = array_map('strtolower', array_values($cleaned));
+    
+    if (count($lowered) !== count(array_unique($lowered))) {
+        return "Duplicate {$field} names are not allowed.";
+    }
+    return null;
 }
 }

@@ -26,7 +26,6 @@ Route::get('/get-districts', function (Request $request) {
 
 
 
-
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
 require __DIR__.'/college.php';  // ← add this
