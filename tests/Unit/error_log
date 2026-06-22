@@ -6,3 +6,7 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Unit/ExampleTest.php on line 7
+[03-Mar-2026 08:19:57 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "PHPUnit\Framework\TestCase" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Unit/ExampleTest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Unit/ExampleTest.php on line 7

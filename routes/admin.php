@@ -3,7 +3,15 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
-
+use App\Http\Controllers\Admin\AdmisionBannerController;
+use App\Http\Controllers\Admin\CollegeController;
+use App\Http\Controllers\Admin\CareerNodeController;
+use App\Http\Controllers\Admin\CareerLinkController;
+use App\Http\Controllers\Admin\CareerBannerController;
+use App\Http\Controllers\Admin\CareerRecordVideoController;
+use App\Http\Controllers\Admin\CollegeRegistrationController;
+use App\Http\Controllers\Admin\CareerGuidanceBannerController;
+use App\Models\Article;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')->group(function () {
@@ -22,5 +30,35 @@ Route::name('admin.')->group(function () {
         Route::resource('career_nodes', CareerNodeController::class);
         
          Route::get('/college/{id}/edit-json', [CollegeController::class, 'editJson'])->name('college.edit-json');
+
+        Route::resource('career_link' , CareerLinkController::class);
+
+        Route::resource('careerBanner' , CareerBannerController::class);
+
+        Route::resource('RecordVideo' , CareerRecordVideoController::class);
+
+        Route::resource('guidance_banners' , CareerGuidanceBannerController::class);
+
+        Route::resource('college_registration' , CollegeRegistrationController::class);
+
+        Route::resource('createLocation', LocationController::class);
+
+        Route::resource('userManagement', UserManageController::class);
+        
+        Route::resource('career_guidance_registration', UserGuidenceRegistrationController::class);
+        
+        Route::put('/college/{id}/approve', [CollegeRegistrationController::class, 'approve']) ->name('college.approve');
+
+        Route::resource('articles', ArticleController::class);
+
+       Route::get('/articles/{id}/download', function ($id) {
+    $article = Article::findOrFail($id);
+    $path = storage_path('app/public/' . $article->file_path);
+    return response()->download($path, basename($article->file_path));
+})->name('articles.download'); // ← was 'admin.articles.download'
+        
+        Route::get('/articles/{id}/edit',    [ArticleController::class, 'edit'])  ->name('articles.edit');
+Route::post('/articles/{id}/update', [ArticleController::class, 'update'])->name('articles.update');
+
      });
 });

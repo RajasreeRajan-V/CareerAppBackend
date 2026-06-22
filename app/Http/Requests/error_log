@@ -22,3 +22,35 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/ChildrenStoreRequest.php on line 7
+[03-Mar-2026 08:09:32 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/StoreCareerRecordVideoRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/StoreCareerRecordVideoRequest.php on line 7
+[03-Mar-2026 08:09:55 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/UpdateCareerRecordVideoRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/UpdateCareerRecordVideoRequest.php on line 7
+[03-Mar-2026 08:29:00 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/SignupStoreRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/SignupStoreRequest.php on line 7
+[03-Mar-2026 08:33:53 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/LoginStoreRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/LoginStoreRequest.php on line 7
+[03-Mar-2026 09:03:35 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/ProfileUpdateRequest.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/ProfileUpdateRequest.php on line 9
+[03-Mar-2026 09:03:36 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/ChildrenStoreRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/ChildrenStoreRequest.php on line 7
+[03-Mar-2026 09:44:46 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/StoreAdmisionBannerRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/StoreAdmisionBannerRequest.php on line 7
+[03-Mar-2026 09:44:48 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Http\FormRequest" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/UpdateAdmisionBannerRequest.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Requests/UpdateAdmisionBannerRequest.php on line 7

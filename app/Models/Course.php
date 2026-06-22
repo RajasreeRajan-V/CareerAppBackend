@@ -16,4 +16,8 @@ class Course extends Model
     {
         return $this->belongsTo(College::class);
     }
+    public function feeStructures()
+    {
+        return $this->hasMany(CollegeFeeStructure::class, 'course_id');
+    }
 }

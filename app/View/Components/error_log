@@ -1,0 +1,24 @@
+[27-Jan-2026 00:40:10 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\View\Component" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/View/Components/AppLayout.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/View/Components/AppLayout.php on line 8
+[27-Jan-2026 02:11:43 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\View\Component" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/View/Components/GuestLayout.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/View/Components/GuestLayout.php on line 8
+[27-Jan-2026 02:11:58 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\View\Component" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/View/Components/AppLayout.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/View/Components/AppLayout.php on line 8
+[27-Jan-2026 06:38:40 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\View\Component" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/View/Components/GuestLayout.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/View/Components/GuestLayout.php on line 8
+[03-Mar-2026 09:04:39 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\View\Component" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/View/Components/GuestLayout.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/View/Components/GuestLayout.php on line 8
+[03-Mar-2026 10:17:13 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\View\Component" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/View/Components/AppLayout.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/View/Components/AppLayout.php on line 8

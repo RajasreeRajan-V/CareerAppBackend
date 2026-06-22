@@ -1,0 +1,742 @@
+[22-Jun-2026 10:24:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:25:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:26:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:27:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:28:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:29:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:30:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:31:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:32:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:33:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:34:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:35:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:36:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:37:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:38:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:39:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:40:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:41:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:42:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:43:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:44:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:45:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:46:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:47:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:48:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:49:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:50:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:51:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:52:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:53:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:54:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:55:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:56:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:57:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:58:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 10:59:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:00:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:01:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:02:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:03:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:04:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:05:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:06:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:07:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:08:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:09:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:10:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:11:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:12:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:13:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:14:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:15:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:16:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:17:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:18:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:19:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:20:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:21:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:22:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:23:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:24:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:25:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:26:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:27:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:28:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:29:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:30:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:31:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:32:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:33:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:34:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:35:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:36:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:37:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:38:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:39:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:40:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:41:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:42:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:43:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:44:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:45:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:46:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:47:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:48:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:49:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:50:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:51:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:52:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:53:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:54:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:55:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:56:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:57:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:58:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 11:59:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 12:00:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 12:01:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 12:02:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 12:03:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 12:04:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 12:05:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 12:06:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 12:07:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 12:08:01 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22
+[22-Jun-2026 12:09:02 Asia/Kolkata] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 7.2.34. in /home/careerss/New_career/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/careerss/New_career/vendor/composer/autoload_real.php(25): require()
+#1 /home/careerss/New_career/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /home/careerss/New_career/artisan(10): require('/home/careerss/...')
+#3 {main}
+  thrown in /home/careerss/New_career/vendor/composer/platform_check.php on line 22

@@ -6,3 +6,7 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/TestCase.php on line 7
+[03-Mar-2026 08:03:58 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Testing\TestCase" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/TestCase.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/TestCase.php on line 7

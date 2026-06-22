@@ -9,7 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
+use App\Models\PasswordReset;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Models\SavedCollege;
 
 class SignupController extends Controller
 {
@@ -38,7 +41,7 @@ class SignupController extends Controller
             'role' => 'required|string|in:Student,Parent',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'required|regex:/^[6-9][0-9]{9}$/',
+            'phone' => 'nullable|regex:/^[6-9][0-9]{9}$/',
             'password' => 'required|min:8',
             'current_education' => 'nullable|string|max:255',
             'children' => 'required_if:role,Parent|array',
@@ -174,4 +177,111 @@ class SignupController extends Controller
 
 
     }
+    public function forgotPassword(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'email' => 'required|email|exists:users,email'
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'status' => "0",
+            'status_code' => "422",
+            'message' => $validator->errors()->first()
+        ], 422);
+    }
+
+    // Generate secure 6 digit OTP
+    $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+
+    PasswordReset::updateOrCreate(
+        ['email' => $request->email],
+        [
+            'otp' => $otp,
+            'expires_at' => Carbon::now()->addMinutes(10)
+        ]
+    );
+
+    Mail::raw("Your OTP for password reset is: $otp", function ($message) use ($request) {
+        $message->to($request->email)
+                ->subject('Password Reset OTP');
+    });
+
+    return response()->json([
+        'status' => "1",
+        'status_code' => "200",
+        'message' => 'OTP sent to your email'
+    ], 200);
+}
+public function resetPassword(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'email' => 'required|email|exists:users,email',
+        'otp' => 'required|digits:6',
+        'password' => 'required|min:8'
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'status' => "0",
+            'status_code' => "422",
+            'message' => $validator->errors()->first()
+        ], 422);
+    }
+
+    $record = PasswordReset::where('email', $request->email)
+                ->where('otp', $request->otp)
+                ->first();
+
+    if (!$record) {
+        return response()->json([
+            'status' => "0",
+            'status_code' => "400",
+            'message' => 'Invalid OTP'
+        ], 400);
+    }
+
+    if (Carbon::now()->greaterThan($record->expires_at)) {
+        return response()->json([
+            'status' => "0",
+            'status_code' => "400",
+            'message' => 'OTP expired'
+        ], 400);
+    }
+
+    $user = User::where('email', $request->email)->first();
+    $user->password = Hash::make($request->password);
+    $user->save();
+
+    // Delete OTP after success
+    $record->delete();
+
+    return response()->json([
+        'status' => "1",
+        'status_code' => "200",
+        'message' => 'Password reset successful'
+    ], 200);
+}
+
+public function deleteAccount(Request $request)
+{
+    $user = $request->authUser; // <-- change here
+
+    if (!$user) {
+        return response()->json([
+            'status' => "0",
+            'status_code' => "401",
+            'message' => 'Unauthorized'
+        ], 401);
+    }
+
+    $user->savedColleges()->delete();
+    $user->delete();
+
+    return response()->json([
+        'status' => "1",
+        'status_code' => "200",
+        'message' => 'Account deleted successfully'
+    ], 200);
+}
 }

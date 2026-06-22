@@ -6,3 +6,11 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Feature/ExampleTest.php on line 8
+[03-Mar-2026 08:17:17 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Tests\TestCase" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Feature/ExampleTest.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Feature/ExampleTest.php on line 8
+[03-Mar-2026 08:17:18 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "Tests\TestCase" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Feature/ProfileTest.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/tests/Feature/ProfileTest.php on line 9

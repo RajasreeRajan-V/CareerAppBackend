@@ -3,39 +3,51 @@
 @section('title', 'Career Nodes')
 
 @section('content')
+
     <div class="container-fluid px-4">
-        {{-- Video Modal --}}
-        <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
-                <div class="modal-content bg-dark">
-                    <div class="modal-header border-0">
-                        <h5 class="modal-title text-white" id="videoModalLabel">Career Video</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+        <div class="modal fade" id="videoModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark text-white">
+                        <h5 class="modal-title" id="videoModalLabel">Career Video</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body p-0">
-                        <video id="modalVideo" class="w-100" controls style="max-height: 80vh;">
-                            <source id="modalVideoSource" src="" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                        <div class="ratio ratio-16x9">
+                            <iframe id="youtubeFrame" src="" title="YouTube video"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
 
-        {{-- Page Heading --}}
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
+        <div class="row align-items-center gy-3 mb-4">
+            <div class="col-12 col-md">
                 <h1 class="h3 mb-0">Career Nodes</h1>
                 <p class="text-muted mb-0">Manage career information</p>
             </div>
-            <a href="{{ route('admin.career_nodes.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus me-2"></i>Add Career
-            </a>
+
+            <div class="col-12 col-md-6">
+                <form method="GET" action="{{ route('admin.career_nodes.index') }}" class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="fas fa-search"></i></span>
+                    <input type="search" name="search" value="{{ request('search') }}" class="form-control border-start-0"
+                        placeholder="Search career title, subjects or options..." autocomplete="off">
+                    @if (request('search'))
+                        <a href="{{ route('admin.career_nodes.index') }}" class="btn btn-outline-secondary ms-2">Clear</a>
+                    @endif
+                </form>
+            </div>
+
+            <div class="col-12 col-md-auto">
+                <a href="{{ route('admin.career_nodes.create') }}" class="btn btn-primary w-100 w-md-auto">
+                    <i class="fas fa-plus me-2"></i>Add Career
+                </a>
+            </div>
         </div>
 
-        {{-- Career Table --}}
         <div class="card shadow-sm">
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -50,118 +62,471 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($careerNodes as $career)
-                                <tr>
-                                    <td>
-                                        @if($career->video)
-                                            <div class="position-relative video-thumbnail"
-                                                style="width: 100px; height: 75px; cursor: pointer; overflow: hidden; border-radius: 4px;"
-                                                data-video-url="{{ asset('storage/' . $career->video) }}"
-                                                data-video-title="{{ $career->title }}">
-                                                <video class="w-100 h-100" style="object-fit: cover;" muted preload="metadata"
-                                                    poster="{{ asset('storage/' . $career->thumbnail ?? 'default-thumb.jpg') }}">
-                                                    <source src="{{ asset('storage/' . $career->video) }}" type="video/mp4">
-                                                </video>
-
-                                                <div class="position-absolute top-50 start-50 translate-middle">
-                                                    <i class="fas fa-play-circle fa-3x text-white"
-                                                        style="text-shadow: 0 0 10px rgba(0,0,0,0.8); opacity: 0.9;"></i>
-                                                </div>
-                                                <div class="position-absolute bottom-0 start-0 end-0 bg-dark bg-opacity-50 text-white text-center py-1"
-                                                    style="font-size: 0.7rem;">
-                                                    Click to play
-                                                </div>
-                                            </div>
-                                        @else
-                                            <span class="text-muted">-</span>
-                                        @endif
-                                    </td>
-                                    <td class="align-middle">{{ $career->title }}</td>
-                                    <td class="align-middle">
-                                        {{ is_array($career->subjects) ? implode(', ', $career->subjects) : $career->subjects }}
-                                    </td>
-                                    <td class="align-middle">
-                                        {{ is_array($career->career_options) ? implode(', ', $career->career_options) : $career->career_options }}
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="btn-group" role="group">
-                                            {{-- Edit --}}
-                                            <a href="{{ route('admin.career_nodes.edit', $career->id) }}"
-                                                class="btn btn-sm btn-outline-primary" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            {{-- Delete --}}
-                                            <form action="{{ route('admin.career_nodes.destroy', $career->id) }}" method="POST"
-                                                class="d-inline"
-                                                onsubmit="return confirm('Are you sure you want to delete this career?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="text-center py-5 text-muted">
-                                        <i class="fas fa-inbox fa-4x mb-3 d-block opacity-50"></i>
-                                        <p class="mb-0">No careers found</p>
-                                    </td>
-                                </tr>
-                            @endforelse
+                            @include('admin.partials.career_table', compact('careerNodes', 'search'))
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $careerNodes->links() }}
+                    </div>
                 </div>
+                <div class="modal fade" id="editCareerModal" tabindex="-1">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <form method="POST" id="editCareerForm" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+
+                            <input type="hidden" name="remove_thumbnail" id="remove_thumbnail" value="0">
+
+                            <div class="modal-content">
+                                <div class="modal-header text-white" style="background-color: #306060;">
+                                    <h5 class="modal-title">Edit Career</h5>
+                                    <button type="button" class="btn-close btn-close-white"
+                                        data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <!-- BASIC INFO -->
+                                    <h5 class="mb-3">Basic Information</h5>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Title *</label>
+                                        <input type="text" name="title" id="edit_title" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="edit_level" class="form-label fw-semibold">
+                                            Academic Level <span class="text-danger">*</span>
+                                        </label>
+
+                                        <select name="level" id="edit_level" class="form-select" required>
+                                            <option value="" hidden>-- Select Academic Level --</option>
+
+                                            <option value="0">School (10th)</option>
+                                            <option value="1">Higher Secondary (+2 / 12th)</option>
+                                            <option value="2">Undergraduate (B.Sc / B.Com / B.Tech)</option>
+                                            <option value="3">Postgraduate (M.Sc / MBA / M.Tech)</option>
+                                            <option value="4">Doctorate (PhD)</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Description *</label>
+                                        <textarea name="description" id="edit_description" class="form-control" rows="4" required></textarea>
+                                    </div>
+
+                                    <!-- NEWGEN COURSE -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Newgen Course *</label>
+                                        <select name="newgen_course" id="edit_newgen_course" class="form-control" required>
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- VIDEO -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Video</label>
+                                        <input type="text" name="video" id="edit_video" class="form-control"
+                                            placeholder="https://www.youtube.com/watch?v=...">
+                                        <small class="text-muted">
+                                            Enter a YouTube URL OR upload a thumbnail below (at least one is required).
+                                        </small>
+                                    </div>
+
+                                    <!-- THUMBNAIL -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Thumbnail</label>
+
+                                        <div id="thumbnailPreviewWrapper" class="mb-2" style="display:none;">
+                                            <img id="thumbnailPreview" src="" alt="Thumbnail Preview"
+                                                width="120" class="img-thumbnail d-block mb-1">
+
+                                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                                id="removeThumbnailBtn">
+                                                <i class="fas fa-times me-1"></i>Remove Thumbnail
+                                            </button>
+                                        </div>
+
+                                        <input type="file" name="thumbnail" class="form-control" id="thumbnailInput"
+                                            accept="image/*">
+                                    </div>
+
+                                    <!-- MEDIA ERROR -->
+                                    <div id="editMediaError" class="text-danger mb-3" style="display:none;">
+                                        Please provide a YouTube video URL or a thumbnail image.
+                                    </div>
+
+                                    <hr class="my-4">
+
+                                    <!-- SUBJECTS -->
+                                    <h5 class="form-label mb-3">Subjects (Optional)</h5>
+                                    <div id="edit-subject-wrapper"></div>
+
+                                    <button type="button" class="btn btn-outline-primary mb-3"
+                                        onclick="editAddSubject()">
+                                        Add Subject
+                                    </button>
+
+                                    <!-- SPECIALIZATION -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Specialization</label>
+                                        <input type="text" name="specialization" id="edit_specialization"
+                                            class="form-control"
+                                            placeholder="Example: Artificial Intelligence, Finance, Pediatrics">
+                                    </div>
+
+                                    <hr class="my-4">
+
+                                    <!-- CAREER OPTIONS -->
+                                    <h5 class="form-label mb-3">Career Options *</h5>
+                                    <div id="edit-career-wrapper"></div>
+
+                                    <button type="button" class="btn btn-outline-primary mb-3"
+                                        onclick="editAddCareerOption()">
+                                        Add Career Option
+                                    </button>
+                                    <div class="mb-3">
+                                        <label class="form-label">Growth</label>
+                                        <input type="number" name="growth" id="edit_growth" class="form-control"
+                                            placeholder="Example: 25%" min="0" max="100">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Demand</label>
+                                        <input type="text" name="demand" id="edit_demand" class="form-control"
+                                            placeholder="Example: High, Moderate, Low">
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save me-1"></i> Update
+                                    </button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        // All career data embedded server-side — single source of truth
+        var careerData = {
+            @foreach ($careerNodes as $career)
+                @php
+                    $sArr = $career->subjects;
+                    if (is_string($sArr)) {
+                        $d = json_decode($sArr, true);
+                        $sArr = json_last_error() === JSON_ERROR_NONE ? $d : explode(',', $sArr);
+                    }
+                    $oArr = $career->career_options;
+                    if (is_string($oArr)) {
+                        $d = json_decode($oArr, true);
+                        $oArr = json_last_error() === JSON_ERROR_NONE ? $d : explode(',', $oArr);
+                    }
+                @endphp
+                    "{{ $career->id }}": {
+                        title: {!! json_encode((string) ($career->title ?? '')) !!},
+                        description: {!! json_encode((string) ($career->description ?? '')) !!},
+                        specialization: {!! json_encode((string) ($career->specialization ?? '')) !!},
+                        subjects: {!! json_encode(is_array($sArr) ? array_values(array_filter(array_map('trim', $sArr))) : []) !!},
+                        options: {!! json_encode(is_array($oArr) ? array_values(array_filter(array_map('trim', $oArr))) : []) !!},
+                        newgenCourse: "{{ $career->newgen_course ? '1' : '0' }}",
+                        level: "{{ $career->level }}",
+                        thumbnail: "{{ $career->thumbnail ? asset('storage/' . $career->thumbnail) : '' }}",
+                        video: "{{ $career->video ?? '' }}",
+                        growth: {!! json_encode((string) ($career->growth ?? '')) !!},
+                        demand: {!! json_encode((string) ($career->demand ?? '')) !!}
+                    },
+            @endforeach
+        };
 
+        function openEditModal(id) {
+            const e = careerData[id];
+            if (!e) {
+                alert('Career data not found. Please refresh.');
+                return;
+            }
+
+            // Form action
+            document.getElementById('editCareerForm').action =
+                "{{ route('admin.career_nodes.update', ':id') }}".replace(':id', id);
+
+            // Basic fields
+            document.getElementById('edit_title').value = e.title;
+            document.getElementById('edit_description').value = e.description;
+            document.getElementById('edit_specialization').value = e.specialization;
+            document.getElementById('edit_growth').value = e.growth || '';
+            document.getElementById('edit_demand').value = e.demand || '';
+            document.getElementById('edit_newgen_course').value = e.newgenCourse;
+            document.getElementById('edit_level').value = e.level;
+
+            // Media
+            const editVideoEl = document.getElementById('edit_video');
+            const preview = document.getElementById('thumbnailPreview');
+            const previewWrapper = document.getElementById('thumbnailPreviewWrapper');
+            const removeFlag = document.getElementById('remove_thumbnail');
+            const thumbInput = document.getElementById('thumbnailInput');
+
+            removeFlag.value = '0';
+            thumbInput.value = '';
+            thumbInput.disabled = false;
+            editVideoEl.disabled = false;
+
+            if (e.video) {
+                editVideoEl.value = 'https://www.youtube.com/watch?v=' + e.video;
+                preview.src = '';
+                previewWrapper.style.display = 'none';
+                thumbInput.disabled = true;
+            } else if (e.thumbnail) {
+                editVideoEl.value = '';
+                preview.src = e.thumbnail;
+                previewWrapper.style.display = 'block';
+                editVideoEl.disabled = true;
+            } else {
+                editVideoEl.value = '';
+                preview.src = '';
+                previewWrapper.style.display = 'none';
+            }
+
+            // Subjects
+            const subjectWrapper = document.getElementById('edit-subject-wrapper');
+            subjectWrapper.innerHTML = '';
+            const subs = Array.isArray(e.subjects) && e.subjects.length ? e.subjects : [''];
+            subs.forEach(s => editAddSubject(s));
+
+            // Options
+            const careerWrapper = document.getElementById('edit-career-wrapper');
+            careerWrapper.innerHTML = '';
+            const opts = Array.isArray(e.options) && e.options.length ? e.options : [''];
+            opts.forEach(o => editAddCareerOption(o));
+
+            document.getElementById('editMediaError').style.display = 'none';
+
+            // Show modal
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('editCareerModal')).show();
+        }
+
+        function editAddSubject(value) {
+            const wrapper = document.getElementById('edit-subject-wrapper');
+            const div = document.createElement('div');
+            div.className = 'input-group mb-2';
+            div.innerHTML =
+                '<input type="text" name="subjects[]" class="form-control" placeholder="Enter Subject"><button type="button" class="btn btn-outline-danger" onclick="this.parentElement.remove()">Remove</button>';
+            div.querySelector('input').value = value || '';
+            wrapper.appendChild(div);
+        }
+
+        function editAddCareerOption(value) {
+            const wrapper = document.getElementById('edit-career-wrapper');
+            const div = document.createElement('div');
+            div.className = 'input-group mb-2';
+            div.innerHTML =
+                '<input type="text" name="career_options[]" class="form-control" placeholder="Enter Career Option"><button type="button" class="btn btn-outline-danger" onclick="this.parentElement.remove()">Remove</button>';
+            div.querySelector('input').value = value || '';
+            wrapper.appendChild(div);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Video modal
             const videoModalEl = document.getElementById('videoModal');
-            const modalVideo = document.getElementById('modalVideo');
-            const modalVideoSource = document.getElementById('modalVideoSource');
-            const modalTitle = document.getElementById('videoModalLabel');
+            const youtubeFrame = document.getElementById('youtubeFrame');
+            const videoModal = bootstrap.Modal.getOrCreateInstance(videoModalEl);
 
-            const videoModal = new bootstrap.Modal(videoModalEl);
-
-            // Handle thumbnail click
-            document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
-                thumbnail.addEventListener('click', function () {
-
-                    const videoUrl = this.dataset.videoUrl;
-                    const videoTitle = this.dataset.videoTitle;
-
-                    if (!videoUrl) return;
-
-                    // Set video source
-                    modalVideoSource.src = videoUrl;
-                    modalTitle.textContent = videoTitle || 'Career Video';
-
-                    modalVideo.load();
-                    videoModal.show();
+            function attachVideoListeners() {
+                document.querySelectorAll('.video-thumbnail').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const vid = this.dataset.videoId;
+                        if (!vid) return;
+                        youtubeFrame.src =
+                            `https://www.youtube-nocookie.com/embed/${vid}?autoplay=1`;
+                        document.getElementById('videoModalLabel').textContent = this.dataset
+                            .videoTitle || 'Career Video';
+                        videoModal.show();
+                    });
                 });
+            }
+
+            videoModalEl.addEventListener('hidden.bs.modal', () => {
+                youtubeFrame.src = '';
+            });
+            attachVideoListeners();
+
+            // Edit buttons
+            function attachEditListeners() {
+                document.querySelectorAll('.editCareerBtn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        openEditModal(this.dataset.id);
+                    });
+                });
+            }
+            attachEditListeners();
+
+            // Video input toggle
+            document.getElementById('edit_video').addEventListener('input', function() {
+                const thumbInput = document.getElementById('thumbnailInput');
+                const removeBtn = document.getElementById('removeThumbnailBtn');
+                if (this.value.trim()) {
+                    thumbInput.value = '';
+                    thumbInput.disabled = true;
+                    document.getElementById('thumbnailPreview').src = '';
+                    document.getElementById('thumbnailPreviewWrapper').style.display = 'none';
+                    document.getElementById('remove_thumbnail').value = '0';
+                    removeBtn.disabled = true;
+                } else {
+                    thumbInput.disabled = false;
+                    removeBtn.disabled = false;
+                }
             });
 
-            // Auto play when modal opens
-            videoModalEl.addEventListener('shown.bs.modal', function () {
-                modalVideo.play().catch(() => { });
+            document.getElementById('removeThumbnailBtn').addEventListener('click', function() {
+                document.getElementById('thumbnailPreview').src = '';
+                document.getElementById('thumbnailPreviewWrapper').style.display = 'none';
+                document.getElementById('remove_thumbnail').value = '1';
+                document.getElementById('thumbnailInput').value = '';
+                document.getElementById('edit_video').disabled = false;
             });
 
-            // Stop video when modal closes
-            videoModalEl.addEventListener('hidden.bs.modal', function () {
-                modalVideo.pause();
-                modalVideo.currentTime = 0;
-                modalVideoSource.src = "";
-                modalVideo.load();
+            document.getElementById('thumbnailInput').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                document.getElementById('edit_video').value = '';
+                document.getElementById('edit_video').disabled = true;
+                document.getElementById('remove_thumbnail').value = '0';
+                const reader = new FileReader();
+                reader.onload = ev => {
+                    document.getElementById('thumbnailPreview').src = ev.target.result;
+                    document.getElementById('thumbnailPreviewWrapper').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
             });
 
+            document.getElementById('editCareerForm').addEventListener('submit', function(e) {
+                document.getElementById('edit_video').disabled = false;
+                document.getElementById('thumbnailInput').disabled = false;
+                const videoVal = document.getElementById('edit_video').value.trim();
+                const fileCount = document.getElementById('thumbnailInput').files.length;
+                const removeFlag = document.getElementById('remove_thumbnail').value;
+                const hasThumb = document.getElementById('thumbnailPreviewWrapper').style.display !==
+                    'none' && removeFlag !== '1';
+                const errorDiv = document.getElementById('editMediaError');
+                if (!videoVal && fileCount === 0 && !hasThumb) {
+                    e.preventDefault();
+                    errorDiv.style.display = 'block';
+                    errorDiv.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                } else {
+                    errorDiv.style.display = 'none';
+                }
+            });
+
+            // Dynamic search
+            const searchInput = document.querySelector('input[name="search"]');
+            let searchTimeout;
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(searchTimeout);
+                    const query = this.value.trim();
+                    searchTimeout = setTimeout(() => {
+                        if (!query) {
+                            location.href = "{{ route('admin.career_nodes.index') }}";
+                            return;
+                        }
+                        performDynamicSearch(query);
+                    }, 300);
+                });
+            }
+
+            function performDynamicSearch(query) {
+                const url = new URL("{{ route('admin.career_nodes.index') }}", window.location.origin);
+                url.searchParams.set('search', query);
+                fetch(url.toString(), {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'text/html'
+                        }
+                    })
+                    .then(r => r.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const newDoc = parser.parseFromString(html, 'text/html');
+                        const newBody = newDoc.querySelector('tbody');
+                        const curBody = document.querySelector('tbody');
+                        if (!newBody || !curBody) return;
+
+                        curBody.innerHTML = newBody.innerHTML;
+
+                        // Rebuild careerData from the fetched page's script tag
+                        newDoc.querySelectorAll('script').forEach(script => {
+                            if (script.textContent.includes('var careerData')) {
+                                try {
+                                    const fn = new Function(script.textContent +
+                                    '; return careerData;');
+                                    careerData = fn();
+                                } catch (err) {
+                                    console.error('careerData rebuild failed', err);
+                                }
+                            }
+                        });
+
+                        attachVideoListeners();
+                        attachEditListeners();
+                    })
+                    .catch(err => console.error('Search error:', err));
+            }
+
+            function attachVideoListeners() {
+                document.querySelectorAll('.video-thumbnail').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const vid = this.dataset.videoId;
+                        if (!vid) return;
+                        youtubeFrame.src =
+                            `https://www.youtube-nocookie.com/embed/${vid}?autoplay=1`;
+                        document.getElementById('videoModalLabel').textContent = this.dataset
+                            .videoTitle || 'Career Video';
+                        videoModal.show();
+                    });
+                });
+            }
+
+            function attachEditListeners() {
+                document.querySelectorAll('.editCareerBtn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        openEditModal(this.dataset.id);
+                    });
+                });
+            }
         });
     </script>
+
+    <style>
+        .table-newgen-label {
+            position: absolute;
+            top: 10px;
+            left: -22px;
+            font-size: 0.6rem;
+            padding: 2px 28px;
+            background-color: #4d4dff;
+            color: white;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transform: rotate(-45deg);
+            transform-origin: center;
+            z-index: 2;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+            white-space: nowrap;
+        }
+    </style>
 @endpush

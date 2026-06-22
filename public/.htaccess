@@ -2,11 +2,7 @@
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
-
     RewriteEngine On
-
-    #Storage folder access (NO terminal needed)
-    RewriteRule ^storage/(.*)$ ../storage/app/public/$1 [L]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .

@@ -1,0 +1,40 @@
+[27-Jan-2026 03:45:18 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/CollegeController.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/CollegeController.php on line 12
+[27-Jan-2026 03:45:24 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/LoginController.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/LoginController.php on line 11
+[27-Jan-2026 03:45:53 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/DashboardController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/DashboardController.php on line 9
+[27-Jan-2026 03:47:00 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/LoginController.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/LoginController.php on line 11
+[27-Jan-2026 06:38:38 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/CollegeController.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/CollegeController.php on line 12
+[27-Jan-2026 06:39:15 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/DashboardController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/DashboardController.php on line 9
+[03-Mar-2026 10:02:04 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/CareerNodeController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/CareerNodeController.php on line 10
+[03-Mar-2026 10:02:06 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/DashboardController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/DashboardController.php on line 9
+[03-Mar-2026 10:02:07 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/CollegeController.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/CollegeController.php on line 12
+[03-Mar-2026 10:02:52 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Class "App\Http\Controllers\Controller" not found in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/LoginController.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/astradevelops/rajasree.astradevelops.in/CareerApp/app/Http/Controllers/Admin/LoginController.php on line 11

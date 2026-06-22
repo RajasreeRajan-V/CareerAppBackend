@@ -33,7 +33,7 @@ class AdmisionBannerController
     public function store(Request $request)
     {
         $request->validate([
-            'title'       => 'required|string|max:255',
+            'title'       => 'nullable|string|max:255',
             'image'       => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             'description' => 'nullable|string',
             'link'        => 'nullable|url',
@@ -79,7 +79,7 @@ class AdmisionBannerController
     {
         $banner = AdmisionBanner::findOrFail($id);
         $data = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:2048',
             'description' => 'nullable|string',
             'link' => 'nullable|url',

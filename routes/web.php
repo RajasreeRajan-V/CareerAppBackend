@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -19,6 +20,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/get-districts', function (Request $request) {
+    return \App\Models\District::where('state_id', $request->state_id)->get();
+})->name('get.districts');
+
+
 
 
 require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';
+require __DIR__.'/college.php';  // ← add this

@@ -1,168 +1,162 @@
 <!-- SIDEBAR -->
-<aside id="sidebar"
-    class="fixed lg:static inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-[#306060] to-[#254848] 
-    text-white flex flex-col shadow-2xl transform -translate-x-full lg:translate-x-0 transition-all duration-300 ease-in-out overflow-hidden">
-
-    <!-- Decorative Elements -->
-    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl opacity-50"
-        style="transform: translate(40%, -40%);"></div>
-    <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-2xl opacity-50"
-        style="transform: translate(-40%, 40%);"></div>
-    <div class="absolute top-1/3 right-0 w-20 h-20 bg-white/5 rounded-full blur-xl opacity-30"
-        style="transform: translate(50%, 0);"></div>
+<aside id="sidebar">
 
     <!-- Mobile Close Button -->
-    <button id="closeSidebar" class="lg:hidden absolute top-4 right-4 w-10 h-10 flex items-center justify-center 
-    rounded-lg hover:bg-white/10 transition-colors z-20 hidden">
-        <i class="fa-solid fa-times text-xl"></i>
+    <button id="closeSidebar" class="sidebar-close-btn">
+        <i class="fa-solid fa-times"></i>
     </button>
 
-
-    <!-- Desktop Toggle Button -->
-    <button id="toggleSidebar" class="hidden lg:flex absolute -right-3 top-24 w-6 h-12 bg-white rounded-r-lg 
-        items-center justify-center shadow-lg hover:bg-gray-100 transition-colors z-20 group">
-        <i class="fa-solid fa-chevron-left text-gray-600 text-xs group-hover:text-[#306060] transition-colors"
-            id="toggleIcon"></i>
+    <!-- Desktop Minimize Toggle -->
+    <button id="toggleSidebar" class="sidebar-toggle-btn">
+        <i class="fa-solid fa-chevron-left" id="toggleIcon"></i>
     </button>
 
     <!-- Logo -->
-    <div class="h-20 flex items-center px-6 border-b border-white/10 relative z-10">
-        <div class="flex items-center space-x-3">
-            <div
-                class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm flex-shrink-0">
-                <i class="fa-solid fa-graduation-cap text-white text-lg"></i>
-            </div>
-            <span class="text-xl font-bold tracking-tight sidebar-text whitespace-nowrap">
-                {{ config('app.name', 'Admin Panel') }}
-            </span>
+    <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
         </div>
+        <span class="sidebar-text sidebar-app-name">
+            {{ config('app.name', 'Admin Panel') }}
+        </span>
     </div>
 
     <!-- User Profile -->
-    <div class="px-6 py-5 border-b border-white/10 relative z-10">
-        <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 rounded-full overflow-hidden bg-white ring-2 ring-white/30 flex-shrink-0">
-                <img src="{{ asset('img/careers_logo_teal.png') }}" alt="Logo" class="w-full h-full object-cover">
-            </div>
-            <div class="flex-1 min-w-0 sidebar-text">
-                <p class="text-sm font-semibold truncate">{{ Auth::user()->name }}</p>
-                <p class="text-xs text-white/70 truncate">{{ Auth::user()->email }}</p>
-            </div>
+    <div class="sidebar-profile">
+        <div class="sidebar-avatar">
+            <img src="{{ asset('img/careers_logo_teal.png') }}" alt="Logo">
+        </div>
+        <div class="sidebar-text sidebar-user-info">
+            <p class="sidebar-user-name">{{ Auth::user()->name }}</p>
+            <p class="sidebar-user-email">{{ Auth::user()->email }}</p>
         </div>
     </div>
 
     <!-- Navigation -->
-    <nav class="flex-1 px-4 py-6 space-y-1 relative z-10"
-        style="overflow-y:auto; scrollbar-width:none; -ms-overflow-style:none; scroll-behavior:smooth;">
-        <p class="px-4 text-xs font-semibold text-white/50 uppercase tracking-wider mb-2 sidebar-text">
-            Main Menu
-        </p>
+    <nav class="sidebar-nav">
+        <p class="sidebar-text nav-section-label">Main Menu</p>
 
-        <a href="{{ route('admin.dashboard') }}" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
-        {{ request()->routeIs('admin.dashboard') ? 'bg-white/15 shadow-lg' : '' }}">
-            <i class="fa-solid fa-house mr-3 flex-shrink-0"></i>
-            <span class="font-medium sidebar-text">Dashboard</span>
+        <!-- Dashboard -->
+        <a href="{{ route('admin.dashboard') }}"
+            class="nav-link {{ request()->routeIs('admin.dashboard') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-house nav-icon"></i>
+            <span class="sidebar-text">Dashboard</span>
         </a>
 
-        <a href="{{ route('admin.admissionBanner.index') }}" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
-   {{ request()->routeIs('admin.admissionBanner.*') ? 'bg-white/15 shadow-lg' : '' }}">
-            <i class="fa-solid fa-photo-film mr-3 flex-shrink-0"></i>
-            <span class="font-medium sidebar-text">Admission Banner</span>
+        <!-- Admission Banner -->
+        <a href="{{ route('admin.admissionBanner.index') }}"
+            class="nav-link {{ request()->routeIs('admin.admissionBanner.*') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-photo-film nav-icon"></i>
+            <span class="sidebar-text">Admission Banner</span>
         </a>
 
         <!-- Colleges Dropdown -->
-        <div class="group">
-            <!-- Dropdown Toggle -->
-            <button type="button" class="w-full flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
-        {{ request()->routeIs('admin.college.*') ? 'bg-white/15 shadow-lg' : '' }}" onclick="toggleCollegeDropdown()">
-
-                <i class="fa-solid fa-building-columns mr-3 flex-shrink-0"></i>
-
-                <span class="font-medium sidebar-text flex-1 text-left">
-                    Colleges
-                </span>
-
-                <i id="collegeChevron"
-                    class="fa-solid fa-chevron-down text-xs transition-transform duration-300 sidebar-text"></i>
+        <div class="nav-dropdown">
+            <button type="button"
+                class="nav-link nav-dropdown-toggle {{ request()->routeIs('admin.college.*') ? 'nav-link-active' : '' }}"
+                onclick="toggleCollegeDropdown()">
+                <i class="fa-solid fa-building-columns nav-icon"></i>
+                <span class="sidebar-text nav-dropdown-label">Colleges</span>
+                <i class="fa-solid fa-chevron-down nav-chevron sidebar-text" id="collegeChevron"></i>
             </button>
-
-            <!-- Dropdown Menu -->
-            <div id="collegeDropdown" class="ml-10 mt-1 space-y-1 hidden">
-
-                <a href="{{ route('admin.college.create') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
-                     {{ request()->routeIs('admin.college.create') ? 'bg-white/15' : '' }}">
-                    <i class="fas fa-school me-2"></i>Create College
+            <div id="collegeDropdown" class="nav-submenu hidden">
+                <a href="{{ route('admin.college.create') }}"
+                    class="nav-sublink {{ request()->routeIs('admin.college.create') ? 'nav-sublink-active' : '' }}">
+                    <i class="fas fa-school"></i> Create College
                 </a>
-
-                <a href="{{ route('admin.college.index') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
-                     {{ request()->routeIs('admin.college.index') ? 'bg-white/15' : '' }}">
+                <a href="{{ route('admin.college.index') }}"
+                    class="nav-sublink {{ request()->routeIs('admin.college.index') ? 'nav-sublink-active' : '' }}">
                     <i class="fa-solid fa-book-open"></i> Manage Colleges
                 </a>
             </div>
         </div>
+
         <!-- Careers Dropdown -->
-        <div class="group">
-            <!-- Dropdown Toggle -->
-            <button type="button" class="w-full flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all
-        {{ request()->routeIs('admin.career_nodes.*') ? 'bg-white/15 shadow-lg' : '' }}"
+        <div class="nav-dropdown">
+            <button type="button"
+                class="nav-link nav-dropdown-toggle {{ request()->routeIs('admin.career_nodes.*') ? 'nav-link-active' : '' }}"
                 onclick="toggleCareerDropdown()">
-
-                <i class="fa-solid fa-graduation-cap mr-3 flex-shrink-0"></i>
-
-                <span class="font-medium sidebar-text flex-1 text-left">
-                    Careers
-                </span>
-
-                <i id="careerChevron"
-                    class="fa-solid fa-chevron-down text-xs transition-transform duration-300 sidebar-text"></i>
+                <i class="fa-solid fa-graduation-cap nav-icon"></i>
+                <span class="sidebar-text nav-dropdown-label">Careers</span>
+                <i class="fa-solid fa-chevron-down nav-chevron sidebar-text" id="careerChevron"></i>
             </button>
-
-            <!-- Dropdown Menu -->
-            <div id="careerDropdown" class="ml-10 mt-1 space-y-1 hidden">
-
-                <a href="{{ route('admin.career_nodes.create') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
-   {{ request()->routeIs('admin.career_nodes.create') ? 'bg-white/15' : '' }}">
-                    <i class="fa-solid fa-briefcase mr-2"></i>Create Career
+            <div id="careerDropdown" class="nav-submenu hidden">
+                <a href="{{ route('admin.career_nodes.create') }}"
+                    class="nav-sublink {{ request()->routeIs('admin.career_nodes.create') ? 'nav-sublink-active' : '' }}">
+                    <i class="fa-solid fa-briefcase"></i> Create Career
                 </a>
-                <a href="{{ route('admin.career_nodes.index') }}" class="block px-4 py-2 rounded-lg text-sm hover:bg-white/10 transition-all
-            {{ request()->routeIs('admin.career_nodes.index') ? 'bg-white/15' : '' }}">
+                <a href="{{ route('admin.career_nodes.index') }}"
+                    class="nav-sublink {{ request()->routeIs('admin.career_nodes.index') ? 'nav-sublink-active' : '' }}">
                     <i class="fa-solid fa-user-doctor"></i> Manage Career
                 </a>
-
             </div>
         </div>
 
-        <a href="#" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all">
-            <i class="fa-solid fa-chart-line mr-3 flex-shrink-0"></i>
-            <span class="font-medium sidebar-text">Analytics</span>
+        <!-- Career Path -->
+        <a href="{{ route('admin.career_link.index') }}"
+            class="nav-link {{ request()->routeIs('admin.career_link.index') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-arrow-trend-up nav-icon"></i>
+            <span class="sidebar-text">Manage Career Path</span>
         </a>
 
-        <a href="#" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all">
-            <i class="fa-solid fa-calendar-days mr-3 flex-shrink-0"></i>
-            <span class="font-medium sidebar-text">Schedule</span>
+        <!-- Career Banners -->
+        <a href="{{ route('admin.careerBanner.index') }}"
+            class="nav-link {{ request()->routeIs('admin.careerBanner.index') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-image nav-icon"></i>
+            <span class="sidebar-text">Career Banners</span>
         </a>
 
-        <p class="px-4 mt-6 text-xs font-semibold text-white/50 uppercase tracking-wider mb-2 sidebar-text">
-            Settings
-        </p>
-
-        <a href="#" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all">
-            <i class="fa-solid fa-gear mr-3 flex-shrink-0"></i>
-            <span class="font-medium sidebar-text">Settings</span>
+        <!-- Recorded Videos -->
+        <a href="{{ route('admin.RecordVideo.index') }}"
+            class="nav-link {{ request()->routeIs('admin.RecordVideo.*') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-circle-play nav-icon"></i>
+            <span class="sidebar-text">Recorded Videos</span>
         </a>
 
-        <a href="#" class="group flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition-all">
-            <i class="fa-solid fa-circle-question mr-3 flex-shrink-0"></i>
-            <span class="font-medium sidebar-text">Help & Support</span>
+        <!-- Career Guidance -->
+        <a href="{{ route('admin.guidance_banners.index') }}"
+            class="nav-link {{ request()->routeIs('admin.guidance_banners.*') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-chalkboard-user nav-icon"></i>
+            <span class="sidebar-text">Career Guidance</span>
+        </a>
+
+        <!-- College Registrations -->
+        {{-- <a href="{{ route('admin.college_registration.index') }}"
+            class="nav-link {{ request()->routeIs('admin.college_registration.*') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-file-signature nav-icon"></i>
+            <span class="sidebar-text">College Registrations</span>
+        </a> --}}
+         <!-- Create Location -->
+        <a href="{{ route('admin.createLocation.index') }}"
+            class="nav-link {{ request()->routeIs('admin.createLocation.*') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-location-dot nav-icon"></i>
+            <span class="sidebar-text">Create Location</span>
+        </a>
+          <!-- Create Location -->
+        <a href="{{ route('admin.userManagement.index') }}"
+            class="nav-link {{ request()->routeIs('admin.userManagement.*') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-users nav-icon"></i>
+            <span class="sidebar-text">Manage Users</span>
+        </a>
+          <a href="{{ route('admin.career_guidance_registration.index') }}"
+            class="nav-link {{ request()->routeIs('admin.career_guidance_registration.*') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-compass nav-icon"></i>
+            <span class="sidebar-text">Guidance Registrations</span>
+        </a>
+
+        <a href="{{ route('admin.articles.index') }}"
+            class="nav-link {{ request()->routeIs('admin.articles.*') ? 'nav-link-active' : '' }}">
+            <i class="fa-solid fa-newspaper nav-icon"></i>
+            <span class="sidebar-text">Manage Articles</span>
         </a>
     </nav>
 
     <!-- Logout -->
-    <div class="px-4 py-4 border-t border-white/10 relative z-10">
+    <div class="sidebar-footer">
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button class="w-full flex items-center px-4 py-3 rounded-xl hover:bg-red-500/20 transition-all">
-                <i class="fa-solid fa-right-from-bracket mr-3 flex-shrink-0"></i>
+            <button type="submit" class="nav-link logout-btn">
+                <i class="fa-solid fa-right-from-bracket nav-icon"></i>
                 <span class="sidebar-text">Logout</span>
             </button>
         </form>
@@ -170,112 +164,463 @@
 </aside>
 
 <!-- Mobile Overlay -->
-<div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 lg:hidden hidden"></div>
+<div id="sidebarOverlay"></div>
 
-<!-- JavaScript for Mobile Menu Toggle -->
+<style>
+    /* ─────────────────────────────────────────
+       SIDEBAR SHELL — sticky on desktop, never scrolls
+    ───────────────────────────────────────── */
+    #sidebar {
+        width: 240px;
+        min-width: 240px;
+        flex-shrink: 0;
+        background: linear-gradient(180deg, #306060 0%, #254848 100%);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow: hidden;
+        transition: width 0.3s ease, min-width 0.3s ease;
+        z-index: 100;
+        margin: 0;
+    }
+
+    /* Desktop minimized state */
+    #sidebar.minimized {
+        width: 62px;
+        min-width: 62px;
+    }
+    #sidebar.minimized .sidebar-text,
+    #sidebar.minimized .nav-submenu {
+        display: none !important;
+    }
+
+    /* ─────────────────────────────────────────
+       MOBILE — Sidebar becomes a fixed overlay drawer
+    ───────────────────────────────────────── */
+    @media (max-width: 992px) {
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 260px !important;
+            min-width: 260px !important;
+            height: 100%;
+            z-index: 500;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+        #sidebar.open {
+            transform: translateX(0);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    /* ─────────────────────────────────────────
+       MOBILE OVERLAY (backdrop)
+    ───────────────────────────────────────── */
+    #sidebarOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 499; /* just below sidebar */
+    }
+    #sidebarOverlay.show {
+        display: block;
+    }
+
+    /* ─────────────────────────────────────────
+       MOBILE CLOSE BUTTON
+    ───────────────────────────────────────── */
+    .sidebar-close-btn {
+        display: none;
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 34px;
+        height: 34px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 8px;
+        color: #fff;
+        font-size: 15px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        transition: background 0.2s;
+    }
+    .sidebar-close-btn:hover {
+        background: rgba(255, 255, 255, 0.28);
+    }
+    @media (max-width: 992px) {
+        .sidebar-close-btn {
+            display: flex;
+        }
+    }
+
+    /* ─────────────────────────────────────────
+       DESKTOP MINIMIZE TOGGLE BUTTON
+    ───────────────────────────────────────── */
+    .sidebar-toggle-btn {
+        display: none;
+        position: absolute;
+        top: 78px;
+        right: -13px;
+        width: 26px;
+        height: 26px;
+        background: #fff;
+        border: none;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: #306060;
+        z-index: 10;
+        transition: background 0.2s;
+    }
+    .sidebar-toggle-btn:hover {
+        background: #f0f0f0;
+    }
+    @media (min-width: 993px) {
+        .sidebar-toggle-btn {
+            display: flex;
+        }
+    }
+
+    /* ─────────────────────────────────────────
+       LOGO
+    ───────────────────────────────────────── */
+    .sidebar-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 18px;
+        height: 64px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        flex-shrink: 0;
+    }
+    /* On mobile, leave room for close button */
+    @media (max-width: 992px) {
+        .sidebar-logo {
+            padding-right: 52px;
+        }
+    }
+    .sidebar-logo-icon {
+        width: 36px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.18);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+    .sidebar-app-name {
+        font-size: 16px;
+        font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* ─────────────────────────────────────────
+       USER PROFILE
+    ───────────────────────────────────────── */
+    .sidebar-profile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        flex-shrink: 0;
+    }
+    .sidebar-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        flex-shrink: 0;
+        background: rgba(255, 255, 255, 0.1);
+    }
+    .sidebar-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .sidebar-user-info {
+        min-width: 0;
+    }
+    .sidebar-user-name {
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0;
+    }
+    .sidebar-user-email {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.6);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 2px 0 0;
+    }
+
+    /* ─────────────────────────────────────────
+       NAVIGATION LIST
+    ───────────────────────────────────────── */
+    .sidebar-nav {
+        flex: 1;
+        padding: 14px 10px;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .sidebar-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-section-label {
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(255, 255, 255, 0.45);
+        padding: 0 12px;
+        margin: 0 0 6px;
+    }
+
+    /* Nav link */
+    .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background 0.2s;
+        width: 100%;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        margin-bottom: 2px;
+        min-height: 44px; /* accessible touch target */
+    }
+    .nav-link:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+    }
+    .nav-link-active {
+        background: rgba(255, 255, 255, 0.18);
+        color: #fff;
+    }
+    .nav-icon {
+        font-size: 15px;
+        width: 18px;
+        flex-shrink: 0;
+        text-align: center;
+    }
+
+    /* Dropdown wrapper */
+    .nav-dropdown {
+        margin-bottom: 2px;
+    }
+    .nav-dropdown-label {
+        flex: 1;
+    }
+    .nav-chevron {
+        font-size: 10px;
+        margin-left: auto;
+        transition: transform 0.25s;
+    }
+    .nav-chevron.rotated {
+        transform: rotate(180deg);
+    }
+
+    /* Submenu */
+    .nav-submenu {
+        margin-left: 28px;
+        margin-top: 2px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+    .nav-submenu.hidden {
+        display: none;
+    }
+    .nav-sublink {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 12px;
+        border-radius: 8px;
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        font-size: 13px;
+        transition: background 0.2s;
+        min-height: 40px;
+    }
+    .nav-sublink:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+    }
+    .nav-sublink-active {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+    }
+
+    /* ─────────────────────────────────────────
+       LOGOUT FOOTER
+    ───────────────────────────────────────── */
+    .sidebar-footer {
+        padding: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        flex-shrink: 0;
+    }
+    .logout-btn {
+        color: rgba(255, 255, 255, 0.8);
+    }
+    .logout-btn:hover {
+        background: rgba(229, 62, 62, 0.25);
+        color: #fff;
+    }
+</style>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebarOverlay');
-        const openBtn = document.getElementById('openSidebar');
-        const closeBtn = document.getElementById('closeSidebar');
-        const toggleBtn = document.getElementById('toggleSidebar');
+(function () {
+    'use strict';
+
+    function initSidebar() {
+        const sidebar    = document.getElementById('sidebar');
+        const overlay    = document.getElementById('sidebarOverlay');
+        const openBtn    = document.getElementById('openSidebar');   // hamburger in app.blade header
+        const closeBtn   = document.getElementById('closeSidebar');
+        const toggleBtn  = document.getElementById('toggleSidebar');
         const toggleIcon = document.getElementById('toggleIcon');
-        const sidebarTexts = document.querySelectorAll('.sidebar-text');
 
         const collegeDropdown = document.getElementById('collegeDropdown');
-        const collegeChevron = document.getElementById('collegeChevron');
+        const collegeChevron  = document.getElementById('collegeChevron');
+        const careerDropdown  = document.getElementById('careerDropdown');
+        const careerChevron   = document.getElementById('careerChevron');
 
-        let isMinimized = false;
+        let isMinimized = localStorage.getItem('sidebarMinimized') === 'true';
 
-        // ---------- Helpers ----------
+        // Apply initial minimized state if on desktop
+        if (!isMobile() && isMinimized) {
+            sidebar.classList.add('minimized');
+            if (toggleIcon) toggleIcon.className = 'fa-solid fa-chevron-right';
+        }
+
         function isMobile() {
-            return window.innerWidth < 1024;
+            return window.innerWidth <= 992;
         }
 
-        // ---------- Mobile Sidebar ----------
+        /* ── Mobile: open ── */
         function openSidebar() {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden');
-
-            if (isMobile()) {
-                closeBtn.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
+            sidebar.classList.add('open');
+            overlay.classList.add('show');
+            document.body.style.overflow = 'hidden'; // prevent scroll behind drawer
         }
 
+        /* ── Mobile: close ── */
         function closeSidebar() {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-            closeBtn.classList.add('hidden');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('show');
             document.body.style.overflow = '';
         }
 
-        // ---------- Desktop Minimize ----------
-        function toggleSidebarMinimize() {
+        /* ── Desktop: minimize / expand ── */
+        function toggleMinimize() {
+            if (isMobile()) return;
             isMinimized = !isMinimized;
-
-            if (isMinimized) {
-                sidebar.classList.replace('w-72', 'w-20');
-                toggleIcon.classList.replace('fa-chevron-left', 'fa-chevron-right');
-
-                sidebarTexts.forEach(text => {
-                    text.classList.add('hidden');
-                });
-            } else {
-                sidebar.classList.replace('w-20', 'w-72');
-                toggleIcon.classList.replace('fa-chevron-right', 'fa-chevron-left');
-
-                sidebarTexts.forEach(text => {
-                    text.classList.remove('hidden');
-                });
-            }
+            sidebar.classList.toggle('minimized', isMinimized);
+            toggleIcon.className = isMinimized
+                ? 'fa-solid fa-chevron-right'
+                : 'fa-solid fa-chevron-left';
+            localStorage.setItem('sidebarMinimized', isMinimized);
         }
 
-        // ---------- Colleges Dropdown ----------
+        /* ── Dropdown handlers (called via onclick) ── */
         window.toggleCollegeDropdown = function () {
-            collegeDropdown.classList.toggle('hidden');
-            collegeChevron.classList.toggle('rotate-180');
+            if (!collegeDropdown || !collegeChevron) return;
+            const nowHidden = collegeDropdown.classList.toggle('hidden');
+            collegeChevron.classList.toggle('rotated', !nowHidden);
         };
 
-        // Auto-open if route active
-        if ("{{ request()->routeIs('admin.college.*') }}") {
-            collegeDropdown.classList.remove('hidden');
-            collegeChevron.classList.add('rotate-180');
+        window.toggleCareerDropdown = function () {
+            if (!careerDropdown || !careerChevron) return;
+            const nowHidden = careerDropdown.classList.toggle('hidden');
+            careerChevron.classList.toggle('rotated', !nowHidden);
+        };
+
+        /* Auto-open dropdowns when route is active */
+        if ({{ request()->routeIs('admin.college.*') ? 'true' : 'false' }}) {
+            collegeDropdown && collegeDropdown.classList.remove('hidden');
+            collegeChevron  && collegeChevron.classList.add('rotated');
+        }
+        if ({{ request()->routeIs('admin.career_nodes.*') ? 'true' : 'false' }}) {
+            careerDropdown && careerDropdown.classList.remove('hidden');
+            careerChevron  && careerChevron.classList.add('rotated');
         }
 
-        // ---------- Events ----------
-        openBtn?.addEventListener('click', openSidebar);
-        closeBtn?.addEventListener('click', closeSidebar);
-        overlay?.addEventListener('click', closeSidebar);
-        toggleBtn?.addEventListener('click', toggleSidebarMinimize);
+        /* ── Attach event listeners ── */
+        if (openBtn)   openBtn.addEventListener('click',   openSidebar);
+        if (closeBtn)  closeBtn.addEventListener('click',  closeSidebar);
+        if (overlay)   overlay.addEventListener('click',   closeSidebar);
+        if (toggleBtn) toggleBtn.addEventListener('click', toggleMinimize);
 
-        sidebar.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (isMobile()) closeSidebar();
+        /* Close drawer when a nav link is tapped on mobile */
+        sidebar.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                if (isMobile()) setTimeout(closeSidebar, 80);
             });
         });
 
-        window.addEventListener('resize', () => {
+        /* Handle resize / orientation change */
+        window.addEventListener('resize', function () {
             if (!isMobile()) {
-                overlay.classList.add('hidden');
-                closeBtn.classList.add('hidden');
+                /* switched to desktop — reset mobile state */
+                overlay.classList.remove('show');
+                sidebar.classList.remove('open');
                 document.body.style.overflow = '';
+                /* reapply minimized state if needed */
+                if (isMinimized) {
+                    sidebar.classList.add('minimized');
+                    if (toggleIcon) toggleIcon.className = 'fa-solid fa-chevron-right';
+                }
+            } else {
+                /* switched to mobile — reset any minimized state */
+                if (isMinimized) {
+                    sidebar.classList.remove('minimized');
+                    if (toggleIcon) toggleIcon.className = 'fa-solid fa-chevron-left';
+                }
             }
         });
-    });
-    const careerDropdown = document.getElementById('careerDropdown');
-    const careerChevron = document.getElementById('careerChevron');
-
-    window.toggleCareerDropdown = function () {
-        careerDropdown.classList.toggle('hidden');
-        careerChevron.classList.toggle('rotate-180');
-    };
-
-    // Auto-open if route active
-    if ("{{ request()->routeIs('admin.career_nodes.*') }}") {
-        careerDropdown.classList.remove('hidden');
-        careerChevron.classList.add('rotate-180');
     }
 
+    /* Boot after DOM is ready */
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSidebar);
+    } else {
+        initSidebar();
+    }
+})();
 </script>

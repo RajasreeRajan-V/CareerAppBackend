@@ -1,37 +1,31 @@
 <?php
-
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Model
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-
     use HasFactory, Notifiable;
+
     protected $fillable = [
-        'role',
         'name',
         'email',
         'phone',
-        'password',
-        'current_education',
-    
-        'auth_token',
     ];
-     protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+
+    protected $hidden = [];
+
+    protected $casts = [];
+
     public function children()
     {
         return $this->hasMany(Children::class);
     }
 
+    public function savedColleges()
+    {
+        return $this->hasMany(SavedCollege::class);
+    }
 }
